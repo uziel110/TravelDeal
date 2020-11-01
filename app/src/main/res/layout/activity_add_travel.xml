@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ui.AddTravelActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="מילוי פרטים"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editTextClientName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:contentDescription="@string/client_name"
+            android:ems="10"
+            android:hint="@string/clientNameHint"
+            android:inputType="textPersonName"
+            android:textColor="#000000"
+            tools:ignore="ContentDescription" />
+
+        <EditText
+            android:id="@+id/editTextPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="מספר טלפון"
+            android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/editTextEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint='כתובת דוא"ל'
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/editTextTextDepartureAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="כתובת איסוף"
+            android:inputType="textPostalAddress" />
+
+        <EditText
+            android:id="@+id/editTextTextDestinationAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="כתובת יעד"
+            android:inputType="textPostalAddress" />
+
+        <EditText
+            android:id="@+id/editTextPassengersNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="מספר נוסעים"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/editTextDepartureDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="תאריך יציאה"
+            android:inputType="date" />
+
+        <EditText
+            android:id="@+id/editTextReturnDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="תאריך חזרה"
+            android:inputType="date" />
+
+        <TextView
+            android:id="@+id/testTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <EditText
+            android:id="@+id/editTextTextRequestStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="סטטוס הדרישה"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:onClick="saveButton"
+            android:text="שמור" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

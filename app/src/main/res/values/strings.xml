@@ -3,5 +3,5 @@
     <string name="App_name">Travel deal</string>
     <string name="Start_button">Start your travel now</string>
     <string name="client_name">Client Name</string>
-    <string name="clientNameHint">שם לקוח</string>
+    <string name="clientNameHint">Client Name</string>
 </resources>

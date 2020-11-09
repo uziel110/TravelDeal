@@ -23,8 +23,8 @@ class AddTravelActivity : AppCompatActivity() {
         toast.show()
     }
 
-    val buttonSave1 = findViewById<Button>(R.id.buttonSave)
-    val editTextClientName1 = findViewById<EditText>(R.id.editTextClientName)
+//    val buttonSave1 = findViewById<Button>(R.id.buttonSave)
+//    val editTextClientName1 = findViewById<EditText>(R.id.editTextClientName)
 //    val editTextPhone1 = findViewById<EditText>(R.id.editTextPhone)
 //    val _editTextEmailAddress = findViewById<EditText>(R.id.editTextEmailAddress)
 //    val _editTextDepartureDate = findViewById<EditText>(R.id.editTextDepartureDate)

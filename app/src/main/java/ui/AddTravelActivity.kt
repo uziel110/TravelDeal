@@ -1,38 +1,85 @@
 package ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import com.example.traveldeal.R
+import com.google.firebase.database.FirebaseDatabase
+import entities.Travel
+
 
 class AddTravelActivity : AppCompatActivity() {
+
+    lateinit var saveButton: Button
+    lateinit var etClientName: EditText
+    lateinit var etPhone: EditText
+    lateinit var etEmailAddress: EditText
+    lateinit var etDepartureDate: EditText
+    lateinit var etReturnDate: EditText
+    lateinit var etPassengersNumber: EditText
+    lateinit var etDepartureAddress: EditText
+    lateinit var etDestinationAddress: EditText
+    lateinit var spinnerRequestStatus: Spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_travel)
+
+        saveButton = findViewById(R.id.buttonSave)
+        etClientName = findViewById(R.id.editTextClientName)
+        etPhone = findViewById(R.id.editTextPhone)
+        etEmailAddress = findViewById(R.id.editTextEmailAddress)
+        etDepartureDate = findViewById(R.id.editTextDepartureDate)
+        etReturnDate = findViewById(R.id.editTextReturnDate)
+        etPassengersNumber = findViewById(R.id.editTextPassengersNumber)
+        etDepartureAddress = findViewById(R.id.editTextTextDepartureAddress)
+        etDestinationAddress = findViewById(R.id.editTextTextDestinationAddress)
+        spinnerRequestStatus = findViewById(R.id.spinnerRequestStatus)
+
+        val statusEnum = arrayOf("SEND", "RECEIVED", "RUN", "CLOSED")
+
+        val adapter: ArrayAdapter<String> = ArrayAdapter(
+            this, android.R.layout.simple_spinner_item, statusEnum
+        )
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerRequestStatus.setAdapter(adapter)
+        //spinner.setOnItemSelectedListener(this)
     }
 
     fun saveButton(view: View) {
-        val text = "כמעט הפרטים נשמרו בהצלחה!"
+        val rootNode = FirebaseDatabase.getInstance()
+        val reference = rootNode.getReference("travels")
+
+        val clientName = etClientName.text.toString()
+        val clientPhone = etPhone.text.toString()
+        val clientEmailAddress = etEmailAddress.text.toString()
+        val departureAddress = etDepartureAddress.text.toString()
+        val departureDate = etDepartureDate.text.toString()
+        val destinationAddress = etDestinationAddress.text.toString()
+        val returnDate = etReturnDate.text.toString()
+        val passengersNumber = etPassengersNumber.text.toString()
+        val requestStatus = spinnerRequestStatus.toString()
+
+        val travel = Travel(
+            clientName,
+            clientPhone,
+            clientEmailAddress,
+            departureAddress,
+            departureDate,
+            destinationAddress,
+            returnDate,
+            passengersNumber,
+            requestStatus
+        )
+
+        reference.push().setValue(travel)
+
+        val text = "הפרטים נשמרו בהצלחה!"
         val toast = Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT)
         toast.show()
     }
-
-//    val buttonSave1 = findViewById<Button>(R.id.buttonSave)
-//    val editTextClientName1 = findViewById<EditText>(R.id.editTextClientName)
-//    val editTextPhone1 = findViewById<EditText>(R.id.editTextPhone)
-//    val _editTextEmailAddress = findViewById<EditText>(R.id.editTextEmailAddress)
-//    val _editTextDepartureDate = findViewById<EditText>(R.id.editTextDepartureDate)
-//    val _editTextReturnDate = findViewById<EditText>(R.id.editTextReturnDate)
-//    val _editTextPassengersNumber = findViewById<EditText>(R.id.editTextPassengersNumber)
-//    val _editTextTextDepartureAddress = findViewById<EditText>(R.id.editTextTextDepartureAddress)
-//    val _editTextTextDestinationAddress = findViewById<EditText>(R.id.editTextTextDestinationAddress)
-//    val _editTextTextRequestStatus = findViewById<EditText>(R.id.editTextTextRequestStatus)
 
 //    private val textWatcher = object : TextWatcher {
 //        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -56,3 +103,5 @@ class AddTravelActivity : AppCompatActivity() {
 //        }
 //    }
 }
+
+

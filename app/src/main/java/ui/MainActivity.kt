@@ -1,12 +1,10 @@
 package ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.traveldeal.R
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.DatabaseReference
 
 const val EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE"
 
@@ -24,6 +22,13 @@ class MainActivity : AppCompatActivity() {
         val database = FirebaseDatabase.getInstance()
         val myRef = database.getReference("message")
         myRef.setValue("Hello, World!")
+
+
+        database.getReference("new Message").setValue("Hello, new World!")
+
+//        val myRootRef = FirebaseDatabase.getInstance().reference;
+//        val cinemasRef = myRootRef.child("message");
+//        cinemasRef.setValue("I logged");
 
 //        val intent = Intent(this, AddTravelActivity::class.java).apply {
 //            putExtra(EXTRA_MESSAGE, message)

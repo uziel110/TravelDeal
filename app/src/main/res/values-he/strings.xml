@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">Travel Deal</string>
-    <string name="App_name">Travel deal</string>
-    <string name="Start_button">התחל את הטיול שלך כאן!</string>
-    <string name="client_name">שם לקוח</string>
-    <string name="clientNameHint">שם לקוח</string>
-</resources>

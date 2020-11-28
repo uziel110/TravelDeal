@@ -1,13 +1,8 @@
 package data.entities
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 
 
-@Entity(tableName = "travels")
 class Travel() {
-
-
     companion object {
        // @PrimaryKey
         var key = 1

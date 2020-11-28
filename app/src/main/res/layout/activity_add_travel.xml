@@ -15,7 +15,7 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="מילוי פרטים"
+            android:text="@string/header_travel_details"
             android:textSize="36sp"
             android:textStyle="bold" />
 
@@ -24,12 +24,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints=""
-            android:contentDescription="@string/client_name"
+            android:gravity="right"
             android:ems="10"
             android:hint="@string/clientNameHint"
             android:inputType="textPersonName"
-            android:textColor="#000000"
-            tools:ignore="ContentDescription" />
+            android:textColor="#000000" />
 
         <EditText
             android:id="@+id/editTextPhone"
@@ -37,6 +36,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="מספר טלפון"
+            android:gravity="right"
             android:inputType="phone" />
 
         <EditText

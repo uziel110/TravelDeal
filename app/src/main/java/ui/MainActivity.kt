@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
 
     /** Called when the user taps the Send button */
     fun startTravelButton(view: View) {
-
-
+        // TODO: 28-Nov-20 delete
     }
 }

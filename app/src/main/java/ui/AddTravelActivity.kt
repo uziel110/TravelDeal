@@ -1,20 +1,21 @@
 package ui
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
-import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
-import android.text.InputType
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.traveldeal.R
 import data.entities.Travel
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
-
-
-//import com.emedinaa.kotlinmvvm.di.Injection
-
+import java.util.Locale
 
 class AddTravelActivity : AppCompatActivity() {
 
@@ -31,43 +32,29 @@ class AddTravelActivity : AppCompatActivity() {
     lateinit var spinnerRequestStatus: Spinner
 
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_travel)
 
-        //viewModel = ViewModelProvider(this)[TravelViewModel::class.java]
         viewModel = ViewModelProvider(this).get(TravelViewModel::class.java)
-
-//        val isSuccess: LiveData<Travel> = viewModel.getItems()
-//        isSuccess.observe(this,
-//            Observer<Travel> {
-//                Toast.makeText(applicationContext, "הפרטים נשמרו בהצלחה!", Toast.LENGTH_SHORT)
-//                    .show()
-//
-//            })
-
-
-//            viewModel = ViewModelProvider(
-//                this,
-//                Injection.provideViewModelFactory()
-//            ).get(TravelViewModel::class.java)
 
         saveButton = findViewById(R.id.buttonSave)
         etClientName = findViewById(R.id.editTextClientName)
         etPhone = findViewById(R.id.editTextPhone)
         etEmailAddress = findViewById(R.id.editTextEmailAddress)
-        //etDepartureDate = findViewById(R.id.editTextDepartureDate)
         etReturnDate = findViewById(R.id.editTextReturnDate)
+        etDepartureDate = findViewById(R.id.editTextDepartureDate)
         etPassengersNumber = findViewById(R.id.editTextPassengersNumber)
         etDepartureAddress = findViewById(R.id.editTextTextDepartureAddress)
         etDestinationAddress = findViewById(R.id.editTextTextDestinationAddress)
         spinnerRequestStatus = findViewById(R.id.spinnerRequestStatus)
 
         var picker: DatePickerDialog
-        etDepartureDate = findViewById<View>(R.id.editTextDepartureDate
-        ) as EditText
-        etDepartureDate.setInputType(InputType.TYPE_NULL)
-        etDepartureDate.setOnClickListener(View.OnClickListener {
+
+        //etDepartureDate.inputType = InputType.TYPE_NULL
+
+        etDepartureDate.setOnClickListener {
             val cldr: Calendar = Calendar.getInstance()
             val day: Int = cldr.get(Calendar.DAY_OF_MONTH)
             val month: Int = cldr.get(Calendar.MONTH)
@@ -75,13 +62,32 @@ class AddTravelActivity : AppCompatActivity() {
             // date picker dialog
             picker = DatePickerDialog(
                 this,
-                OnDateSetListener { view, year, monthOfYear, dayOfMonth -> etDepartureDate.setText(dayOfMonth.toString() + "/" + (monthOfYear + 1) + "/" + year) },
-                year,
-                month,
-                day
+                { _, theYear, monthOfYear, dayOfMonth ->
+                    etDepartureDate.setText("$dayOfMonth/${monthOfYear + 1}/$theYear")
+                },
+                year, month, day
             )
+            picker.datePicker.minDate = System.currentTimeMillis() - 1000
             picker.show()
-        })
+        }
+
+        etReturnDate.setOnClickListener {
+            val cldr: Calendar = Calendar.getInstance()
+            val day: Int = cldr.get(Calendar.DAY_OF_MONTH)
+            val month: Int = cldr.get(Calendar.MONTH)
+            val year: Int = cldr.get(Calendar.YEAR)
+            // date picker dialog
+            picker = DatePickerDialog(
+                this,
+                { _, theYear, monthOfYear, dayOfMonth ->
+                    etReturnDate.setText("$dayOfMonth/${monthOfYear + 1}/$theYear")
+                },
+                year, month, day
+            )
+            picker.datePicker.minDate =
+                SimpleDateFormat("dd/MM/yyyy").parse(etDepartureDate.text.toString()).time
+            picker.show()
+        }
 
 
         ArrayAdapter.createFromResource(
@@ -93,8 +99,6 @@ class AddTravelActivity : AppCompatActivity() {
             // Apply the adapter to the spinner
             spinnerRequestStatus.adapter = adapter
         }
-
-
 
 
 //        saveButton.addTextChangedListener(textWatcher)

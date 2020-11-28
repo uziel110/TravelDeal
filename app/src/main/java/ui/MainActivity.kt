@@ -18,8 +18,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, AddTravelActivity::class.java)
             this.startActivity(intent)
             this.finish()
-        }, 3000)
-
+        }, 500)
     }
 
     /** Called when the user taps the Send button */

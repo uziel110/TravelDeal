@@ -4,13 +4,18 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.traveldeal.R
-import com.google.firebase.database.FirebaseDatabase
-import entities.Travel
+import data.entities.Travel
+
+//import com.emedinaa.kotlinmvvm.di.Injection
 
 
 class AddTravelActivity : AppCompatActivity() {
 
+    lateinit var viewModel: TravelViewModel
     lateinit var saveButton: Button
     lateinit var etClientName: EditText
     lateinit var etPhone: EditText
@@ -22,9 +27,27 @@ class AddTravelActivity : AppCompatActivity() {
     lateinit var etDestinationAddress: EditText
     lateinit var spinnerRequestStatus: Spinner
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_travel)
+
+        //viewModel = ViewModelProvider(this)[TravelViewModel::class.java]
+        viewModel = ViewModelProvider(this).get(TravelViewModel::class.java)
+
+//        val isSuccess: LiveData<Travel> = viewModel.getItems()
+//        isSuccess.observe(this,
+//            Observer<Travel> {
+//                Toast.makeText(applicationContext, "הפרטים נשמרו בהצלחה!", Toast.LENGTH_SHORT)
+//                    .show()
+//
+//            })
+
+
+//            viewModel = ViewModelProvider(
+//                this,
+//                Injection.provideViewModelFactory()
+//            ).get(TravelViewModel::class.java)
 
         saveButton = findViewById(R.id.buttonSave)
         etClientName = findViewById(R.id.editTextClientName)
@@ -38,7 +61,6 @@ class AddTravelActivity : AppCompatActivity() {
         spinnerRequestStatus = findViewById(R.id.spinnerRequestStatus)
 
         val statusEnum = arrayOf("SEND", "RECEIVED", "RUN", "CLOSED")
-
         val adapter: ArrayAdapter<String> = ArrayAdapter(
             this, android.R.layout.simple_spinner_item, statusEnum
         )
@@ -46,11 +68,22 @@ class AddTravelActivity : AppCompatActivity() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerRequestStatus.setAdapter(adapter)
         //spinner.setOnItemSelectedListener(this)
+
+
+//        saveButton.addTextChangedListener(textWatcher)
+        //etClientName.addTextChangedListener(textWatcher)
+//        etPhone.addTextChangedListener(textWatcher)
+//        etEmailAddress.addTextChangedListener(textWatcher)
+//        etDepartureDate.addTextChangedListener(textWatcher)
+//        etReturnDate.addTextChangedListener(textWatcher)
+//        etPassengersNumber.addTextChangedListener(textWatcher)
+//        etDepartureAddress.addTextChangedListener(textWatcher)
+//        etDestinationAddress.addTextChangedListener(textWatcher)
+//        spinnerRequestStatus.toString().addTextChangedListener(textWatcher)
     }
 
+
     fun saveButton(view: View) {
-        val rootNode = FirebaseDatabase.getInstance()
-        val reference = rootNode.getReference("travels")
 
         val clientName = etClientName.text.toString()
         val clientPhone = etPhone.text.toString()
@@ -63,6 +96,7 @@ class AddTravelActivity : AppCompatActivity() {
         val requestStatus = spinnerRequestStatus.toString()
 
         val travel = Travel(
+
             clientName,
             clientPhone,
             clientEmailAddress,
@@ -74,28 +108,33 @@ class AddTravelActivity : AppCompatActivity() {
             requestStatus
         )
 
-        reference.push().setValue(travel)
+
+        viewModel.insertItem(travel)
 
         val text = "הפרטים נשמרו בהצלחה!"
         val toast = Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT)
         toast.show()
     }
 
-//    private val textWatcher = object : TextWatcher {
-//        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-//            TODO("Not yet implemented")
+
+//    val textWatcher = object : TextWatcher {
+//        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//            val tex = etClientName.text.toString().trim()
+//            saveButton.isEnabled = !(
+//                    tex.isEmpty())
+////                    ||etPhone.text.toString().trim().isEmpty() ||
+////                    etEmailAddress.text.toString().trim().isEmpty() ||
+////                    etDepartureDate.text.toString().trim().isEmpty() ||
+////                    etReturnDate.text.toString().trim().isEmpty() ||
+////                    etPassengersNumber.text.toString().trim().isEmpty() ||
+////                    etDepartureAddress.text.toString().trim().isEmpty() ||
+////                    etDestinationAddress.text.toString().trim().isEmpty() ||
+////                    spinnerRequestStatus.toString().trim().isEmpty())
 //        }
 //
-//        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//            buttonSave1.isEnabled = !(editTextClientName1.text.isEmpty() ||
-//                    editTextPhone1.text.isEmpty() ||
-//                    _editTextEmailAddress.text.isEmpty() ||
-//                    _editTextDepartureDate.text.isEmpty() ||
-//                    _editTextReturnDate.text.isEmpty() ||
-//                    _editTextPassengersNumber.text.isEmpty() ||
-//                    _editTextTextDepartureAddress.text.isEmpty() ||
-//                    _editTextTextDestinationAddress.text.isEmpty() ||
-//                    _editTextTextRequestStatus.text.isEmpty())
+//
+//        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//            TODO("Not yet implemented")
 //        }
 //
 //        override fun afterTextChanged(s: Editable?) {
@@ -103,5 +142,6 @@ class AddTravelActivity : AppCompatActivity() {
 //        }
 //    }
 }
+
 
 

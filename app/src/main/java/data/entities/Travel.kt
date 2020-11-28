@@ -1,24 +1,69 @@
-package entities
+package data.entities
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+
+@Entity(tableName = "travels")
 class Travel() {
+
+
+    companion object {
+       // @PrimaryKey
+        var key = 1
+        fun getNextKey(): Int {
+            return ++key
+        }
+    }
+
+    var travelKey = Companion
+        get() = field
+
     var clientName: String = ""
         get() = field
+        set(value) {
+            field = value
+        }
     var clientPhone: String = ""
         get() = field
+        set(value) {
+            field = value
+        }
     var clientEmailAddress: String = ""
         get() = field
+        set(value) {
+            field = value
+        }
     var departureAddress: String = ""
         get() = field
+        set(value) {
+            field = value
+        }
     var departureDate: String = ""
         get() = field
+        set(value) {
+            field = value
+        }
     var destinationAddress: String = ""
         get() = field
+        set(value) {
+            field = value
+        }
     var returnDate: String = ""
         get() = field
+        set(value) {
+            field = value
+        }
     var passengersNumber: Int = 0
         get() = field
+        set(value) {
+            field = value
+        }
     var requestStatus: String = ""
         get() = field
+        set(value) {
+            field = value
+        }
 
     constructor(
         _name: String,
@@ -31,6 +76,7 @@ class Travel() {
         _passNum: String,
         _status: String
     ) : this() {
+        key = getNextKey()
         clientName = _name
         clientPhone = _phone
         clientEmailAddress = _eMail
@@ -38,7 +84,7 @@ class Travel() {
         departureDate = _departureDate
         destinationAddress = _destAddress
         returnDate = _returnDate
-        passengersNumber = if(_passNum == "") 0 else _passNum.toInt()
+        passengersNumber = if (_passNum == "") 0 else _passNum.toInt()
         requestStatus = _status
     }
 }

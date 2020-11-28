@@ -2,7 +2,23 @@
     <string name="app_name">Travel Deal</string>
     <string name="App_name">Travel deal</string>
     <string name="Start_button">התחל את הטיול שלך כאן!</string>
-    <string name="client_name">שם לקוח</string>
     <string name="clientNameHint">שם לקוח</string>
+    <string name="phoneNameHint"> מספר טלפון</string>
+    <string name="emailAddressHint">כתובת דוא"ל</string>
+    <string name="departureAddressHint">כתובת איסוף</string>
+    <string name="destinationAddressHint"> כתובת יעד</string>
+    <string name="passengersNumberHint"> מספר נוסעים</string>
+    <string name="departureDateHint"> תאריך יציאה</string>
+    <string name="returnDateHint"> תאריך חזרה</string>
+    <string name="statusText">סטטוס נסיעה</string>
+    <string name="buttonSaveText">שמור</string>
     <string name="header_travel_details">מילוי פרטים</string>
+
+    <string-array name="status_array">
+        <item>נשלח</item>
+        <item>התקבל</item>
+        <item>פעיל</item>
+        <item>סגור</item>
+    </string-array>
+
 </resources>

@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Travel Deal</string>
+    <string name="App_name">Travel deal</string>
+    <string name="Start_button">Start your travel now</string>
+    <string name="clientNameHint">Name</string>
+    <string name="phoneNameHint">Phone number</string>
+    <string name="emailAddressHint">Email address</string>
+    <string name="departureAddressHint">Collection address</string>
+    <string name="destinationAddressHint">Destination address</string>
+    <string name="passengersNumberHint"> Number of passengers</string>
+    <string name="departureDateHint"> Departure date</string>
+    <string name="returnDateHint">Return date</string>
+    <string name="statusText">Travel status</string>
+    <string name="buttonSaveText">Save</string>
+    <string name="header_travel_details">"Fill Details"</string>
+
+    <string-array name="status_array">
+        <item>SEND</item>
+        <item>RECEIVED</item>
+        <item>RUN</item>
+        <item>CLOSED</item>
+    </string-array>
+
+</resources>

@@ -23,8 +23,6 @@
             android:id="@+id/editTextClientName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:gravity="right"
             android:ems="10"
             android:hint="@string/clientNameHint"
             android:inputType="textPersonName"
@@ -35,16 +33,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="מספר טלפון"
-            android:gravity="right"
-            android:inputType="phone" />
+            android:hint="@string/phoneNameHint"
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/editTextEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint='כתובת דוא"ל'
+            android:hint="@string/emailAddressHint"
             android:inputType="textEmailAddress" />
 
         <EditText
@@ -52,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="כתובת איסוף"
+            android:hint="@string/departureAddressHint"
             android:inputType="textPostalAddress" />
 
         <EditText
@@ -60,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="כתובת יעד"
+            android:hint="@string/destinationAddressHint"
             android:inputType="textPostalAddress" />
 
         <EditText
@@ -68,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="מספר נוסעים"
+            android:hint="@string/passengersNumberHint"
             android:inputType="number" />
 
         <EditText
@@ -76,27 +73,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="תאריך יציאה"
-            android:inputType="date" />
+            android:hint="@string/departureDateHint"
+            android:inputType="date"/>
 
         <EditText
             android:id="@+id/editTextReturnDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="תאריך חזרה"
+            android:hint="@string/returnDateHint"
             android:inputType="date" />
 
         <TextView
-            android:id="@+id/testTextView"
+            android:id="@+id/statusTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="@string/statusText" />
 
         <Spinner
             android:id="@+id/spinnerRequestStatus"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:spinnerMode="dialog" />
 
         <Button
             android:id="@+id/buttonSave"
@@ -104,8 +102,9 @@
             android:layout_height="wrap_content"
             android:enabled="true"
             android:onClick="saveButton"
-            android:text="שמור"
+            android:text="@string/buttonSaveText"
             tools:ignore="OnClick" />
+
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

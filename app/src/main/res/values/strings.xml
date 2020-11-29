@@ -13,6 +13,11 @@
     <string name="statusText">סטטוס נסיעה</string>
     <string name="buttonSaveText">שמור</string>
     <string name="header_travel_details">מילוי פרטים</string>
+    <string name="num_bigger_than_0">הזן ערך גדול מאפס</string>
+    <string name="enter_exit_date_first">הזן קודם תאריך יציאה</string>
+    <string name="fill_all_fields">יש למלא את כל השדות</string>
+    <string name="saved_success">הפרטים נשמרו בהצלחה!</string>
+    <string name="incorrect_email">כתובת המייל אינה תקינה</string>
 
     <string-array name="status_array">
         <item>נשלח</item>

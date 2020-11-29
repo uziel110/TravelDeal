@@ -13,7 +13,11 @@
     <string name="statusText">Travel status</string>
     <string name="buttonSaveText">Save</string>
     <string name="header_travel_details">"Fill Details"</string>
-    <string name="phone_number">"Phone number"</string>
+    <string name="num_bigger_than_0">The number must be bigger than zero</string>
+    <string name="enter_exit_date_first">Please enter a departure date first</string>
+    <string name="fill_all_fields">All fields should be filled</string>
+    <string name="saved_success">Details saved successfully!</string>
+    <string name="incorrect_email">The email address is incorrect</string>
 
     <string-array name="status_array">
         <item>SEND</item>

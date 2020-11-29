@@ -11,12 +11,8 @@ import data.repositories.TravelRepository
 class TravelViewModel(app: Application) : AndroidViewModel(app) {
 
 
-   var rp: TravelRepository
+   var rp: TravelRepository = TravelRepository()
 //    var r: Context = getApplication()
-
-    init {
-        rp = TravelRepository()
-    }
 
     fun insertItem(travel: Travel) {
        rp.insert(travel)

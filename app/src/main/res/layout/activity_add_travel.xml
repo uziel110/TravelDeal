@@ -74,6 +74,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/departureDateHint"
+            android:focusable="false"
             android:inputType="date"/>
 
         <EditText
@@ -82,6 +83,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/returnDateHint"
+            android:focusable="false"
             android:inputType="date" />
 
         <TextView

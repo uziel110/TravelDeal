@@ -8,7 +8,6 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
-import android.view.View.OnFocusChangeListener
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -17,7 +16,6 @@ import data.entities.Travel
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 class AddTravelActivity : AppCompatActivity() {
 
@@ -32,7 +30,6 @@ class AddTravelActivity : AppCompatActivity() {
     lateinit var etDepartureAddress: EditText
     lateinit var etDestinationAddress: EditText
     lateinit var spinnerRequestStatus: Spinner
-
 
     fun isValidEmail(email: String): Boolean {
         return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
@@ -123,16 +120,25 @@ class AddTravelActivity : AppCompatActivity() {
 
         etEmailAddress.setOnFocusChangeListener { _, gainFocus ->
             //onFocus
-            if (!gainFocus) {
-                //set the text
-                if (!isValidEmail(etEmailAddress.text.toString()))
-                    Toast.makeText(
-                        applicationContext,
-                        R.string.incorrect_email,
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-                etEmailAddress.text.clear()
+            if (!gainFocus && !isValidEmail(etEmailAddress.text.toString()))
+                Toast.makeText(
+                    applicationContext,
+                    R.string.incorrect_email,
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            etEmailAddress.text.clear()
+        }
+
+        etPhone.setOnFocusChangeListener { _, gainFocus ->
+            //onFocus
+            if (!gainFocus && etPhone.text.length < 9 || etPhone.text.length > 10) {
+                Toast.makeText(
+                    applicationContext,
+                    R.string.incorrect_phone_number,
+                    Toast.LENGTH_SHORT
+                ).show()
+                etPhone.text.clear()
             }
         }
 
@@ -145,7 +151,6 @@ class AddTravelActivity : AppCompatActivity() {
             spinnerRequestStatus.adapter = adapter
         }
     }
-
 
     fun saveButton(view: View) {
 

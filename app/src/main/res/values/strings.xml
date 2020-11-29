@@ -18,6 +18,7 @@
     <string name="fill_all_fields">יש למלא את כל השדות</string>
     <string name="saved_success">הפרטים נשמרו בהצלחה!</string>
     <string name="incorrect_email">כתובת המייל אינה תקינה</string>
+    <string name="incorrect_phone_number">מספר הטלפון לא תקין</string>
 
     <string-array name="status_array">
         <item>נשלח</item>

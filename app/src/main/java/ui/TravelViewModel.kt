@@ -5,20 +5,14 @@ import android.content.Context
 import android.os.Bundle
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import com.google.android.gms.tasks.Task
 import data.entities.Travel
 import data.repositories.TravelRepository
 
 class TravelViewModel(app: Application) : AndroidViewModel(app) {
+    private var rp: TravelRepository = TravelRepository()
 
-
-   var rp: TravelRepository = TravelRepository()
-//    var r: Context = getApplication()
-
-    fun insertItem(travel: Travel) {
-       rp.insert(travel)
+    fun insertItem(travel: Travel): Task<Void> {
+        return rp.insert(travel)
     }
-
-//    fun getItems(): LiveData<Travel> {
-//        return rp.getTravrls()
-//    }
 }

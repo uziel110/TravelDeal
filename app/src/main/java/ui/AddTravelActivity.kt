@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.*
@@ -120,14 +121,15 @@ class AddTravelActivity : AppCompatActivity() {
 
         etEmailAddress.setOnFocusChangeListener { _, gainFocus ->
             //onFocus
-            if (!gainFocus && !isValidEmail(etEmailAddress.text.toString()))
+            if (!gainFocus && !isValidEmail(etEmailAddress.text.toString())) {
                 Toast.makeText(
                     applicationContext,
                     R.string.incorrect_email,
                     Toast.LENGTH_SHORT
                 )
                     .show()
-            etEmailAddress.text.clear()
+                etEmailAddress.text.clear()
+            }
         }
 
         etPhone.setOnFocusChangeListener { _, gainFocus ->
@@ -194,9 +196,16 @@ class AddTravelActivity : AppCompatActivity() {
             requestStatus
         )
 
-        viewModel.insertItem(travel)
-
-        // TODO: 29-Nov-20 check success of upload
-        Toast.makeText(applicationContext, R.string.saved_success, Toast.LENGTH_SHORT).show()
+        val ts = viewModel.insertItem(travel)
+        ts.addOnCompleteListener() {
+            if (ts.isSuccessful) {
+                Log.d("FirebaseManager", "Upload Successful")
+                Toast.makeText(applicationContext, R.string.saved_success, Toast.LENGTH_SHORT).show()
+            }
+            else{
+                Log.d("FirebaseManager", "Upload Fail")
+                Toast.makeText(applicationContext, "Saved fail", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

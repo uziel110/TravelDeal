@@ -164,7 +164,7 @@ class AddTravelActivity : AppCompatActivity() {
         val destinationAddress = etDestinationAddress.text.toString()
         val returnDate = etReturnDate.text.toString()
         val passengersNumber = etPassengersNumber.text.toString()
-        val requestStatus = spinnerRequestStatus.toString()
+        val requestStatus = spinnerRequestStatus.selectedItem.toString()
 
         if (clientName == "" ||
             clientPhone == "" ||

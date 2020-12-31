@@ -3,6 +3,7 @@ package data.entities
 
 
 class Travel() {
+    /*
     companion object {
        // @PrimaryKey
         var key = 1
@@ -10,10 +11,9 @@ class Travel() {
             return ++key
         }
     }
-
     var travelKey = Companion
         get() = field
-
+    */
     var clientName: String = ""
         get() = field
         set(value) {
@@ -71,7 +71,7 @@ class Travel() {
         _passNum: String,
         _status: String
     ) : this() {
-        key = getNextKey()
+        //key = getNextKey()
         clientName = _name
         clientPhone = _phone
         clientEmailAddress = _eMail

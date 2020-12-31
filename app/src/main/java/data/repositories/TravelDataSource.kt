@@ -12,6 +12,7 @@ class TravelDataSource {
     private val reference = rootNode.getReference("travels")
 
     fun insert(travel: Travel): Task<Void> {
+        //val curRef = reference.child(travel.clientEmailAddress)
         return reference.push().setValue(travel)
     }
 }

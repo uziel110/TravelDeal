@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ui.AddTravelActivity">
+    tools:context=".data.ui.AddTravelActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -93,18 +93,6 @@
             android:text="30/11/2021"
             android:focusable="false"
             android:inputType="date" />
-
-        <TextView
-            android:id="@+id/statusTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/statusText" />
-
-        <Spinner
-            android:id="@+id/spinnerRequestStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:spinnerMode="dialog" />
 
         <Button
             android:id="@+id/buttonSave"

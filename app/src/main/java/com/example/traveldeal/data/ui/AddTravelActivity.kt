@@ -1,4 +1,4 @@
-package ui
+package com.example.traveldeal.data.ui
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -11,9 +11,10 @@ import android.util.Patterns
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.example.traveldeal.R
-import data.entities.Travel
+import com.example.traveldeal.data.entities.Travel
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -42,6 +43,16 @@ class AddTravelActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_travel)
 
         viewModel = ViewModelProvider(this).get(TravelViewModel::class.java)
+        viewModel.getLiveData().observe(this, {
+            if (it) {
+                Log.d("FirebaseManager", "Upload Successful")
+                Toast.makeText(applicationContext, R.string.saved_success, Toast.LENGTH_SHORT).show()
+            }
+            else{
+                Log.d("FirebaseManager", "Upload Fail")
+                Toast.makeText(applicationContext, "Saved fail", Toast.LENGTH_SHORT).show()
+            }
+        })
 
         saveButton = findViewById(R.id.buttonSave)
         etClientName = findViewById(R.id.editTextClientName)
@@ -52,7 +63,6 @@ class AddTravelActivity : AppCompatActivity() {
         etPassengersNumber = findViewById(R.id.editTextPassengersNumber)
         etDepartureAddress = findViewById(R.id.editTextTextDepartureAddress)
         etDestinationAddress = findViewById(R.id.editTextTextDestinationAddress)
-        spinnerRequestStatus = findViewById(R.id.spinnerRequestStatus)
 
         var picker: DatePickerDialog
 
@@ -143,15 +153,6 @@ class AddTravelActivity : AppCompatActivity() {
                 etPhone.text.clear()
             }
         }
-
-        ArrayAdapter.createFromResource(
-            this, R.array.status_array, android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
-            spinnerRequestStatus.adapter = adapter
-        }
     }
 
     fun saveButton(view: View) {
@@ -164,7 +165,6 @@ class AddTravelActivity : AppCompatActivity() {
         val destinationAddress = etDestinationAddress.text.toString()
         val returnDate = etReturnDate.text.toString()
         val passengersNumber = etPassengersNumber.text.toString()
-        val requestStatus = spinnerRequestStatus.selectedItem.toString()
 
         if (clientName == "" ||
             clientPhone == "" ||
@@ -173,15 +173,13 @@ class AddTravelActivity : AppCompatActivity() {
             departureDate == "" ||
             destinationAddress == "" ||
             returnDate == "" ||
-            passengersNumber == "" ||
-            requestStatus == ""
+            passengersNumber == ""
         ) {
             Toast.makeText(
                 applicationContext,
                 R.string.fill_all_fields,
                 Toast.LENGTH_SHORT
-            )
-                .show()
+            ).show()
             return
         }
         val travel = Travel(
@@ -193,19 +191,10 @@ class AddTravelActivity : AppCompatActivity() {
             destinationAddress,
             returnDate,
             passengersNumber,
-            requestStatus
         )
 
-        val ts = viewModel.insertItem(travel)
-        ts.addOnCompleteListener() {
-            if (ts.isSuccessful) {
-                Log.d("FirebaseManager", "Upload Successful")
-                Toast.makeText(applicationContext, R.string.saved_success, Toast.LENGTH_SHORT).show()
-            }
-            else{
-                Log.d("FirebaseManager", "Upload Fail")
-                Toast.makeText(applicationContext, "Saved fail", Toast.LENGTH_SHORT).show()
-            }
-        }
+        viewModel.insertItem(travel)
+
+
     }
 }

@@ -1,8 +1,7 @@
-package data.repositories
+package com.example.traveldeal.data.repositories
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
-import data.entities.Travel
+import com.example.traveldeal.data.entities.Travel
 
 @Dao
 interface TravelDAO {

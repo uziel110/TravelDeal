@@ -1,11 +1,11 @@
-package data.repositories
+package com.example.traveldeal.data.repositories
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import data.entities.Travel
+import com.example.traveldeal.data.entities.Travel
 import java.util.concurrent.Executors
 
 @Database(entities = [Travel::class], version = 1, exportSchema = false)

@@ -1,19 +1,7 @@
-package data.entities
-
+package com.example.traveldeal.data.entities
 
 
 class Travel() {
-    /*
-    companion object {
-       // @PrimaryKey
-        var key = 1
-        fun getNextKey(): Int {
-            return ++key
-        }
-    }
-    var travelKey = Companion
-        get() = field
-    */
     var clientName: String = ""
         get() = field
         set(value) {
@@ -59,7 +47,13 @@ class Travel() {
         set(value) {
             field = value
         }
-
+    /*
+    var company: HashMap<String, Boolean> = TODO()
+        get() = field
+        set(value) {
+            field = value
+        }
+*/
     constructor(
         _name: String,
         _phone: String,
@@ -68,10 +62,8 @@ class Travel() {
         _departureDate: String,
         _destAddress: String,
         _returnDate: String,
-        _passNum: String,
-        _status: String
+        _passNum: String
     ) : this() {
-        //key = getNextKey()
         clientName = _name
         clientPhone = _phone
         clientEmailAddress = _eMail
@@ -80,6 +72,6 @@ class Travel() {
         destinationAddress = _destAddress
         returnDate = _returnDate
         passengersNumber = if (_passNum == "") 0 else _passNum.toInt()
-        requestStatus = _status
+        requestStatus = "Send"
     }
 }

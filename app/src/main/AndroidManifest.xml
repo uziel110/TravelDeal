@@ -9,9 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TravelDeal">
-        <activity android:name="ui.AddTravelActivity"
-            android:parentActivityName="ui.MainActivity"/>
-        <activity android:name="ui.MainActivity">
+        <activity android:name="com.example.traveldeal.data.ui.AddTravelActivity"
+            android:parentActivityName="com.example.traveldeal.data.ui.MainActivity"/>
+        <activity android:name="com.example.traveldeal.data.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

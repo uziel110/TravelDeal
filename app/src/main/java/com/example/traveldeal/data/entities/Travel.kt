@@ -62,7 +62,8 @@ class Travel() {
         _departureDate: String,
         _destAddress: String,
         _returnDate: String,
-        _passNum: String
+        _passNum: String,
+        _requestStatus: String
     ) : this() {
         clientName = _name
         clientPhone = _phone
@@ -72,6 +73,6 @@ class Travel() {
         destinationAddress = _destAddress
         returnDate = _returnDate
         passengersNumber = if (_passNum == "") 0 else _passNum.toInt()
-        requestStatus = "Send"
+        requestStatus = _requestStatus
     }
 }

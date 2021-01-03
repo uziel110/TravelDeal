@@ -2,7 +2,6 @@ package com.example.traveldeal.data.repositories
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.google.android.gms.tasks.Task
 import com.example.traveldeal.data.entities.Travel
 
 

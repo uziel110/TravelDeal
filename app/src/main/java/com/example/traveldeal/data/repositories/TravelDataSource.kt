@@ -1,11 +1,7 @@
 package com.example.traveldeal.data.repositories
 
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.traveldeal.R
-import com.google.android.gms.tasks.Task
 import com.google.firebase.database.FirebaseDatabase
 import com.example.traveldeal.data.entities.Travel
 

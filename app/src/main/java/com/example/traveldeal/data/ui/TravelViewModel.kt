@@ -3,7 +3,6 @@ package com.example.traveldeal.data.ui
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.google.android.gms.tasks.Task
 import com.example.traveldeal.data.entities.Travel
 import com.example.traveldeal.data.repositories.TravelRepository
 

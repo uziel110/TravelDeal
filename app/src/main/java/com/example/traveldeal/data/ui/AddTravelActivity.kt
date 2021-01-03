@@ -11,29 +11,28 @@ import android.util.Patterns
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.example.traveldeal.R
 import com.example.traveldeal.data.entities.Travel
+import com.google.firebase.auth.FirebaseAuth
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
 class AddTravelActivity : AppCompatActivity() {
 
-    lateinit var viewModel: TravelViewModel
-    lateinit var saveButton: Button
-    lateinit var etClientName: EditText
-    lateinit var etPhone: EditText
-    lateinit var etEmailAddress: EditText
-    lateinit var etDepartureDate: EditText
-    lateinit var etReturnDate: EditText
-    lateinit var etPassengersNumber: EditText
-    lateinit var etDepartureAddress: EditText
-    lateinit var etDestinationAddress: EditText
-    lateinit var spinnerRequestStatus: Spinner
+    private lateinit var viewModel: TravelViewModel
+    private lateinit var saveButton: Button
+    private lateinit var etClientName: EditText
+    private lateinit var etPhone: EditText
+    private lateinit var etEmailAddress: EditText
+    private lateinit var etDepartureDate: EditText
+    private lateinit var etReturnDate: EditText
+    private lateinit var etPassengersNumber: EditText
+    private lateinit var etDepartureAddress: EditText
+    private lateinit var etDestinationAddress: EditText
 
-    fun isValidEmail(email: String): Boolean {
+    private fun isValidEmail(email: String): Boolean {
         return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
@@ -64,6 +63,8 @@ class AddTravelActivity : AppCompatActivity() {
         etDepartureAddress = findViewById(R.id.editTextTextDepartureAddress)
         etDestinationAddress = findViewById(R.id.editTextTextDestinationAddress)
 
+        val uid: String = FirebaseAuth.getInstance().uid.toString()
+        etEmailAddress.setText(uid)
         var picker: DatePickerDialog
 
         //etDepartureDate.inputType = InputType.TYPE_NULL
@@ -191,10 +192,9 @@ class AddTravelActivity : AppCompatActivity() {
             destinationAddress,
             returnDate,
             passengersNumber,
+            "Send"
         )
 
         viewModel.insertItem(travel)
-
-
     }
 }

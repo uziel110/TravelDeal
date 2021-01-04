@@ -28,6 +28,7 @@ class TravelRecyclerViewAdapter(private val travelList: List<Travel>) :
         holder.departureDate.text = currentItem.departureDate
         holder.returnDate.text = currentItem.returnDate
         holder.returnDate.text = currentItem.returnDate
+        holder.psgNum.text = currentItem.passengersNumber.toString()
         /*
         val source = holder.sourceAddress
         val destination = holder.destinationAddress
@@ -49,14 +50,14 @@ class TravelRecyclerViewAdapter(private val travelList: List<Travel>) :
     override fun getItemCount() = travelList.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var sourceAddress: TextView =
-            this.itemView.findViewById(R.id.TextViewDepartureAddress)
+        var sourceAddress: TextView = this.itemView.findViewById(R.id.TextViewDepartureAddress)
         var destinationAddress: TextView =
             this.itemView.findViewById(R.id.TextViewDestinationAddress)
-        var departureDate: TextView =
-            this.itemView.findViewById(R.id.TextViewDepartureDate)
+        var departureDate: TextView = this.itemView.findViewById(R.id.TextViewDepartureDate)
         var returnDate: TextView = this.itemView.findViewById(R.id.TextViewReturnDate)
-        //var reqStatus: Button = this.itemView.findViewById(R.id.)
+        var psgNum: TextView = this.itemView.findViewById(R.id.TextViewPassengersNumber) as TextView
+
+    //var reqStatus: Button = this.itemView.findViewById(R.id.)
         /*
         var bRunning: Button
         var bFinished: Button

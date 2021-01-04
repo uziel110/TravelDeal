@@ -63,8 +63,8 @@ class AddTravelActivity : AppCompatActivity() {
         etDepartureAddress = findViewById(R.id.editTextTextDepartureAddress)
         etDestinationAddress = findViewById(R.id.editTextTextDestinationAddress)
 
-        val uid: String = FirebaseAuth.getInstance().uid.toString()
-        etEmailAddress.setText(uid)
+        etEmailAddress.setText(FirebaseAuth.getInstance().currentUser?.email)
+        etClientName.setText(FirebaseAuth.getInstance().currentUser?.displayName)
         var picker: DatePickerDialog
 
         //etDepartureDate.inputType = InputType.TYPE_NULL

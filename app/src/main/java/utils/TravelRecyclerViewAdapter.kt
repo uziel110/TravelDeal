@@ -50,12 +50,12 @@ class TravelRecyclerViewAdapter(private val travelList: List<Travel>) :
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var sourceAddress: TextView =
-            this.itemView.findViewById(R.id.editTextTextDepartureAddress) as TextView
+            this.itemView.findViewById(R.id.TextViewDepartureAddress)
         var destinationAddress: TextView =
-            this.itemView.findViewById(R.id.editTextTextDestinationAddress) as TextView
+            this.itemView.findViewById(R.id.TextViewDestinationAddress)
         var departureDate: TextView =
-            this.itemView.findViewById(R.id.editTextDepartureDate) as TextView
-        var returnDate: TextView = this.itemView.findViewById(R.id.editTextReturnDate) as TextView
+            this.itemView.findViewById(R.id.TextViewDepartureDate)
+        var returnDate: TextView = this.itemView.findViewById(R.id.TextViewReturnDate)
         //var reqStatus: Button = this.itemView.findViewById(R.id.)
         /*
         var bRunning: Button

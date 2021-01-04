@@ -5,8 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.example.traveldeal.data.entities.Travel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.ktx.Firebase
-
 
 /**
  * fire base com.example.traveldeal.data source
@@ -19,6 +17,7 @@ class TravelDataSource {
     private var travelRefChildEventListener: ChildEventListener? = null
     val travelsList: MutableList<Travel> = mutableListOf()
     private var travels: MutableLiveData<MutableList<Travel>> = MutableLiveData()
+
 
     fun insert(travel: Travel) {
         //val curRef = reference.child(travel.clientEmailAddress)
@@ -34,6 +33,7 @@ class TravelDataSource {
     }
 
     fun getAllTravels(): MutableLiveData<MutableList<Travel>> {
+/*
         reference.child(uid).addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
                 val travel: Travel? = dataSnapshot.getValue(Travel::class.java)
@@ -44,12 +44,28 @@ class TravelDataSource {
                 }
                 //notifyDataChange.OnDataChanged(travelsList)
             }
+
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
             override fun onChildRemoved(snapshot: DataSnapshot) {}
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
             override fun onCancelled(error: DatabaseError) {}
         })
-        travels.value = travelsList
+*/
+        reference.child(uid).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                travelsList.clear()
+                for (travelSnapshot in dataSnapshot.children) {
+                    val travel: Travel? = travelSnapshot.getValue(Travel::class.java)
+                    if (travel != null) {
+                        travelsList.add(travel)
+                    }
+                }
+                travels.value = travelsList
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+            }
+        })
         return travels
     }
 

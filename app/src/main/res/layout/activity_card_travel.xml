@@ -19,8 +19,8 @@
 
         <TextView
             android:id="@+id/TextViewDepartureAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="20dp"
             android:text="DepartureAddress"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
@@ -28,43 +28,44 @@
             android:layout_toRightOf="@+id/image_view" />
         <TextView
             android:id="@+id/TextViewDestinationAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="20dp"
             android:text="DestinationAddress"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@+id/image_view"
+            android:layout_toRightOf="@+id/image_view"
+            android:layout_below="@+id/TextViewDepartureAddress"/>
+        <TextView
+            android:id="@+id/TextViewPassengersNumber"
+            android:layout_width="100dp"
+            android:layout_height="20dp"
+            android:text="PassengersNumber"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_toEndOf="@+id/TextViewDepartureDate"
+            android:layout_toRightOf="@+id/TextViewDepartureDate" />
+        <TextView
+            android:id="@+id/TextViewDepartureDate"
+            android:layout_width="100dp"
+            android:layout_height="20dp"
+            android:text="DepartureDate"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_toEndOf="@+id/TextViewDepartureAddress"
             android:layout_toRightOf="@+id/TextViewDepartureAddress" />
         <TextView
-            android:id="@+id/TextViewPassengersNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="PassengersNumber"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_toEndOf="@+id/TextViewDestinationAddress"
-            android:layout_toRightOf="@+id/TextViewDestinationAddress" />
-        <TextView
-            android:id="@+id/TextViewDepartureDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DepartureDate"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_toEndOf="@+id/image_view"
-            android:layout_toRightOf="@+id/image_view"
-            android:layout_below="@+id/TextViewDepartureAddress" />
-        <TextView
             android:id="@+id/TextViewReturnDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DepartureAddress"
+            android:layout_width="100dp"
+            android:layout_height="20dp"
+            android:text="ReturnDate"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:layout_toEndOf="@+id/TextViewDepartureDate"
-            android:layout_toRightOf="@+id/TextViewDepartureDate"
-            android:layout_below="@+id/TextViewDestinationAddress"/>
-
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@+id/TextViewDestinationAddress"
+            android:layout_toRightOf="@+id/TextViewDestinationAddress"
+            android:layout_below="@+id/TextViewDepartureDate"/>
 
     </RelativeLayout>
 

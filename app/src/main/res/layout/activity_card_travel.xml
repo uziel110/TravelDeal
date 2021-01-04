@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/ic_bus" />
+
+        <TextView
+            android:id="@+id/TextViewDepartureAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DepartureAddress"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_toEndOf="@+id/image_view"
+            android:layout_toRightOf="@+id/image_view" />
+        <TextView
+            android:id="@+id/TextViewDestinationAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DestinationAddress"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_toEndOf="@+id/TextViewDepartureAddress"
+            android:layout_toRightOf="@+id/TextViewDepartureAddress" />
+        <TextView
+            android:id="@+id/TextViewPassengersNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PassengersNumber"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_toEndOf="@+id/TextViewDestinationAddress"
+            android:layout_toRightOf="@+id/TextViewDestinationAddress" />
+        <TextView
+            android:id="@+id/TextViewDepartureDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DepartureDate"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_toEndOf="@+id/image_view"
+            android:layout_toRightOf="@+id/image_view"
+            android:layout_below="@+id/TextViewDepartureAddress" />
+        <TextView
+            android:id="@+id/TextViewReturnDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DepartureAddress"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_toEndOf="@+id/TextViewDepartureDate"
+            android:layout_toRightOf="@+id/TextViewDepartureDate"
+            android:layout_below="@+id/TextViewDestinationAddress"/>
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

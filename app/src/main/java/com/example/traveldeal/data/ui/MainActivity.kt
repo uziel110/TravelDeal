@@ -3,7 +3,6 @@ package com.example.traveldeal.data.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,13 +14,14 @@ import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
     private val RC_SIGN_IN = 123
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         if (FirebaseAuth.getInstance().currentUser != null)
             return
-        signInActivity()
+        startSignInIntent()
 
 //        val handler = Handler()
 //        handler.postDelayed(Runnable {
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 //        }, 500)
     }
 
-    private fun signInActivity() {
+    private fun startSignInIntent() {
         // Choose authentication providers
         val providers = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build(),
@@ -61,11 +61,11 @@ class MainActivity : AppCompatActivity() {
                 // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
                 if (user != null) {
-                    Toast.makeText(this, user.uid, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, user.email, Toast.LENGTH_LONG).show()
                 }
-                // ...
             } else {
                 Toast.makeText(this, "Sign in failed", Toast.LENGTH_LONG).show()
+                startSignInIntent()
                 // Sign in failed. If response is null the user canceled the
                 // sign-in flow using the back button. Otherwise check
                 // response.getError().getErrorCode() and handle the error.
@@ -79,4 +79,15 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, AddTravelActivity::class.java)
         this.startActivity(intent)
     }
+
+    fun signOutButton(view: View) {
+        FirebaseAuth.getInstance().signOut()
+        startSignInIntent()
+    }
+
+    fun btMyTravels(view: View) {
+        val intent = Intent(this, AllTravelsActivity::class.java)
+        this.startActivity(intent)
+    }
+
 }

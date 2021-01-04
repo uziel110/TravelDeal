@@ -15,6 +15,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.traveldeal.R
 import com.example.traveldeal.data.entities.Travel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -45,9 +47,9 @@ class AddTravelActivity : AppCompatActivity() {
         viewModel.getLiveData().observe(this, {
             if (it) {
                 Log.d("FirebaseManager", "Upload Successful")
-                Toast.makeText(applicationContext, R.string.saved_success, Toast.LENGTH_SHORT).show()
-            }
-            else{
+                Toast.makeText(applicationContext, R.string.saved_success, Toast.LENGTH_SHORT)
+                    .show()
+            } else {
                 Log.d("FirebaseManager", "Upload Fail")
                 Toast.makeText(applicationContext, "Saved fail", Toast.LENGTH_SHORT).show()
             }
@@ -63,8 +65,10 @@ class AddTravelActivity : AppCompatActivity() {
         etDepartureAddress = findViewById(R.id.editTextTextDepartureAddress)
         etDestinationAddress = findViewById(R.id.editTextTextDestinationAddress)
 
-        etEmailAddress.setText(FirebaseAuth.getInstance().currentUser?.email)
-        etClientName.setText(FirebaseAuth.getInstance().currentUser?.displayName)
+        val user = Firebase.auth.currentUser
+        etEmailAddress.setText(user?.email)
+        etClientName.setText(user?.displayName)
+        etPhone.setText(user?.phoneNumber)
         var picker: DatePickerDialog
 
         //etDepartureDate.inputType = InputType.TYPE_NULL

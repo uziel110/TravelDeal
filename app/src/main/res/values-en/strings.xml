@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Travel Deal</string>
     <string name="App_name">Travel deal</string>
-    <string name="Start_button">Start your travel now</string>
+    <string name="Add_travel">Start your travel now</string>
     <string name="clientNameHint">Name</string>
     <string name="phoneNameHint">Phone number</string>
     <string name="emailAddressHint">Email address</string>

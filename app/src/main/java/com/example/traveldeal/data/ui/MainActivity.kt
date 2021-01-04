@@ -89,5 +89,4 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, AllTravelsActivity::class.java)
         this.startActivity(intent)
     }
-
 }

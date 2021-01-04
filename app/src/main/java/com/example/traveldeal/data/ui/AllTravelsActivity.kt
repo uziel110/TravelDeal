@@ -16,20 +16,20 @@ class AllTravelsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_travels)
-/*
+
         model = ViewModelProvider(this).get(TravelViewModel::class.java)
             .also { model = it }
-        recyclerView = findViewById(R.id.recycleView)
+        recyclerView = findViewById(R.id.rvUserTravels)
         recyclerView.apply {
             itemAnimator = DefaultItemAnimator()
             layoutManager = LinearLayoutManager(applicationContext)
         }
- */
+
         model.getAllTravels().observe(this, {
             if (it != null)
                 recyclerView.adapter = TravelRecyclerViewAdapter(it)
         })
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        //recyclerView.layoutManager = LinearLayoutManager(this)
         //recyclerView.setHasFixedSize(false)
     }
 }

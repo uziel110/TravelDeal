@@ -18,7 +18,7 @@ class TravelDataSource {
     private var uid: String = FirebaseAuth.getInstance().uid.toString()
     private var travelRefChildEventListener: ChildEventListener? = null
     val travelsList: MutableList<Travel> = mutableListOf()
-    lateinit var travels: MutableLiveData<MutableList<Travel>>
+    private var travels: MutableLiveData<MutableList<Travel>> = MutableLiveData()
 
     fun insert(travel: Travel) {
         //val curRef = reference.child(travel.clientEmailAddress)
@@ -43,13 +43,13 @@ class TravelDataSource {
                     travelsList.add(travel)
                 }
                 //notifyDataChange.OnDataChanged(travelsList)
-                travels.value = travelsList
             }
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
             override fun onChildRemoved(snapshot: DataSnapshot) {}
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
             override fun onCancelled(error: DatabaseError) {}
         })
+        travels.value = travelsList
         return travels
     }
 

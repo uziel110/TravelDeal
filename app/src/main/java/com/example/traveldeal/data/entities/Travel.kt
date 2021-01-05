@@ -1,5 +1,12 @@
 package com.example.traveldeal.data.entities
 
+import androidx.room.TypeConverter
+import androidx.room.TypeConverters
+import utils.UserLocation
+
+
+@TypeConverters(Travel.UserLocationConverter::class)
+private val travelLocation: UserLocation? = null
 
 class Travel() {
     var clientName: String = ""
@@ -74,5 +81,21 @@ class Travel() {
         returnDate = _returnDate
         passengersNumber = if (_passNum == "") 0 else _passNum.toInt()
         requestStatus = _requestStatus
+    }
+
+    class UserLocationConverter {
+        @TypeConverter
+        fun fromString(value: String?): UserLocation? {
+            if (value == null || value == "") return null
+            val lat = value.split(" ").toTypedArray()[0].toDouble()
+            val lang = value.split(" ").toTypedArray()[1].toDouble()
+            return UserLocation(lat, lang)
+        }
+
+        @TypeConverter
+        fun asString(warehouseUserLocation: UserLocation?): String {
+            return if (warehouseUserLocation == null) "" else warehouseUserLocation.getLat()
+                .toString() + " " + warehouseUserLocation.getLon()
+        }
     }
 }

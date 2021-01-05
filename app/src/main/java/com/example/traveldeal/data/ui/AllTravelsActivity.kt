@@ -1,10 +1,10 @@
 package com.example.traveldeal.data.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal.R
@@ -29,13 +29,15 @@ class AllTravelsActivity : AppCompatActivity(),TravelRecyclerViewAdapter.OnItemC
 */
         model.getAllTravels().observe(this, {
             if (it != null)
-                recyclerView.adapter = TravelRecyclerViewAdapter(it,this)
+                recyclerView.adapter = TravelRecyclerViewAdapter(it, this)
         })
         recyclerView.layoutManager = LinearLayoutManager(this)
         //recyclerView.setHasFixedSize(false)
     }
 
-    override fun onItemClick(position: Int) {
-        Toast.makeText(this, "item $position clicked", Toast.LENGTH_SHORT).show()
+    override fun onItemClick(itemID: Int) {
+        Toast.makeText(this, "item ${itemID+1} clicked", Toast.LENGTH_SHORT).show()
+        //model.getTravel(itemID).value?.requestStatus
+
     }
 }

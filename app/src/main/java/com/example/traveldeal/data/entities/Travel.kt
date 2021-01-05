@@ -8,8 +8,12 @@ import utils.UserLocation
 @TypeConverters(Travel.UserLocationConverter::class)
 private val travelLocation: UserLocation? = null
 
-
 class Travel() {
+    var clientId: String = ""
+        get() = field
+        set(value) {
+            field = value
+        }
     var clientName: String = ""
         get() = field
         set(value) {
@@ -30,7 +34,7 @@ class Travel() {
         set(value) {
             field = value
         }
-    lateinit var departLocation: UserLocation
+    //lateinit var departLocation: UserLocation
     var departureDate: String = ""
         get() = field
         set(value) {
@@ -41,7 +45,7 @@ class Travel() {
         set(value) {
             field = value
         }
-    lateinit var destLocation: UserLocation
+    //lateinit var destLocation: UserLocation
     var returnDate: String = ""
         get() = field
         set(value) {
@@ -69,10 +73,10 @@ class Travel() {
         _phone: String,
         _eMail: String,
         _departureAddress: String,
-        _departLocation: UserLocation,
+        //_departLocation: UserLocation,
         _departureDate: String,
         _destAddress: String,
-        _destLocation: UserLocation,
+        //_destLocation: UserLocation,
         _returnDate: String,
         _passNum: String,
         _requestStatus: String
@@ -81,10 +85,10 @@ class Travel() {
         clientPhone = _phone
         clientEmailAddress = _eMail
         departureAddress = _departureAddress
-        departLocation = _departLocation
+        //departLocation = _departLocation
         departureDate = _departureDate
         destinationAddress = _destAddress
-        destLocation = _destLocation
+        //destLocation = _destLocation
         returnDate = _returnDate
         passengersNumber = if (_passNum == "") 0 else _passNum.toInt()
         requestStatus = _requestStatus

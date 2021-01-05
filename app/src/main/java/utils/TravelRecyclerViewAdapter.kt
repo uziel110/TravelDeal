@@ -25,6 +25,7 @@ class TravelRecyclerViewAdapter(
     @SuppressLint("RestrictedApi")
     override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
         val currentItem = travelList[listPosition]
+        holder.itemID = currentItem.clientId
         holder.sourceAddress.text = currentItem.departureAddress
         holder.destinationAddress.text = currentItem.destinationAddress
         holder.departureDate.text = currentItem.departureDate
@@ -37,6 +38,7 @@ class TravelRecyclerViewAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
+        var itemID: String = ""
         var sourceAddress: TextView = this.itemView.findViewById(R.id.TextViewDepartureAddress)
         var destinationAddress: TextView =
             this.itemView.findViewById(R.id.TextViewDestinationAddress)
@@ -49,13 +51,12 @@ class TravelRecyclerViewAdapter(
         }
 
         override fun onClick(v: View?) {
-            val position = adapterPosition
-            if (position != RecyclerView.NO_POSITION)
-                listener.onItemClick(position)
+            if (adapterPosition != RecyclerView.NO_POSITION)
+                listener.onItemClick(adapterPosition)
         }
     }
 
     interface OnItemClickListener {
-        fun onItemClick(position: Int)
+        fun onItemClick(itemID: Int)
     }
 }

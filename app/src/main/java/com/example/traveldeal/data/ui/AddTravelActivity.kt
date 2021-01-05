@@ -175,11 +175,12 @@ class AddTravelActivity : AppCompatActivity() {
         val passengersNumber = etPassengersNumber.text.toString()
 
         // TODO: 05-Jan-21 make a runtime problem
+        /*
         lateinit var departureLocation : UserLocation
         departureLocation.locationFromAddress(applicationContext,departureAddress)
         lateinit var destinationLocation : UserLocation
         destinationLocation.locationFromAddress(applicationContext,destinationAddress)
-
+*/
         if (clientName == "" ||
             clientPhone == "" ||
             !isValidEmail(clientEmailAddress) ||
@@ -202,10 +203,10 @@ class AddTravelActivity : AppCompatActivity() {
             clientPhone,
             clientEmailAddress,
             departureAddress,
-            departureLocation,
+            //departureLocation,
             departureDate,
             destinationAddress,
-            destinationLocation,
+            //destinationLocation,
             returnDate,
             passengersNumber,
             resources.getStringArray(R.array.status_array)[0]

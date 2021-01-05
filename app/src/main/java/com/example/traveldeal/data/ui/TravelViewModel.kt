@@ -9,9 +9,9 @@ import com.example.traveldeal.data.repositories.TravelRepository
 
 class TravelViewModel(app: Application) : AndroidViewModel(app) {
     private var rp: TravelRepository = TravelRepository()
-    var travels = MutableLiveData<List<Travel>>()
+    //var travels = MutableLiveData<List<Travel>>()
 
-    fun insertItem(travel: Travel){
+    fun insertItem(travel: Travel) {
         rp.insert(travel)
     }
 
@@ -21,5 +21,9 @@ class TravelViewModel(app: Application) : AndroidViewModel(app) {
 
     fun getAllTravels(): MutableLiveData<MutableList<Travel>> {
         return rp.getAllTravels()
+    }
+
+    fun getTravel(id: String): MutableLiveData<Travel> {
+        return rp.getTravel(id)
     }
 }

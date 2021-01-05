@@ -7,7 +7,7 @@ import com.example.traveldeal.data.entities.Travel
 
 
 class TravelRepository : Application() {
-    lateinit var travels: MutableLiveData<MutableList<Travel>>
+    //lateinit var travels: MutableLiveData<MutableList<Travel>>
 
     var remoteDataSource: TravelDataSource = TravelDataSource()
 
@@ -21,5 +21,8 @@ class TravelRepository : Application() {
 
     fun getAllTravels(): MutableLiveData<MutableList<Travel>> {
         return remoteDataSource.getAllTravels()
+    }
+    fun getTravel(id: String): MutableLiveData<Travel> {
+        return remoteDataSource.getTravel(id)
     }
 }

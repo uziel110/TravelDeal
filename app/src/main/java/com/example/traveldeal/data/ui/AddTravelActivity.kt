@@ -2,10 +2,6 @@ package com.example.traveldeal.data.ui
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
-import android.content.Context
-import android.location.Address
-import android.location.Geocoder
-import android.location.Location
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -23,7 +19,6 @@ import com.example.traveldeal.data.entities.Travel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import utils.UserLocation
-import java.io.IOException
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -179,31 +174,11 @@ class AddTravelActivity : AppCompatActivity() {
         val returnDate = etReturnDate.text.toString()
         val passengersNumber = etPassengersNumber.text.toString()
 
-        lateinit var travelLocation: Location
-        val geocoder = Geocoder(applicationContext, Locale.getDefault())
-        try {
-            val l: List<Address> = geocoder.getFromLocationName(departureAddress, 1);
-            if (!l.isEmpty()) {
-                val temp: Address = l.get(0)
-                travelLocation = Location("travelLoction")
-                travelLocation.setLatitude(temp.getLatitude())
-                travelLocation.setLongitude(temp.getLongitude())
-
-            } else {
-                Toast.makeText(this, "4:Unable to understand address", Toast.LENGTH_LONG).show()
-                return
-            }
-        } catch (e: IOException) {
-            Toast.makeText(
-                this,
-                "5:Unable to understand address. Check Internet connection.",
-                Toast.LENGTH_LONG
-            ).show()
-            return
-        }
-
-        lateinit var userLoc: UserLocation
-        userLoc.convertFromLocation(travelLocation)
+        // TODO: 05-Jan-21 make a runtime problem
+        lateinit var departureLocation : UserLocation
+        departureLocation.locationFromAddress(applicationContext,departureAddress)
+        lateinit var destinationLocation : UserLocation
+        destinationLocation.locationFromAddress(applicationContext,destinationAddress)
 
         if (clientName == "" ||
             clientPhone == "" ||
@@ -227,13 +202,17 @@ class AddTravelActivity : AppCompatActivity() {
             clientPhone,
             clientEmailAddress,
             departureAddress,
+            departureLocation,
             departureDate,
             destinationAddress,
+            destinationLocation,
             returnDate,
             passengersNumber,
-            "Send"
+            resources.getStringArray(R.array.status_array)[0]
         )
 
         viewModel.insertItem(travel)
     }
+
+
 }

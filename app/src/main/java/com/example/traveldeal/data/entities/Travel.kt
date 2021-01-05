@@ -8,6 +8,7 @@ import utils.UserLocation
 @TypeConverters(Travel.UserLocationConverter::class)
 private val travelLocation: UserLocation? = null
 
+
 class Travel() {
     var clientName: String = ""
         get() = field
@@ -29,6 +30,7 @@ class Travel() {
         set(value) {
             field = value
         }
+    lateinit var departLocation: UserLocation
     var departureDate: String = ""
         get() = field
         set(value) {
@@ -39,6 +41,7 @@ class Travel() {
         set(value) {
             field = value
         }
+    lateinit var destLocation: UserLocation
     var returnDate: String = ""
         get() = field
         set(value) {
@@ -66,8 +69,10 @@ class Travel() {
         _phone: String,
         _eMail: String,
         _departureAddress: String,
+        _departLocation: UserLocation,
         _departureDate: String,
         _destAddress: String,
+        _destLocation: UserLocation,
         _returnDate: String,
         _passNum: String,
         _requestStatus: String
@@ -76,8 +81,10 @@ class Travel() {
         clientPhone = _phone
         clientEmailAddress = _eMail
         departureAddress = _departureAddress
+        departLocation = _departLocation
         departureDate = _departureDate
         destinationAddress = _destAddress
+        destLocation = _destLocation
         returnDate = _returnDate
         passengersNumber = if (_passNum == "") 0 else _passNum.toInt()
         requestStatus = _requestStatus
@@ -94,8 +101,8 @@ class Travel() {
 
         @TypeConverter
         fun asString(warehouseUserLocation: UserLocation?): String {
-            return if (warehouseUserLocation == null) "" else warehouseUserLocation.getLat()
-                .toString() + " " + warehouseUserLocation.getLon()
+            return if (warehouseUserLocation == null) "" else warehouseUserLocation.lat
+                .toString() + " " + warehouseUserLocation.lon
         }
     }
 }

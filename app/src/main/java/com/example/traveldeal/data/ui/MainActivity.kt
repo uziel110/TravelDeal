@@ -80,13 +80,13 @@ class MainActivity : AppCompatActivity() {
         this.startActivity(intent)
     }
 
-    fun signOutButton(view: View) {
-        FirebaseAuth.getInstance().signOut()
-        startSignInIntent()
-    }
-
     fun btMyTravels(view: View) {
         val intent = Intent(this, AllTravelsActivity::class.java)
         this.startActivity(intent)
+    }
+
+    fun signOutButton(view: View) {
+        FirebaseAuth.getInstance().signOut()
+        startSignInIntent()
     }
 }

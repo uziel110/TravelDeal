@@ -1,7 +1,6 @@
 package utils
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +8,12 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal.R
 import com.example.traveldeal.data.entities.Travel
-import com.firebase.ui.auth.AuthUI
+import utils.UserLocation.Companion.addressFromLocation
 
-class TravelRecyclerViewAdapter(private val travelList: List<Travel>) :
+class TravelRecyclerViewAdapter(
+    private val travelList: List<Travel>,
+    private val listener: OnItemClickListener
+) :
     RecyclerView.Adapter<TravelRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,27 +31,12 @@ class TravelRecyclerViewAdapter(private val travelList: List<Travel>) :
         holder.returnDate.text = currentItem.returnDate
         holder.returnDate.text = currentItem.returnDate
         holder.psgNum.text = currentItem.passengersNumber.toString()
-        /*
-        val source = holder.sourceAddress
-        val destination = holder.destinationAddress
-        val date = holder.departureDate
-        //val confirm = holder.
-        val company = holder.company
-        holder.travel = travelList[listPosition]
-        source.text = travelList[listPosition].sourceAdders
-        destination.text = travelList[listPosition].destinationAddress[0]
-        date.text = travelList[listPosition].departureDate
-        company.adapter = ArrayAdapter<String>(
-            AuthUI.getApplicationContext(),
-            android.R.layout.simple_list_item_1,
-            travelList[listPosition].serviceProvider.keys.toMutableList()
-        )
-        */
     }
 
     override fun getItemCount() = travelList.size
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
         var sourceAddress: TextView = this.itemView.findViewById(R.id.TextViewDepartureAddress)
         var destinationAddress: TextView =
             this.itemView.findViewById(R.id.TextViewDestinationAddress)
@@ -57,58 +44,18 @@ class TravelRecyclerViewAdapter(private val travelList: List<Travel>) :
         var returnDate: TextView = this.itemView.findViewById(R.id.TextViewReturnDate)
         var psgNum: TextView = this.itemView.findViewById(R.id.TextViewPassengersNumber) as TextView
 
-    //var reqStatus: Button = this.itemView.findViewById(R.id.)
-        /*
-        var bRunning: Button
-        var bFinished: Button
-        var company: Spinner
-        lateinit var travel: Travel
-
         init {
-
-            reqStatus.setOnClickListener {
-                this@ViewHolder.travel
-                travel.status = Status.RECEIVED
-            }
-            bRunning = this.itemView.findViewById(R.id.bRunning)
-            bRunning.setOnClickListener {
-                this@ViewHolder.travel
-                travel.status = Status.RUNNING
-            }
-            bFinished = this.itemView.findViewById(R.id.bFinished)
-            bFinished.setOnClickListener {
-                this@ViewHolder.travel
-                travel.status = Status.CLOSED
-            }
-            company = this.itemView.findViewById(R.id.sCompany) as Spinner
-            company.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parentView: AdapterView<*>?,
-                    selectedItemView: View,
-                    position: Int,
-                    id: Long
-                ) {
-                    if (position == 0) {
-                        bFinished.isEnabled = false
-                        bRunning.isEnabled = false
-                        reqStatus.isEnabled = false
-                        return
-                    }
-                    this@ViewHolder.travel
-                    travel.serviceProvider[parentView?.getItemIdAtPosition(position)
-                        .toString()] to true
-                    bFinished.isEnabled = true
-                    bRunning.isEnabled = true
-                    reqStatus.isEnabled = true
-                    Log.i("a", "a")
-                }
-
-                override fun onNothingSelected(parentView: AdapterView<*>?) {
-                    // your code here
-                }
-            }
+            itemView.setOnClickListener(this)
         }
-*/
 
+        override fun onClick(v: View?) {
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION)
+                listener.onItemClick(position)
+        }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(position: Int)
     }
 }

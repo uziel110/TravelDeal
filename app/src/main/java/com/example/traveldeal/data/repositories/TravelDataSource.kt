@@ -18,7 +18,6 @@ class TravelDataSource {
     val travelsList: MutableList<Travel> = mutableListOf()
     private var travels: MutableLiveData<MutableList<Travel>> = MutableLiveData()
 
-
     fun insert(travel: Travel) {
         //val curRef = reference.child(travel.clientEmailAddress)
         reference.child(uid).push().setValue(travel).addOnSuccessListener() {
@@ -56,7 +55,7 @@ class TravelDataSource {
                 travelsList.clear()
                 for (travelSnapshot in dataSnapshot.children) {
                     val travel: Travel? = travelSnapshot.getValue(Travel::class.java)
-                    if (travel != null) {
+                    if (travel != null /*&& travel.requestStatus != resources.getStringArray(R.array.status_array)[3]*/) {
                         travelsList.add(travel)
                     }
                 }

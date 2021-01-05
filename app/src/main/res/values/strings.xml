@@ -2,6 +2,7 @@
     <string name="app_name">Travel Deal</string>
     <string name="App_name">Travel deal</string>
     <string name="Add_travel">הוסף נסיעה חדשה</string>
+    <string name="My_travels">הנסיעות שלי</string>
     <string name="clientNameHint">שם לקוח</string>
     <string name="phoneNameHint"> מספר טלפון</string>
     <string name="emailAddressHint">כתובת דוא"ל</string>

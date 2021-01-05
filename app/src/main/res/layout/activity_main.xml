@@ -4,22 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="4dp"
     tools:context=".data.ui.MainActivity">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
+    <!--    <TextView-->
+<!--        android:id="@+id/textView2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginTop="50dp"-->
+<!--        android:gravity="center"-->
+<!--        android:text="@string/App_name"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textSize="50sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        tools:ignore="MissingConstraints" />-->
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="395dp"
+        android:layout_height="371dp"
+        android:focusableInTouchMode="false"
         android:gravity="center"
-        android:text="@string/App_name"
-        android:textAlignment="center"
-        android:textSize="50sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        android:src="@drawable/app_logo"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-5dp"
+        tools:layout_editor_absoluteY="-4dp" />
 
     <Button
         android:id="@+id/button"
@@ -50,7 +62,7 @@
         android:layout_marginBottom="72dp"
         android:gravity="center"
         android:onClick="btMyTravels"
-        android:text="הנסיעות שלי"
+        android:text="@string/My_travels"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

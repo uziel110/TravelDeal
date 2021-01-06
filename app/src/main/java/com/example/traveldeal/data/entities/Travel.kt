@@ -35,7 +35,7 @@ class Travel() {
             field = value
         }
     var departLocation: UserLocation? = null
-        get() = field
+        get() = if (field!= null) field else UserLocation(0.0,0.0)
         set(value) {
             field = value
         }
@@ -50,7 +50,7 @@ class Travel() {
             field = value
         }
     var destLocation: UserLocation? = null
-        get() = field
+        get() = if (field!= null) field else UserLocation(0.0,0.0)
         set(value) {
             field = value
         }

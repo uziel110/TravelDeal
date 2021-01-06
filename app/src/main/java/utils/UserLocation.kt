@@ -7,17 +7,21 @@ import android.location.Location
 import java.io.IOException
 import java.util.*
 
-class UserLocation(_lat: Double, _lon: Double) {
-    var lat: Double = _lat
+class UserLocation() {
+    var lat: Double = 0.0
         get() = field
         private set(value) {
             field = value
         }
-    var lon: Double = _lon
+    var lon: Double = 0.0
         get() = field
         private set(value) {
             field = value
         }
+    constructor(_lat: Double, _lon: Double) : this() {
+        lat = _lat
+        lon = _lon
+    }
 /*
     fun getLat(): Double {
         return lat

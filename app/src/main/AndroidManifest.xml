@@ -10,7 +10,7 @@
         android:theme="@style/Theme.TravelDeal">
         <activity
             android:name=".data.ui.AllTravelsActivity"
-            android:theme="@style/Theme.TravelDeal.NoActionBar" />
+            android:theme="@style/Theme.TravelDeal.NoActionBar"></activity>
         <activity
             android:name=".data.ui.AddTravelActivity"
             android:parentActivityName=".data.ui.MainActivity" />

@@ -23,7 +23,6 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import utils.UserLocation
-//import utils.DestinationAddressActivity
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*

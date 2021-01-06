@@ -23,35 +23,7 @@ class AddressDialog : AppCompatActivity() {
         isSourceAddress = intent.getBooleanExtra("bool", false)
         setContentView(R.layout.address_form)
         bSave = findViewById(R.id.bSaveAddress)
-        val api = "AIzaSyBlm-gYIse1zkWi3WwqQg3w9UOxRm4P3pE"
-        Places.initialize(applicationContext, api)
 
-        // Initialize the AutocompleteSupportFragment.
-        val autocompleteFragment =
-            supportFragmentManager.findFragmentById(R.id.autocomplete_fragment)
-                    as AutocompleteSupportFragment
-
-        // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(
-            listOf(
-                Place.Field.ID,
-                Place.Field.NAME,
-                Place.Field.ADDRESS
-            )
-        )
-        // Set up a PlaceSelectionListener to handle the response.
-        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
-            override fun onPlaceSelected(place: Place) {
-                currentPlace = place.address.toString()
-
-            }
-
-            override fun onError(status: com.google.android.gms.common.api.Status) {
-                // TODO: Handle the error.
-                Log.i("yay", "An error occurred: $status")
-            }
-
-        })
 
 //        bSave.setOnClickListener {
 //

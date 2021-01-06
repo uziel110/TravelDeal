@@ -34,7 +34,11 @@ class Travel() {
         set(value) {
             field = value
         }
-    //lateinit var departLocation: UserLocation
+    var departLocation: UserLocation? = null
+        get() = field
+        set(value) {
+            field = value
+        }
     var departureDate: String = ""
         get() = field
         set(value) {
@@ -45,7 +49,11 @@ class Travel() {
         set(value) {
             field = value
         }
-    //lateinit var destLocation: UserLocation
+    var destLocation: UserLocation? = null
+        get() = field
+        set(value) {
+            field = value
+        }
     var returnDate: String = ""
         get() = field
         set(value) {
@@ -73,10 +81,10 @@ class Travel() {
         _phone: String,
         _eMail: String,
         _departureAddress: String,
-        //_departLocation: UserLocation,
+        _departLocation: UserLocation,
         _departureDate: String,
         _destAddress: String,
-        //_destLocation: UserLocation,
+        _destLocation: UserLocation,
         _returnDate: String,
         _passNum: String,
         _requestStatus: String
@@ -85,10 +93,10 @@ class Travel() {
         clientPhone = _phone
         clientEmailAddress = _eMail
         departureAddress = _departureAddress
-        //departLocation = _departLocation
+        departLocation = _departLocation
         departureDate = _departureDate
         destinationAddress = _destAddress
-        //destLocation = _destLocation
+        destLocation = _destLocation
         returnDate = _returnDate
         passengersNumber = if (_passNum == "") 0 else _passNum.toInt()
         requestStatus = _requestStatus

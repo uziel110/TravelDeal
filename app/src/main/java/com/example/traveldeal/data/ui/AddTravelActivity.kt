@@ -2,11 +2,6 @@ package com.example.traveldeal.data.ui
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
-import android.content.Context
-import android.content.Intent
-import android.location.Address
-import android.location.Geocoder
-import android.location.Location
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -14,7 +9,6 @@ import android.text.TextWatcher
 import android.util.Log
 import android.util.Patterns
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -22,12 +16,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.traveldeal.R
 import com.example.traveldeal.data.entities.Travel
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import utils.AddressDialog
-//import utils.DestinationAddressActivity
 import utils.UserLocation
-import java.io.IOException
+//import utils.DestinationAddressActivity
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -35,6 +31,7 @@ import kotlin.properties.Delegates
 
 
 class AddTravelActivity : AppCompatActivity() {
+    val api = "AIzaSyBlm-gYIse1zkWi3WwqQg3w9UOxRm4P3pE"
 
     private lateinit var viewModel: TravelViewModel
     private lateinit var saveButton: Button
@@ -44,12 +41,18 @@ class AddTravelActivity : AppCompatActivity() {
     private lateinit var etDepartureDate: EditText
     private lateinit var etReturnDate: EditText
     private lateinit var etPassengersNumber: EditText
-    private lateinit var etDepartureAddress: EditText
-    private lateinit var etDestinationAddress: EditText
+//    private lateinit var etDepartureAddress: EditText
+//    private lateinit var etDestinationAddress: EditText
+//    private lateinit var acDepartureAddress
+//    private lateinit var acDestinationAddress: EditText
 
     private lateinit var bSourceAddress: Button
     private lateinit var bDestination: Button
 
+    var destinationAddress: String = ""
+    var departureAddress: String = ""
+    lateinit var destinationLocation: UserLocation
+    lateinit var departureLocation: UserLocation
 
     private fun isValidEmail(email: String): Boolean {
         return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
@@ -81,8 +84,10 @@ class AddTravelActivity : AppCompatActivity() {
         etReturnDate = findViewById(R.id.editTextReturnDate)
         etDepartureDate = findViewById(R.id.editTextDepartureDate)
         etPassengersNumber = findViewById(R.id.editTextPassengersNumber)
-        etDepartureAddress = findViewById(R.id.editTextTextDepartureAddress)
-        etDestinationAddress = findViewById(R.id.editTextTextDestinationAddress)
+//        etDepartureAddress = findViewById(R.id.editTextTextDepartureAddress)
+//        etDestinationAddress = findViewById(R.id.editTextTextDestinationAddress)
+//        acDestinationAddress = findViewById(R.id.autocomplete_DepartureAddress)
+//        acDestinationAddress = findViewById(R.id.autocomplete_DestinationAddress)
 
         val user = Firebase.auth.currentUser
         etEmailAddress.setText(user?.email)
@@ -177,28 +182,77 @@ class AddTravelActivity : AppCompatActivity() {
                 etPhone.text.clear()
             }
         }
+//
+//        etDepartureAddress.setOnClickListener {
+//            isSourceAddress = true
+//            startActivity(
+//                Intent(this, AddressDialog::class.java).putExtra("bool", isSourceAddress)
+//            )
+//        }
+//        etDestinationAddress.setOnClickListener {
+//            isSourceAddress = false
+//            startActivity(
+//                Intent(this, AddressDialog::class.java).putExtra("bool", isSourceAddress)
+//            )
+//        }
 
-        etDepartureAddress.setOnClickListener {
-            isSourceAddress = true
-            startActivity(
-                Intent(this, AddressDialog::class.java).putExtra("bool", isSourceAddress)
-            )
-        }
-        etDestinationAddress.setOnClickListener {
-            isSourceAddress = false
-            startActivity(
-                Intent(this, AddressDialog::class.java).putExtra("bool", isSourceAddress)
-            )
-        }
+        Places.initialize(applicationContext, api)
 
-//        addressMutableList = mutableListOf()
-//        address = ArrayAdapter(this, android.R.layout.simple_list_item_1, addressMutableList)
-//        viewModel.getIsSuccess().observe(this, {
-//            if (it)
-//                Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show()
-//            else
-//                Toast.makeText(this, "not saved", Toast.LENGTH_SHORT).show()
-//        })
+        // Initialize the AutocompleteSupportFragment.
+        val departureAddressAutocompleteFragment =
+            supportFragmentManager.findFragmentById(R.id.autocomplete_DepartureAddress)
+                    as AutocompleteSupportFragment
+        departureAddressAutocompleteFragment.setHint("כתובת יציאה")//.setText("כתובת יציאה")
+
+        // Specify the types of place data to return.
+        departureAddressAutocompleteFragment.setPlaceFields(
+            listOf(
+                Place.Field.ID,
+                Place.Field.NAME,
+                Place.Field.ADDRESS,
+                Place.Field.LAT_LNG
+            )
+        )
+        // Set up a PlaceSelectionListener to handle the response.
+        departureAddressAutocompleteFragment.setOnPlaceSelectedListener(object :
+            PlaceSelectionListener {
+            override fun onPlaceSelected(place: Place) {
+                departureAddress = place.address.toString()
+                departureLocation = place.latLng?.let { UserLocation(it.latitude, it.longitude) }!!
+            }
+
+            override fun onError(status: com.google.android.gms.common.api.Status) {
+                Toast.makeText(applicationContext, "Connection error", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        // Initialize the AutocompleteSupportFragment.
+        val destinationAddressAutocompleteFragment =
+            supportFragmentManager.findFragmentById(R.id.autocomplete_DestinationAddress)
+                    as AutocompleteSupportFragment
+        destinationAddressAutocompleteFragment.setHint("כתובת חזרה")//.setText("כתובת חזרה")
+
+        // Specify the types of place data to return.
+        destinationAddressAutocompleteFragment.setPlaceFields(
+            listOf(
+                Place.Field.ID,
+                Place.Field.NAME,
+                Place.Field.ADDRESS,
+                Place.Field.LAT_LNG
+            )
+        )
+        // Set up a PlaceSelectionListener to handle the response.
+        destinationAddressAutocompleteFragment.setOnPlaceSelectedListener(object :
+            PlaceSelectionListener {
+            override fun onPlaceSelected(place: Place) {
+                destinationAddress = place.address.toString()
+                destinationLocation = place.latLng?.let { UserLocation(it.latitude, it.longitude) }!!
+            }
+
+            override fun onError(status: com.google.android.gms.common.api.Status) {
+                Toast.makeText(applicationContext, "Connection error", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     fun saveButton(view: View) {
@@ -206,13 +260,12 @@ class AddTravelActivity : AppCompatActivity() {
         val clientName = etClientName.text.toString()
         val clientPhone = etPhone.text.toString()
         val clientEmailAddress = etEmailAddress.text.toString()
-        val departureAddress = etDepartureAddress.text.toString()
-        val destinationAddress = etDestinationAddress.text.toString()
+//        val departureAddress = etDepartureAddress.text.toString()
+//        val destinationAddress = etDestinationAddress.text.toString()
         val departureDate = etDepartureDate.text.toString()
         val returnDate = etReturnDate.text.toString()
         val passengersNumber = etPassengersNumber.text.toString()
 
-        // TODO: 05-Jan-21 make a runtime problem
         /*
         lateinit var departureLocation : UserLocation
         departureLocation.locationFromAddress(applicationContext,departureAddress)
@@ -241,10 +294,10 @@ class AddTravelActivity : AppCompatActivity() {
             clientPhone,
             clientEmailAddress,
             departureAddress,
-            //departureLocation,
+            departureLocation,
             departureDate,
             destinationAddress,
-            //destinationLocation,
+            destinationLocation,
             returnDate,
             passengersNumber,
             resources.getStringArray(R.array.status_array)[0]

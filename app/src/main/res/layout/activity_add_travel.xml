@@ -129,7 +129,5 @@
             android:onClick="saveButton"
             android:text="@string/buttonSaveText"
             tools:ignore="OnClick" />
-
-
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

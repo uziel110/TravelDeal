@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Travel Deal</string>
     <string name="App_name">Travel deal</string>
-    <string name="Add_travel">הוסף נסיעה חדשה</string>
+    <string name="Add_travel">נסיעה חדשה</string>
     <string name="My_travels">הנסיעות שלי</string>
+    <string name="Sign_out">יציאה</string>
     <string name="clientNameHint">שם לקוח</string>
     <string name="phoneNameHint"> מספר טלפון</string>
     <string name="emailAddressHint">כתובת דוא"ל</string>
@@ -28,11 +29,11 @@
         <item>סגור</item>
     </string-array>
 
-<!--    <status-map name="status_map">-->
-<!--        <entry key="נשלח">0</entry>-->
-<!--        <entry key="התקבל">1</entry>-->
-<!--        <entry key="פעיל">2</entry>-->
-<!--        <entry key="סגור">3</entry>-->
-<!--    </status-map>-->
+    <string name="tvAddress">tvAddress</string>
+    <string name="bSave">bSave</string>
+    <string name="destinations">destinations</string>
+
+
+
 
 </resources>

@@ -2,6 +2,11 @@ package com.example.traveldeal.data.ui
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.content.Context
+import android.content.Intent
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -9,6 +14,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.util.Patterns
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -18,10 +24,14 @@ import com.example.traveldeal.R
 import com.example.traveldeal.data.entities.Travel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import utils.AddressDialog
+//import utils.DestinationAddressActivity
 import utils.UserLocation
+import java.io.IOException
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.properties.Delegates
 
 
 class AddTravelActivity : AppCompatActivity() {
@@ -37,9 +47,15 @@ class AddTravelActivity : AppCompatActivity() {
     private lateinit var etDepartureAddress: EditText
     private lateinit var etDestinationAddress: EditText
 
+    private lateinit var bSourceAddress: Button
+    private lateinit var bDestination: Button
+
+
     private fun isValidEmail(email: String): Boolean {
         return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
+
+    private var isSourceAddress by Delegates.notNull<Boolean>()
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -161,6 +177,28 @@ class AddTravelActivity : AppCompatActivity() {
                 etPhone.text.clear()
             }
         }
+
+        etDepartureAddress.setOnClickListener {
+            isSourceAddress = true
+            startActivity(
+                Intent(this, AddressDialog::class.java).putExtra("bool", isSourceAddress)
+            )
+        }
+        etDestinationAddress.setOnClickListener {
+            isSourceAddress = false
+            startActivity(
+                Intent(this, AddressDialog::class.java).putExtra("bool", isSourceAddress)
+            )
+        }
+
+//        addressMutableList = mutableListOf()
+//        address = ArrayAdapter(this, android.R.layout.simple_list_item_1, addressMutableList)
+//        viewModel.getIsSuccess().observe(this, {
+//            if (it)
+//                Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show()
+//            else
+//                Toast.makeText(this, "not saved", Toast.LENGTH_SHORT).show()
+//        })
     }
 
     fun saveButton(view: View) {
@@ -214,6 +252,4 @@ class AddTravelActivity : AppCompatActivity() {
 
         viewModel.insertItem(travel)
     }
-
-
 }

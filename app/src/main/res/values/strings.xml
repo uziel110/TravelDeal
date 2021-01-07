@@ -8,8 +8,13 @@
     <string name="phoneNameHint"> מספר טלפון</string>
     <string name="emailAddressHint">כתובת דוא\"ל</string>
     <string name="departureAddressHint">כתובת איסוף</string>
-    <string name="destinationAddressHint"> כתובת יעד</string>
-    <string name="passengersNumberHint"> מספר נוסעים</string>
+    <string name="destinationAddressHint">כתובת יעד</string>
+    <string name="fromTitle">מ-</string>
+    <string name="toTitle">ל-</string>
+    <string name="passengersNumber"> נוסעים</string>
+    <string name="onePassengers"> נוסע אחד</string>
+
+    <string name="passengersNumberHint">מספר נוסעים</string>
     <string name="departureDateHint"> תאריך יציאה</string>
     <string name="returnDateHint"> תאריך חזרה</string>
     <string name="statusText">סטטוס נסיעה</string>

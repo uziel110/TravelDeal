@@ -9,6 +9,10 @@
     <string name="emailAddressHint">Email address</string>
     <string name="departureAddressHint">Collection address</string>
     <string name="destinationAddressHint">Destination address</string>
+    <string name="fromTitle">from:</string>
+    <string name="toTitle">to:</string>
+    <string name="passengersNumber"> passengers</string>
+    <string name="onePassengers">one passenger</string>
     <string name="passengersNumberHint"> Number of passengers</string>
     <string name="departureDateHint"> Departure date</string>
     <string name="returnDateHint">Return date</string>

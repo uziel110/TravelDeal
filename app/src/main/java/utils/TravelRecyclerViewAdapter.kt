@@ -1,15 +1,29 @@
 package utils
 
 import android.annotation.SuppressLint
+import android.app.Application
+import android.content.res.Resources
 import android.icu.text.Transliterator
 import android.text.Layout
+import android.provider.Settings.Secure.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal.R
 import com.example.traveldeal.data.entities.Travel
+import com.google.android.material.internal.ContextUtils.getActivity
+import utils.UserLocation.Companion.addressFromLocation
+import java.security.AccessController.getContext
+
+
+object Strings {
+    fun get(@StringRes stringRes: Int, vararg formatArgs: Any = emptyArray()): String {
+        return App.instance.getString(stringRes, *formatArgs)
+    }
+}
 
 class TravelRecyclerViewAdapter(
     private val travelList: List<Travel>,
@@ -23,8 +37,10 @@ class TravelRecyclerViewAdapter(
         return ViewHolder(view)
     }
 
-    @SuppressLint("RestrictedApi")
+    @SuppressLint("RestrictedApi", "SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
+
+
         val currentItem = travelList[listPosition]
         holder.itemID = currentItem.clientId
         holder.sourceAddress.text = currentItem.departureAddress
@@ -32,7 +48,11 @@ class TravelRecyclerViewAdapter(
         holder.departureDate.text = currentItem.departureDate
         holder.returnDate.text = currentItem.returnDate
         holder.returnDate.text = currentItem.returnDate
-        holder.psgNum.text = currentItem.passengersNumber.toString()
+        var passengersNum = currentItem.passengersNumber.toString()
+        holder.psgNum.text =
+            if(passengersNum == "1") {
+                Strings.get(R.string.onePassengers)
+            } else passengersNum + " ${Strings.get(R.string.passengersNumber)}"
 
         holder.expandableLayout.visibility = if (currentItem.expandable) View.VISIBLE else View.GONE
 

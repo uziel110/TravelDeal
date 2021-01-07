@@ -19,16 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_margin="8dp">
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="הנסיעות שלי"
-        android:textSize="24sp"
-        tools:ignore="MissingConstraints" />
-
+        android:layout_margin="16dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvUserTravels"
@@ -37,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/activity_card_travel"/>
+<!--        android:alpha="0.7"-->
 
     </LinearLayout>
 

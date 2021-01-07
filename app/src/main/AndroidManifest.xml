@@ -2,6 +2,7 @@
     package="com.example.traveldeal">
 
     <application
+        android:name="utils.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,7 +11,7 @@
         android:theme="@style/Theme.TravelDeal">
         <activity
             android:name=".data.ui.AllTravelsActivity"
-            android:theme="@style/Theme.TravelDeal.NoActionBar"></activity>
+            android:theme="@style/Theme.TravelDeal.NoActionBar" />
         <activity
             android:name=".data.ui.AddTravelActivity"
             android:parentActivityName=".data.ui.MainActivity" />
@@ -24,6 +25,10 @@
 
         <activity
             android:name="utils.AddressDialog"/>
+
+
+
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

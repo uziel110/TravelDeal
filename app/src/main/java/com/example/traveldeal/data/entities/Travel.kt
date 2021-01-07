@@ -2,6 +2,7 @@ package com.example.traveldeal.data.entities
 
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
+import com.google.firebase.database.Exclude
 import utils.UserLocation
 
 
@@ -65,6 +66,12 @@ class Travel() {
             field = value
         }
     var requestStatus: String = ""
+        get() = field
+        set(value) {
+            field = value
+        }
+    @Exclude
+    var expandable: Boolean = false
         get() = field
         set(value) {
             field = value

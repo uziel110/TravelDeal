@@ -1,6 +1,8 @@
 package utils
 
 import android.annotation.SuppressLint
+import android.icu.text.Transliterator
+import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +10,6 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal.R
 import com.example.traveldeal.data.entities.Travel
-import utils.UserLocation.Companion.addressFromLocation
 
 class TravelRecyclerViewAdapter(
     private val travelList: List<Travel>,
@@ -24,8 +25,6 @@ class TravelRecyclerViewAdapter(
 
     @SuppressLint("RestrictedApi")
     override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
-
-
         val currentItem = travelList[listPosition]
         holder.itemID = currentItem.clientId
         holder.sourceAddress.text = currentItem.departureAddress
@@ -34,6 +33,13 @@ class TravelRecyclerViewAdapter(
         holder.returnDate.text = currentItem.returnDate
         holder.returnDate.text = currentItem.returnDate
         holder.psgNum.text = currentItem.passengersNumber.toString()
+
+        holder.expandableLayout.visibility = if (currentItem.expandable) View.VISIBLE else View.GONE
+
+        holder.mainLayout.setOnClickListener{
+            travelList[listPosition].expandable = !travelList[listPosition].expandable
+            notifyItemChanged(listPosition)
+        }
     }
 
     override fun getItemCount() = travelList.size
@@ -47,14 +53,17 @@ class TravelRecyclerViewAdapter(
         var departureDate: TextView = this.itemView.findViewById(R.id.TextViewDepartureDate)
         var returnDate: TextView = this.itemView.findViewById(R.id.TextViewReturnDate)
         var psgNum: TextView = this.itemView.findViewById(R.id.TextViewPassengersNumber) as TextView
+        var expandableLayout: LinearLayout = this.itemView.findViewById(R.id.ExpandableLayout)
+        var mainLayout: RelativeLayout = this.itemView.findViewById(R.id.cardMAinLayout)
 
         init {
             itemView.setOnClickListener(this)
         }
 
         override fun onClick(v: View?) {
-            if (adapterPosition != RecyclerView.NO_POSITION)
+            if (adapterPosition != RecyclerView.NO_POSITION) {
                 listener.onItemClick(adapterPosition)
+            }
         }
     }
 

@@ -5,6 +5,7 @@
     android:layout_margin="4dp">
 
     <RelativeLayout
+        android:id="@+id/cardMAinLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="8dp">
@@ -144,7 +145,22 @@
             android:layout_toRightOf="@+id/PassengersNumberTitle"
             android:layout_below="@+id/TextViewReturnDate"
             android:textColor="#faba2a"/>
-
+        <LinearLayout
+            android:id="@+id/ExpandableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TextViewPassengersNumber"
+            android:visibility="visible">
+        <TextView
+            android:id="@+id/TextViewTest"
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            android:text="בדיקה"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:textColor="#faba2a"/>
+            </LinearLayout>
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

@@ -92,7 +92,7 @@ class AddTravelActivity : AppCompatActivity() {
         val user = Firebase.auth.currentUser
         etEmailAddress.setText(user?.email)
         etClientName.setText(user?.displayName)
-        etPhone.setText(user?.phoneNumber)
+        //etPhone.setText(user?.phoneNumber)
         var picker: DatePickerDialog
 
         //etDepartureDate.inputType = InputType.TYPE_NULL

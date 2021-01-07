@@ -4,9 +4,9 @@
     <string name="Add_travel">נסיעה חדשה</string>
     <string name="My_travels">הנסיעות שלי</string>
     <string name="Sign_out">יציאה</string>
-    <string name="clientNameHint">שם לקוח</string>
+    <string name="clientNameHint">שם</string>
     <string name="phoneNameHint"> מספר טלפון</string>
-    <string name="emailAddressHint">כתובת דוא"ל</string>
+    <string name="emailAddressHint">כתובת דוא\"ל</string>
     <string name="departureAddressHint">כתובת איסוף</string>
     <string name="destinationAddressHint"> כתובת יעד</string>
     <string name="passengersNumberHint"> מספר נוסעים</string>
@@ -28,11 +28,6 @@
         <item>פעיל</item>
         <item>סגור</item>
     </string-array>
-
-    <string name="tvAddress">tvAddress</string>
-    <string name="bSave">bSave</string>
-    <string name="destinations">destinations</string>
-
 
 
 

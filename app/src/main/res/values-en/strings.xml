@@ -29,11 +29,4 @@
         <item>CLOSED</item>
     </string-array>
 
-    <string name="tvAddress">tvAddress</string>
-    <string name="bSave">bSave</string>
-    <string name="destinations">destinations</string>
-
-
-
-
 </resources>

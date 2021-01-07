@@ -21,8 +21,8 @@ class AddressDialog : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         isSourceAddress = intent.getBooleanExtra("bool", false)
-        setContentView(R.layout.address_form)
-        bSave = findViewById(R.id.bSaveAddress)
+//        setContentView(R.layout.address_form)
+//        bSave = findViewById(R.id.bSaveAddress)
 
 
 //        bSave.setOnClickListener {

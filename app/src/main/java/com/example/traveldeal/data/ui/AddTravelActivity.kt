@@ -1,5 +1,6 @@
 package com.example.traveldeal.data.ui
 
+//import utils.DestinationAddressActivity
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -22,12 +23,12 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import org.w3c.dom.Text
 import utils.UserLocation
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.properties.Delegates
-
 
 class AddTravelActivity : AppCompatActivity() {
     val api = "AIzaSyBlm-gYIse1zkWi3WwqQg3w9UOxRm4P3pE"
@@ -105,10 +106,14 @@ class AddTravelActivity : AppCompatActivity() {
             picker = DatePickerDialog(
                 this,
                 { _, theYear, monthOfYear, dayOfMonth ->
-                    etDepartureDate.setText("$dayOfMonth/${monthOfYear + 1}/$theYear")
+                    etDepartureDate.setText("$dayOfMonth/${monthOfYear + 1}/$theYear.")
                 },
                 year, month, day
+
             )
+
+            var test   = SimpleDateFormat(etDepartureDate.text.toString())
+           // test.SimpleDateFormat("dd/MM/yyyy")
             picker.datePicker.minDate = System.currentTimeMillis() - 1000
             picker.show()
         }
@@ -201,7 +206,7 @@ class AddTravelActivity : AppCompatActivity() {
         val departureAddressAutocompleteFragment =
             supportFragmentManager.findFragmentById(R.id.autocomplete_DepartureAddress)
                     as AutocompleteSupportFragment
-        departureAddressAutocompleteFragment.setHint("כתובת יציאה")//.setText("כתובת יציאה")
+        departureAddressAutocompleteFragment.setHint(getString(R.string.departureAddressHint))//.setText("כתובת יציאה")
 
         // Specify the types of place data to return.
         departureAddressAutocompleteFragment.setPlaceFields(
@@ -212,11 +217,18 @@ class AddTravelActivity : AppCompatActivity() {
                 Place.Field.LAT_LNG
             )
         )
+
+
         // Set up a PlaceSelectionListener to handle the response.
         departureAddressAutocompleteFragment.setOnPlaceSelectedListener(object :
             PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
-                departureAddress = place.address.toString()
+
+                //Removes the country from the address
+                val tmp = place.address.toString()
+                departureAddress = tmp.substring(0, tmp.lastIndexOf(","))
+
+                //departureAddress = place.address.toString()
                 departureLocation = place.latLng?.let { UserLocation(it.latitude, it.longitude) }!!
             }
 
@@ -229,7 +241,7 @@ class AddTravelActivity : AppCompatActivity() {
         val destinationAddressAutocompleteFragment =
             supportFragmentManager.findFragmentById(R.id.autocomplete_DestinationAddress)
                     as AutocompleteSupportFragment
-        destinationAddressAutocompleteFragment.setHint("כתובת חזרה")//.setText("כתובת חזרה")
+        destinationAddressAutocompleteFragment.setHint(getString(R.string.destinationAddressHint))//.setText("כתובת חזרה")
 
         // Specify the types of place data to return.
         destinationAddressAutocompleteFragment.setPlaceFields(
@@ -244,7 +256,12 @@ class AddTravelActivity : AppCompatActivity() {
         destinationAddressAutocompleteFragment.setOnPlaceSelectedListener(object :
             PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
-                destinationAddress = place.address.toString()
+
+                //Removes the country from the address
+                val tmp = place.address.toString()
+                destinationAddress = tmp.substring(0, tmp.lastIndexOf(","))
+
+                //destinationAddress = place.address.toString()
                 destinationLocation = place.latLng?.let { UserLocation(it.latitude, it.longitude) }!!
             }
 
@@ -265,6 +282,7 @@ class AddTravelActivity : AppCompatActivity() {
         val returnDate = etReturnDate.text.toString()
         val passengersNumber = etPassengersNumber.text.toString()
 
+        // TODO: 05-Jan-21 make a runtime problem
         /*
         lateinit var departureLocation : UserLocation
         departureLocation.locationFromAddress(applicationContext,departureAddress)

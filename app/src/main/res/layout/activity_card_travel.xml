@@ -15,57 +15,135 @@
             android:layout_height="50dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:src="@drawable/ic_bus" />
+            android:src="@drawable/ic_bus"
+            android:textColor="#faba2a"/>
 
         <TextView
-            android:id="@+id/TextViewDepartureAddress"
-            android:layout_width="100dp"
+            android:id="@+id/DepartureAddressTitle"
+            android:layout_width="150dp"
             android:layout_height="20dp"
-            android:text="DepartureAddress"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_toEndOf="@+id/image_view"
-            android:layout_toRightOf="@+id/image_view" />
-        <TextView
-            android:id="@+id/TextViewDestinationAddress"
-            android:layout_width="100dp"
-            android:layout_height="20dp"
-            android:text="DestinationAddress"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
+            android:text="@string/departureAddressHint"
             android:layout_toEndOf="@+id/image_view"
             android:layout_toRightOf="@+id/image_view"
-            android:layout_below="@+id/TextViewDepartureAddress"/>
-        <TextView
-            android:id="@+id/TextViewPassengersNumber"
-            android:layout_width="100dp"
-            android:layout_height="20dp"
-            android:text="PassengersNumber"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginRight="8dp"
-            android:layout_toEndOf="@+id/TextViewDepartureDate"
-            android:layout_toRightOf="@+id/TextViewDepartureDate" />
+            android:textSize="12sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/TextViewDepartureAddress"
+            android:layout_width="200dp"
+            android:layout_height="20dp"
+            android:text="DepartureAddress"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="8dp"
+            android:layout_toEndOf="@+id/DepartureAddressTitle"
+            android:layout_toRightOf="@+id/DepartureAddressTitle"
+            android:textColor="#faba2a"/>
+
+
+        <TextView
+            android:id="@+id/DestinationAddressTitle"
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:text="@string/destinationAddressHint"
+            android:layout_toEndOf="@+id/image_view"
+            android:layout_toRightOf="@+id/image_view"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/DepartureAddressTitle"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/TextViewDestinationAddress"
+            android:layout_width="200dp"
+            android:layout_height="20dp"
+            android:text="DestinationAddress"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@+id/DestinationAddressTitle"
+            android:layout_toRightOf="@+id/DestinationAddressTitle"
+            android:layout_below="@+id/TextViewDepartureAddress"
+            android:textColor="#faba2a"/>
+
+        <TextView
+            android:id="@+id/DepartureDateTitle"
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:text="@string/departureDateHint"
+            android:layout_toEndOf="@+id/image_view"
+            android:layout_toRightOf="@+id/image_view"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/DestinationAddressTitle"
+            android:textSize="12sp"
+            android:textStyle="bold" />
         <TextView
             android:id="@+id/TextViewDepartureDate"
-            android:layout_width="100dp"
+            android:layout_width="60dp"
             android:layout_height="20dp"
             android:text="DepartureDate"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginRight="8dp"
-            android:layout_toEndOf="@+id/TextViewDepartureAddress"
-            android:layout_toRightOf="@+id/TextViewDepartureAddress" />
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@+id/DepartureDateTitle"
+            android:layout_toRightOf="@+id/DepartureDateTitle"
+            android:layout_below="@+id/TextViewDestinationAddress"
+            android:textColor="#faba2a"/>
+
+        <TextView
+            android:id="@+id/ReturnDateTitle"
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:text="@string/returnDateHint"
+            android:layout_toEndOf="@+id/image_view"
+            android:layout_toRightOf="@+id/image_view"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/DepartureDateTitle"
+            android:textSize="12sp"
+            android:textStyle="bold" />
         <TextView
             android:id="@+id/TextViewReturnDate"
             android:layout_width="100dp"
             android:layout_height="20dp"
             android:text="ReturnDate"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:layout_toEndOf="@+id/TextViewDestinationAddress"
-            android:layout_toRightOf="@+id/TextViewDestinationAddress"
-            android:layout_below="@+id/TextViewDepartureDate"/>
+            android:layout_toEndOf="@+id/ReturnDateTitle"
+            android:layout_toRightOf="@+id/ReturnDateTitle"
+            android:layout_below="@+id/TextViewDepartureDate"
+            android:textColor="#faba2a"/>
+
+        <TextView
+            android:id="@+id/PassengersNumberTitle"
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:text="@string/passengersNumberHint"
+            android:layout_toEndOf="@+id/image_view"
+            android:layout_toRightOf="@+id/image_view"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/ReturnDateTitle"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/TextViewPassengersNumber"
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            android:text="PassengersNumber"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@+id/PassengersNumberTitle"
+            android:layout_toRightOf="@+id/PassengersNumberTitle"
+            android:layout_below="@+id/TextViewReturnDate"
+            android:textColor="#faba2a"/>
 
     </RelativeLayout>
 

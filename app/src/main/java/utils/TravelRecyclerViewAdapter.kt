@@ -24,6 +24,8 @@ class TravelRecyclerViewAdapter(
 
     @SuppressLint("RestrictedApi")
     override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
+
+
         val currentItem = travelList[listPosition]
         holder.itemID = currentItem.clientId
         holder.sourceAddress.text = currentItem.departureAddress

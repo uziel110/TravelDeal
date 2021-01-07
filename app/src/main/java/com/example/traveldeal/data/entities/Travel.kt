@@ -70,19 +70,20 @@ class Travel() {
         set(value) {
             field = value
         }
-    @Exclude
+    // for expandable of card in recycle view
     var expandable: Boolean = false
+        @Exclude
         get() = field
         set(value) {
             field = value
         }
-    /*
-    var company: HashMap<String, Boolean> = TODO()
+
+    var company: HashMap<String, Boolean> = hashMapOf()
         get() = field
         set(value) {
             field = value
         }
-*/
+
     constructor(
         _name: String,
         _phone: String,

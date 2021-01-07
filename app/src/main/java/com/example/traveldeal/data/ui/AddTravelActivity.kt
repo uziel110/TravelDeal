@@ -112,8 +112,8 @@ class AddTravelActivity : AppCompatActivity() {
 
             )
 
-            var test   = SimpleDateFormat(etDepartureDate.text.toString())
-           // test.SimpleDateFormat("dd/MM/yyyy")
+            var test = SimpleDateFormat(etDepartureDate.text.toString())
+            // test.SimpleDateFormat("dd/MM/yyyy")
             picker.datePicker.minDate = System.currentTimeMillis() - 1000
             picker.show()
         }
@@ -226,14 +226,15 @@ class AddTravelActivity : AppCompatActivity() {
 
                 //Removes the country from the address
                 val tmp = place.address.toString()
-                departureAddress = tmp.substring(0, tmp.lastIndexOf(","))
+                departureAddress =
+                    if (tmp.indexOf(",") == -1) tmp else tmp.substring(0, tmp.lastIndexOf(","))
 
                 //departureAddress = place.address.toString()
                 departureLocation = place.latLng?.let { UserLocation(it.latitude, it.longitude) }!!
             }
 
             override fun onError(status: com.google.android.gms.common.api.Status) {
-                Toast.makeText(applicationContext, "Connection error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Auto complete error", Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -259,14 +260,15 @@ class AddTravelActivity : AppCompatActivity() {
 
                 //Removes the country from the address
                 val tmp = place.address.toString()
-                destinationAddress = tmp.substring(0, tmp.lastIndexOf(","))
-
+                destinationAddress =
+                    if (tmp.indexOf(",") == -1) tmp else tmp.substring(0, tmp.lastIndexOf(","))
                 //destinationAddress = place.address.toString()
-                destinationLocation = place.latLng?.let { UserLocation(it.latitude, it.longitude) }!!
+                destinationLocation =
+                    place.latLng?.let { UserLocation(it.latitude, it.longitude) }!!
             }
 
             override fun onError(status: com.google.android.gms.common.api.Status) {
-                Toast.makeText(applicationContext, "Connection error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Auto complete error", Toast.LENGTH_SHORT).show()
             }
         })
     }

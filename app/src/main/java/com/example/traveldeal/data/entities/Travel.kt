@@ -5,7 +5,6 @@ import androidx.room.TypeConverters
 import com.google.firebase.database.Exclude
 import utils.UserLocation
 
-
 @TypeConverters(Travel.UserLocationConverter::class)
 private val travelLocation: UserLocation? = null
 

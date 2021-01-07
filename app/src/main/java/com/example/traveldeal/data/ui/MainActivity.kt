@@ -36,15 +36,14 @@ class MainActivity : AppCompatActivity() {
         val providers = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build(),
             AuthUI.IdpConfig.GoogleBuilder().build(),
-            AuthUI.IdpConfig.PhoneBuilder().build()
         )
         // Create and launch sign-in intent
         startActivityForResult(
             AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
-                //.setIsSmartLockEnabled(false)
-                //.setLogo(R.drawable.klipartz)
+                .setIsSmartLockEnabled(false)
+                .setLogo(R.drawable.app_logo)
                 .build(),
             RC_SIGN_IN
         )

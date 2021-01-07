@@ -1,11 +1,6 @@
 package utils
 
 import android.annotation.SuppressLint
-import android.app.Application
-import android.content.res.Resources
-import android.icu.text.Transliterator
-import android.text.Layout
-import android.provider.Settings.Secure.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +9,6 @@ import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal.R
 import com.example.traveldeal.data.entities.Travel
-import com.google.android.material.internal.ContextUtils.getActivity
-import utils.UserLocation.Companion.addressFromLocation
-import java.security.AccessController.getContext
 
 
 object Strings {
@@ -74,7 +66,7 @@ class TravelRecyclerViewAdapter(
         var returnDate: TextView = this.itemView.findViewById(R.id.TextViewReturnDate)
         var psgNum: TextView = this.itemView.findViewById(R.id.TextViewPassengersNumber) as TextView
         var expandableLayout: LinearLayout = this.itemView.findViewById(R.id.ExpandableLayout)
-        var mainLayout: RelativeLayout = this.itemView.findViewById(R.id.cardMAinLayout)
+        var mainLayout: RelativeLayout = this.itemView.findViewById(R.id.cardMainLayout)
 
         init {
             itemView.setOnClickListener(this)

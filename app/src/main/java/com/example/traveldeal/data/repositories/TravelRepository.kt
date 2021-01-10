@@ -4,47 +4,41 @@ import  android.app.Application
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.traveldeal.data.ITravelDataSource
 import com.example.traveldeal.data.entities.Travel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
-
 
 class TravelRepository(application: Application) : Application() {
-    //lateinit var travels: MutableLiveData<MutableList<Travel>>
 
-    private val remoteDatabase: TravelDataSource = TravelDataSource()
-   private val localDatabase = LocalDatabase(application.applicationContext)
-
-
-//    companion object {
-//
-//        @Volatile
-//        private var INSTANCE: TravelRepository? = null
-//
-//        fun getInstance(application: Application): TravelRepository =
-//            INSTANCE ?: synchronized(this) {
-//                INSTANCE ?: TravelRepository(application).also { INSTANCE = it }
-//            }
-//    }
-
-    //var localDatabase: LocalDatabase = LoacalDatabase(application.applicationContext)
+    private var remoteDatabase: ITravelDataSource = TravelDataSource()
+    private val localDatabase = LocalDatabase(application.applicationContext)
+    val travelsList = MutableLiveData<List<Travel?>?>()
+    init {
+        val notifyData : ITravelDataSource.NotifyLiveData = object : ITravelDataSource.NotifyLiveData{
+            override fun onDataChange() {
+                var tempList = remoteDatabase.getAllTravels()
+                travelsList.postValue(tempList)
+                localDatabase.clearTable()
+                localDatabase.addTravels(tempList)
+            }
+        }
+        remoteDatabase.setNotifyLiveData(notifyData)
+    }
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insert (travel : Travel){
-        //remoteDatabase.insert(travel)
-       localDatabase.addTravel(travel)
-
+    fun insert(travel: Travel) {
+        remoteDatabase.addTravel(travel)
     }
 
-    fun getLiveData(): LiveData<Boolean>{
+    fun getLiveData(): LiveData<Boolean> {
         return remoteDatabase.getLiveData()
     }
 
-    fun getAllTravels(): MutableLiveData<MutableList<Travel>> {
-        return remoteDatabase.getAllTravels()
+    fun getAllTravels(): MutableLiveData<List<Travel?>?> {
+        return travelsList
     }
-    fun getTravel(id: String): MutableLiveData<Travel> {
-        return remoteDatabase.getTravel(id)
-    }
+//
+//    fun getTravel(id: String): MutableLiveData<Travel> {
+//        return remoteDatabase.getTravel(id)
+//    }
 }

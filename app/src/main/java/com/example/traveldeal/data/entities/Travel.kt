@@ -1,16 +1,13 @@
 package com.example.traveldeal.data.entities
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
-import androidx.room.TypeConverters
+import androidx.room.*
 import com.google.firebase.database.Exclude
 import utils.UserLocation
 
 //@TypeConverters(Travel.UserLocationConverter::class)
 //private val travelLocation: UserLocation? = null
 
-@Entity(tableName = "travels")
+@Entity(tableName = "travels_table")
 class Travel {
     @PrimaryKey
     var clientId: String = ""
@@ -28,18 +25,20 @@ class Travel {
     var departureAddress: String = ""
         set
         get() = field
+    @TypeConverters(UserLocationConverter::class)
     var departLocation: UserLocation? = null
         set
-        get() = if (field!= null) field else UserLocation(0.0,0.0)
+        get() = if (field != null) field else UserLocation(0.0, 0.0)
     var departureDate: String = ""
         set
         get() = field
     var destinationAddress: String = ""
         set
         get() = field
+    @TypeConverters(UserLocationConverter::class)
     var destLocation: UserLocation? = null
         set
-        get() = if (field!= null) field else UserLocation(0.0,0.0)
+        get() = if (field != null) field else UserLocation(0.0, 0.0)
     var returnDate: String = ""
         set
         get() = field
@@ -49,42 +48,19 @@ class Travel {
     var requestStatus: String = ""
         set
         get() = field
+
     // for expandable of card in recycle view
-//    var expandable: Boolean = false
-//        @Exclude
-//        set
-//        get() = field
+    @Ignore
+    var expandable: Boolean = false
+        @Exclude
+        set
+        get() = field
 
-//    var company: HashMap<String, Boolean> = hashMapOf()
-//        set
-//        get() = field
-
-    constructor()
-//    constructor(
-//        _name: String,
-//        _phone: String,
-//        _eMail: String,
-//        _departureAddress: String,
-//        _departLocation: UserLocation,
-//        _departureDate: String,
-//        _destAddress: String,
-//        _destLocation: UserLocation,
-//        _returnDate: String,
-//        _passNum: String,
-//        _requestStatus: String
-//    ) : this() {
-//        clientName = _name
-//        clientPhone = _phone
-//        clientEmailAddress = _eMail
-//        departureAddress = _departureAddress
-//        departLocation = _departLocation
-//        departureDate = _departureDate
-//        destinationAddress = _destAddress
-//        destLocation = _destLocation
-//        returnDate = _returnDate
-//        passengersNumber = if (_passNum == "") 0 else _passNum.toInt()
-//        requestStatus = _requestStatus
-//    }
+    // temporary ignored
+    @Ignore
+    var company: HashMap<String, Boolean> = hashMapOf()
+        set
+        get() = field
 
     class UserLocationConverter {
         @TypeConverter
@@ -96,9 +72,9 @@ class Travel {
         }
 
         @TypeConverter
-        fun asString(warehouseUserLocation: UserLocation?): String {
-            return if (warehouseUserLocation == null) "" else warehouseUserLocation.lat
-                .toString() + " " + warehouseUserLocation.lon
+        fun asString(userLocation: UserLocation?): String {
+            return if (userLocation == null) "" else userLocation.lat
+                .toString() + " " + userLocation.lon
         }
     }
 }

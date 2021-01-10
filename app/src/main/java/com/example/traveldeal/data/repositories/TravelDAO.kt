@@ -8,20 +8,23 @@ import com.example.traveldeal.data.entities.Travel
 interface TravelDAO {
 
     @Insert
-    suspend fun insert(travel: Travel)
+    fun insert(travel: Travel)
+
+    @Insert
+    fun insertList(travel: List<Travel?>?)
 
     @Update
     fun update(travel: Travel)
 
     @Delete
-    open fun delete(travel: Travel): Unit
+    fun delete(travel: Travel): Unit
 
-    @Query("SELECT * from travels WHERE clientId = :key")
+    @Query("SELECT * from travels_table WHERE clientId = :key")
     fun getTravelById(key: String?): LiveData<Travel?>?
 
-    @Query("SELECT * FROM travels")
+    @Query("SELECT * FROM travels_table")
     fun getTravels(): LiveData<List<Travel>>
 
-    @Query("DELETE FROM travels")
+    @Query("DELETE FROM travels_table")
     fun deleteAll()
 }

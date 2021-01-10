@@ -41,24 +41,15 @@ class AddTravelActivity : AppCompatActivity() {
     private lateinit var etDepartureDate: EditText
     private lateinit var etReturnDate: EditText
     private lateinit var etPassengersNumber: EditText
-//    private lateinit var etDepartureAddress: EditText
-//    private lateinit var etDestinationAddress: EditText
-//    private lateinit var acDepartureAddress
-//    private lateinit var acDestinationAddress: EditText
 
-    private lateinit var bSourceAddress: Button
-    private lateinit var bDestination: Button
-
-    var destinationAddress: String = ""
-    var departureAddress: String = ""
-    lateinit var destinationLocation: UserLocation
-    lateinit var departureLocation: UserLocation
+    private var destinationAddress: String = ""
+    private var departureAddress: String = ""
+    // lateinit var destinationLocation: UserLocation  // todo uncomment
+    //  lateinit var departureLocation: UserLocation  // todo uncomment
 
     private fun isValidEmail(email: String): Boolean {
         return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
-
-    private var isSourceAddress by Delegates.notNull<Boolean>()
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,10 +75,6 @@ class AddTravelActivity : AppCompatActivity() {
         etReturnDate = findViewById(R.id.editTextReturnDate)
         etDepartureDate = findViewById(R.id.editTextDepartureDate)
         etPassengersNumber = findViewById(R.id.editTextPassengersNumber)
-//        etDepartureAddress = findViewById(R.id.editTextTextDepartureAddress)
-//        etDestinationAddress = findViewById(R.id.editTextTextDestinationAddress)
-//        acDestinationAddress = findViewById(R.id.autocomplete_DepartureAddress)
-//        acDestinationAddress = findViewById(R.id.autocomplete_DestinationAddress)
 
         val user = Firebase.auth.currentUser
         etEmailAddress.setText(user?.email)
@@ -111,9 +98,6 @@ class AddTravelActivity : AppCompatActivity() {
                 year, month, day
 
             )
-
-            var test = SimpleDateFormat(etDepartureDate.text.toString())
-            // test.SimpleDateFormat("dd/MM/yyyy")
             picker.datePicker.minDate = System.currentTimeMillis() - 1000
             picker.show()
         }
@@ -186,19 +170,6 @@ class AddTravelActivity : AppCompatActivity() {
                 etPhone.text.clear()
             }
         }
-//
-//        etDepartureAddress.setOnClickListener {
-//            isSourceAddress = true
-//            startActivity(
-//                Intent(this, AddressDialog::class.java).putExtra("bool", isSourceAddress)
-//            )
-//        }
-//        etDestinationAddress.setOnClickListener {
-//            isSourceAddress = false
-//            startActivity(
-//                Intent(this, AddressDialog::class.java).putExtra("bool", isSourceAddress)
-//            )
-//        }
 
         Places.initialize(applicationContext, api)
 
@@ -206,7 +177,8 @@ class AddTravelActivity : AppCompatActivity() {
         val departureAddressAutocompleteFragment =
             supportFragmentManager.findFragmentById(R.id.autocomplete_DepartureAddress)
                     as AutocompleteSupportFragment
-        departureAddressAutocompleteFragment.setHint(getString(R.string.departureAddressHint))//.setText("כתובת יציאה")
+        departureAddressAutocompleteFragment.setHint(getString(R.string.departureAddressHint))
+            .setText("ירושלים")
 
         // Specify the types of place data to return.
         departureAddressAutocompleteFragment.setPlaceFields(
@@ -225,12 +197,9 @@ class AddTravelActivity : AppCompatActivity() {
             override fun onPlaceSelected(place: Place) {
 
                 //Removes the country from the address
-                val tmp = place.address.toString()
-                departureAddress =
-                    if (tmp.indexOf(",") == -1) tmp else tmp.substring(0, tmp.lastIndexOf(","))
 
-                //departureAddress = place.address.toString()
-                departureLocation = place.latLng?.let { UserLocation(it.latitude, it.longitude) }!!
+                departureAddress = place.address.toString()
+                //   departureLocation = place.latLng?.let { UserLocation(it.latitude, it.longitude) }!!  // todo uncomment
             }
 
             override fun onError(status: com.google.android.gms.common.api.Status) {
@@ -242,7 +211,8 @@ class AddTravelActivity : AppCompatActivity() {
         val destinationAddressAutocompleteFragment =
             supportFragmentManager.findFragmentById(R.id.autocomplete_DestinationAddress)
                     as AutocompleteSupportFragment
-        destinationAddressAutocompleteFragment.setHint(getString(R.string.destinationAddressHint))//.setText("כתובת חזרה")
+        destinationAddressAutocompleteFragment.setHint(getString(R.string.destinationAddressHint))
+            .setText("חיפה")
 
         // Specify the types of place data to return.
         destinationAddressAutocompleteFragment.setPlaceFields(
@@ -257,14 +227,13 @@ class AddTravelActivity : AppCompatActivity() {
         destinationAddressAutocompleteFragment.setOnPlaceSelectedListener(object :
             PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
-
-                //Removes the country from the address
-                val tmp = place.address.toString()
-                destinationAddress =
-                    if (tmp.indexOf(",") == -1) tmp else tmp.substring(0, tmp.lastIndexOf(","))
-                //destinationAddress = place.address.toString()
-                destinationLocation =
-                    place.latLng?.let { UserLocation(it.latitude, it.longitude) }!!
+                destinationAddress = place.address.toString()
+//                destinationLocation = place.latLng?.let {
+//                    UserLocation(
+//                        it.latitude,
+//                        it.longitude
+//                    )
+//                }!! // todo uncomment
             }
 
             override fun onError(status: com.google.android.gms.common.api.Status) {
@@ -273,30 +242,26 @@ class AddTravelActivity : AppCompatActivity() {
         })
     }
 
-    suspend fun saveButton(view: View) {
+    fun saveButton(view: View) {
 
         val clientName = etClientName.text.toString()
         val clientPhone = etPhone.text.toString()
         val clientEmailAddress = etEmailAddress.text.toString()
-//        val departureAddress = etDepartureAddress.text.toString()
-//        val destinationAddress = etDestinationAddress.text.toString()
         val departureDate = etDepartureDate.text.toString()
         val returnDate = etReturnDate.text.toString()
         val passengersNumber = etPassengersNumber.text.toString()
+//
+//        lateinit var departureLocation: UserLocation
+//        departureLocation.locationFromAddress(applicationContext, departureAddress)
+//        lateinit var destinationLocation: UserLocation
+//        destinationLocation.locationFromAddress(applicationContext, destinationAddress)
 
-        // TODO: 05-Jan-21 make a runtime problem
-        /*
-        lateinit var departureLocation : UserLocation
-        departureLocation.locationFromAddress(applicationContext,departureAddress)
-        lateinit var destinationLocation : UserLocation
-        destinationLocation.locationFromAddress(applicationContext,destinationAddress)
-*/
         if (clientName == "" ||
             clientPhone == "" ||
             !isValidEmail(clientEmailAddress) ||
-            departureAddress == "" ||
+            //departureAddress == "" || // todo uncomment
             departureDate == "" ||
-            destinationAddress == "" ||
+            //destinationAddress == "" || // todo uncomment
             returnDate == "" ||
             passengersNumber == ""
         ) {
@@ -308,30 +273,16 @@ class AddTravelActivity : AppCompatActivity() {
             return
         }
 
-//        val travel = Travel(
-//            clientName,
-//            clientPhone,
-//            clientEmailAddress,
-//            departureAddress,
-//            departureLocation,
-//            departureDate,
-//            destinationAddress,
-//            destinationLocation,
-//            returnDate,
-//            passengersNumber,
-//            resources.getStringArray(R.array.status_array)[0]
-//        )
-
         val travel = Travel()
 
         travel.clientName = clientName
         travel.clientPhone = clientPhone
         travel.clientEmailAddress = clientEmailAddress
         travel.departureAddress = departureAddress
-        travel.departLocation = departureLocation
+        //travel.departLocation = departureLocation  // todo uncomment
         travel.departureDate = departureDate
         travel.destinationAddress = destinationAddress
-        travel.destLocation = destinationLocation
+        //travel.destLocation = destinationLocation // todo uncomment
         travel.returnDate = returnDate
         travel.passengersNumber = passengersNumber.toInt()
         travel.requestStatus = resources.getStringArray(R.array.status_array)[0]

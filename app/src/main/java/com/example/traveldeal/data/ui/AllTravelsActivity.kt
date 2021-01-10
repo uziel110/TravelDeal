@@ -15,7 +15,7 @@ import utils.TravelRecyclerViewAdapter
 class AllTravelsActivity : AppCompatActivity(), TravelRecyclerViewAdapter.OnItemClickListener {
     private lateinit var model: TravelViewModel
     lateinit var recyclerView: RecyclerView
-    lateinit var travelsList: MutableList<Travel>
+    lateinit var travelsList: MutableList<Travel?>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +33,8 @@ class AllTravelsActivity : AppCompatActivity(), TravelRecyclerViewAdapter.OnItem
         val v = model.getAllTravels()
         v.observe(this, {
             if (it != null) {
-                recyclerView.adapter = TravelRecyclerViewAdapter(it, this)
-                travelsList = it
+                recyclerView.adapter = TravelRecyclerViewAdapter(it as List<Travel>, this)
+                travelsList = it as MutableList<Travel?>
             }
         })
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -43,6 +43,6 @@ class AllTravelsActivity : AppCompatActivity(), TravelRecyclerViewAdapter.OnItem
 
     override fun onItemClick(itemID: Int) {
         val t = travelsList[itemID]
-        Toast.makeText(this, "clientId: ${t.clientId}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "clientId: ${t!!.clientId}", Toast.LENGTH_SHORT).show()
     }
 }

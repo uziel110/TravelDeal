@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Travel Deal</string>
     <string name="App_name">Travel deal</string>
     <string name="Add_travel">נסיעה חדשה</string>
@@ -27,13 +27,12 @@
     <string name="incorrect_email">כתובת המייל אינה תקינה</string>
     <string name="incorrect_phone_number">מספר הטלפון לא תקין</string>
 
-    <string-array name="status_array">
+    <string-array name="status_array" tools:ignore="InconsistentArrays">
         <item>נשלח</item>
         <item>התקבל</item>
         <item>פעיל</item>
         <item>סגור</item>
+        <item>שולם</item>
     </string-array>
-
-
 
 </resources>

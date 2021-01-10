@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal.R
 import com.example.traveldeal.data.entities.Travel
 
-
 object Strings {
     fun get(@StringRes stringRes: Int, vararg formatArgs: Any = emptyArray()): String {
         return App.instance.getString(stringRes, *formatArgs)
@@ -32,26 +31,29 @@ class TravelRecyclerViewAdapter(
     @SuppressLint("RestrictedApi", "SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
 
-
         val currentItem = travelList[listPosition]
         holder.itemID = currentItem.clientId
-        holder.sourceAddress.text = currentItem.departureAddress
-        holder.destinationAddress.text = currentItem.destinationAddress
+        var tmp = currentItem.departureAddress
+        holder.sourceAddress.text =
+            if (tmp.indexOf(",") == -1) tmp else tmp.substring(0, tmp.lastIndexOf(","))
+        tmp = currentItem.destinationAddress
+        holder.destinationAddress.text =
+            if (tmp.indexOf(",") == -1) tmp else tmp.substring(0, tmp.lastIndexOf(","))
         holder.departureDate.text = currentItem.departureDate
         holder.returnDate.text = currentItem.returnDate
         holder.returnDate.text = currentItem.returnDate
-       var passengersNum = currentItem.passengersNumber.toString()
+        val passengersNum = currentItem.passengersNumber.toString()
         holder.psgNum.text =
-            if(passengersNum == "1") {
+            if (passengersNum == "1") {
                 Strings.get(R.string.onePassengers)
             } else passengersNum + " ${Strings.get(R.string.passengersNumber)}"
 
- /*        holder.expandableLayout.visibility = if (currentItem.expandable) View.VISIBLE else View.GONE
+        holder.expandableLayout.visibility = if (currentItem.expandable) View.VISIBLE else View.GONE
 
-        holder.mainLayout.setOnClickListener{
+        holder.mainLayout.setOnClickListener {
             travelList[listPosition].expandable = !travelList[listPosition].expandable
             notifyItemChanged(listPosition)
-        }*/
+        }
     }
 
     override fun getItemCount() = travelList.size

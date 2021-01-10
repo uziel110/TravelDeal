@@ -11,7 +11,7 @@ class TravelViewModel(app: Application) : AndroidViewModel(app) {
     private var rp: TravelRepository = TravelRepository(app)
     //var travels = MutableLiveData<List<Travel>>()
 
-    suspend fun insertItem(travel: Travel) {
+    fun insertItem(travel: Travel) {
         rp.insert(travel)
     }
 
@@ -19,11 +19,11 @@ class TravelViewModel(app: Application) : AndroidViewModel(app) {
         return rp.getLiveData()
     }
 
-    fun getAllTravels(): MutableLiveData<MutableList<Travel>> {
+    fun getAllTravels(): MutableLiveData<List<Travel?>?> {
         return rp.getAllTravels()
     }
 
-    fun getTravel(id: String): MutableLiveData<Travel> {
-        return rp.getTravel(id)
-    }
+//    fun getTravel(id: String): MutableLiveData<Travel> {
+//        return rp.getTravel(id)
+//    }
 }

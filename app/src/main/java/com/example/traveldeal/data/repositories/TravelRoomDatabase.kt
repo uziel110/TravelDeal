@@ -4,58 +4,101 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.traveldeal.data.entities.Travel
-import java.util.concurrent.Executors
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import utils.UserLocation
 
-@Database(entities = [Travel::class], version = 1, exportSchema = false)
+
+@Database(entities = [Travel::class], version = 1)
+@TypeConverters(Travel.UserLocationConverter::class)
 abstract class TravelRoomDatabase : RoomDatabase() {
 
-    abstract fun travelDAO(): TravelDAO
+    abstract fun travelDao(): TravelDAO
 
-    // marking the instance as volatile to ensure atomic access to the variable
-    @Volatile
-    private lateinit var INSTANCE: TravelRoomDatabase
-    private val NUMBER_OF_THREADS = 4
-    val databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS)
+    companion object {
+        // Singleton prevents multiple instances of database opening at the
+        // same time.
+        @Volatile
+        private var INSTANCE: TravelRoomDatabase? = null
 
-    open fun getDatabase(context: Context): TravelRoomDatabase {
-        if (INSTANCE == null) {
-            synchronized(this) {
-                if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(
-                        context.applicationContext,
-                        TravelRoomDatabase::class.java,
-                        "Travel database"
-                    ).addCallback(sRoomDatabaseCallback).build()
-                }
+        fun getDatabase(context: Context, scope: CoroutineScope): TravelRoomDatabase {
+            // if the INSTANCE is not null, then return it,
+            // if it is, then create the database
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    TravelRoomDatabase::class.java,
+                    "travel_database"
+                )
+//                    .fallbackToDestructiveMigration()
+//                    .addCallback(TravelDatabaseCallback(scope))
+                    .build()
+                INSTANCE = instance
+                // return instance
+                instance
             }
         }
-        return INSTANCE
-    }
 
-    private val sRoomDatabaseCallback: Callback = object : Callback() {
-        override fun onCreate(db: SupportSQLiteDatabase) {
-            super.onCreate(db)
-//            this@TravelRoomDatabase.databaseWriteExecutor.execute(
-//                Runnable { // Populate the database in the background.
-//                    // If you want to start with more words, just add them.
-//                    var dao: TravelDAO = INSTANCE!!.travelDAO()
-//                    dao.deleteAll()
+
+//        private class TravelDatabaseCallback(
+//            private val scope: CoroutineScope
+//        ) : RoomDatabase.Callback() {
+//            /**
+//             * Override the onCreate method to populate the database.
+//             */
+//            override fun onCreate(db: SupportSQLiteDatabase) {
+//                super.onCreate(db)
+//                INSTANCE?.let { database ->
+//                    scope.launch(Dispatchers.IO) {
+//                        populateDatabase(database.travelDao())
+//                    }
+//                }
+//            }
+//        }
 //
+//        /**
+//         * Populate the database in a new coroutine.
+//         * If you want to start with more words, just add them.
+//         */
+//        suspend fun populateDatabase(travelDao: TravelDAO) {
+//            // Start the app with a clean database every time.
+//            // Not needed if you only populate on creation.
+//            // Delete all content here.
+//            travelDao.deleteAll()
 //
-//                    lateinit var travel: Travel
-//                    travel.clientName = "xx"
-//                    travel.clientPhone = "xx"
-//                    travel.clientEmailAddress = "xx"
-//                    travel.departureAddress = "xx"
-//                    travel.departureDate = "xx"
-//                    travel.destinationAddress = "xx"
-//                    travel.returnDate = "xx"
-//                    travel.passengersNumber = 0
-//                    travel.requestStatus = "xx"
-//                    dao.Insert(travel)
-//                })
-        }
+//            var testUL = UserLocation(0.0, 0.0)
+//            // Add sample words.
+//            //                    var travel = Travel("test",
+//            //                        "test",
+//            //                        "test",
+//            //                        "test",
+//            //                        testUL,
+//            //                        "test",
+//            //                        "test",
+//            //                        testUL,
+//            //                        "test",
+//            //                        "test",
+//            //                        "test")
+//
+//            var travel = Travel()
+//            travel.clientId = "1"
+//            travel.clientName = "test"
+//            travel.clientPhone = "test"
+//            travel.clientEmailAddress = "test"
+//            travel.departureAddress = "test"
+//            travel.departLocation = testUL
+//            travel.departureDate = "test"
+//            travel.destinationAddress = "test"
+//            travel.destLocation = testUL
+//            travel.returnDate = "test"
+//            travel.passengersNumber = 1
+//            travel.requestStatus = "test"
+//
+//            travelDao.insert(travel)
+//        }
     }
 }

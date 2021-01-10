@@ -40,18 +40,18 @@ class TravelRecyclerViewAdapter(
         holder.departureDate.text = currentItem.departureDate
         holder.returnDate.text = currentItem.returnDate
         holder.returnDate.text = currentItem.returnDate
-        var passengersNum = currentItem.passengersNumber.toString()
+       var passengersNum = currentItem.passengersNumber.toString()
         holder.psgNum.text =
             if(passengersNum == "1") {
                 Strings.get(R.string.onePassengers)
             } else passengersNum + " ${Strings.get(R.string.passengersNumber)}"
 
-        holder.expandableLayout.visibility = if (currentItem.expandable) View.VISIBLE else View.GONE
+ /*        holder.expandableLayout.visibility = if (currentItem.expandable) View.VISIBLE else View.GONE
 
         holder.mainLayout.setOnClickListener{
             travelList[listPosition].expandable = !travelList[listPosition].expandable
             notifyItemChanged(listPosition)
-        }
+        }*/
     }
 
     override fun getItemCount() = travelList.size

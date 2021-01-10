@@ -273,7 +273,7 @@ class AddTravelActivity : AppCompatActivity() {
         })
     }
 
-    fun saveButton(view: View) {
+    suspend fun saveButton(view: View) {
 
         val clientName = etClientName.text.toString()
         val clientPhone = etPhone.text.toString()
@@ -308,19 +308,33 @@ class AddTravelActivity : AppCompatActivity() {
             return
         }
 
-        val travel = Travel(
-            clientName,
-            clientPhone,
-            clientEmailAddress,
-            departureAddress,
-            departureLocation,
-            departureDate,
-            destinationAddress,
-            destinationLocation,
-            returnDate,
-            passengersNumber,
-            resources.getStringArray(R.array.status_array)[0]
-        )
+//        val travel = Travel(
+//            clientName,
+//            clientPhone,
+//            clientEmailAddress,
+//            departureAddress,
+//            departureLocation,
+//            departureDate,
+//            destinationAddress,
+//            destinationLocation,
+//            returnDate,
+//            passengersNumber,
+//            resources.getStringArray(R.array.status_array)[0]
+//        )
+
+        val travel = Travel()
+
+        travel.clientName = clientName
+        travel.clientPhone = clientPhone
+        travel.clientEmailAddress = clientEmailAddress
+        travel.departureAddress = departureAddress
+        travel.departLocation = departureLocation
+        travel.departureDate = departureDate
+        travel.destinationAddress = destinationAddress
+        travel.destLocation = destinationLocation
+        travel.returnDate = returnDate
+        travel.passengersNumber = passengersNumber.toInt()
+        travel.requestStatus = resources.getStringArray(R.array.status_array)[0]
 
         viewModel.insertItem(travel)
     }

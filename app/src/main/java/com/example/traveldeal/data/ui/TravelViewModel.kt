@@ -8,10 +8,10 @@ import com.example.traveldeal.data.entities.Travel
 import com.example.traveldeal.data.repositories.TravelRepository
 
 class TravelViewModel(app: Application) : AndroidViewModel(app) {
-    private var rp: TravelRepository = TravelRepository()
+    private var rp: TravelRepository = TravelRepository(app)
     //var travels = MutableLiveData<List<Travel>>()
 
-    fun insertItem(travel: Travel) {
+    suspend fun insertItem(travel: Travel) {
         rp.insert(travel)
     }
 

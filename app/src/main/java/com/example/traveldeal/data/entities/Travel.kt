@@ -1,113 +1,90 @@
 package com.example.traveldeal.data.entities
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import com.google.firebase.database.Exclude
 import utils.UserLocation
 
-@TypeConverters(Travel.UserLocationConverter::class)
-private val travelLocation: UserLocation? = null
+//@TypeConverters(Travel.UserLocationConverter::class)
+//private val travelLocation: UserLocation? = null
 
-class Travel() {
+@Entity(tableName = "travels")
+class Travel {
+    @PrimaryKey
     var clientId: String = ""
+        set
         get() = field
-        set(value) {
-            field = value
-        }
     var clientName: String = ""
+        set
         get() = field
-        set(value) {
-            field = value
-        }
     var clientPhone: String = ""
+        set
         get() = field
-        set(value) {
-            field = value
-        }
     var clientEmailAddress: String = ""
+        set
         get() = field
-        set(value) {
-            field = value
-        }
     var departureAddress: String = ""
+        set
         get() = field
-        set(value) {
-            field = value
-        }
     var departLocation: UserLocation? = null
+        set
         get() = if (field!= null) field else UserLocation(0.0,0.0)
-        set(value) {
-            field = value
-        }
     var departureDate: String = ""
+        set
         get() = field
-        set(value) {
-            field = value
-        }
     var destinationAddress: String = ""
+        set
         get() = field
-        set(value) {
-            field = value
-        }
     var destLocation: UserLocation? = null
+        set
         get() = if (field!= null) field else UserLocation(0.0,0.0)
-        set(value) {
-            field = value
-        }
     var returnDate: String = ""
+        set
         get() = field
-        set(value) {
-            field = value
-        }
     var passengersNumber: Int = 0
+        set
         get() = field
-        set(value) {
-            field = value
-        }
     var requestStatus: String = ""
+        set
         get() = field
-        set(value) {
-            field = value
-        }
     // for expandable of card in recycle view
-    var expandable: Boolean = false
-        @Exclude
-        get() = field
-        set(value) {
-            field = value
-        }
+//    var expandable: Boolean = false
+//        @Exclude
+//        set
+//        get() = field
 
-    var company: HashMap<String, Boolean> = hashMapOf()
-        get() = field
-        set(value) {
-            field = value
-        }
+//    var company: HashMap<String, Boolean> = hashMapOf()
+//        set
+//        get() = field
 
-    constructor(
-        _name: String,
-        _phone: String,
-        _eMail: String,
-        _departureAddress: String,
-        _departLocation: UserLocation,
-        _departureDate: String,
-        _destAddress: String,
-        _destLocation: UserLocation,
-        _returnDate: String,
-        _passNum: String,
-        _requestStatus: String
-    ) : this() {
-        clientName = _name
-        clientPhone = _phone
-        clientEmailAddress = _eMail
-        departureAddress = _departureAddress
-        departLocation = _departLocation
-        departureDate = _departureDate
-        destinationAddress = _destAddress
-        destLocation = _destLocation
-        returnDate = _returnDate
-        passengersNumber = if (_passNum == "") 0 else _passNum.toInt()
-        requestStatus = _requestStatus
-    }
+    constructor()
+//    constructor(
+//        _name: String,
+//        _phone: String,
+//        _eMail: String,
+//        _departureAddress: String,
+//        _departLocation: UserLocation,
+//        _departureDate: String,
+//        _destAddress: String,
+//        _destLocation: UserLocation,
+//        _returnDate: String,
+//        _passNum: String,
+//        _requestStatus: String
+//    ) : this() {
+//        clientName = _name
+//        clientPhone = _phone
+//        clientEmailAddress = _eMail
+//        departureAddress = _departureAddress
+//        departLocation = _departLocation
+//        departureDate = _departureDate
+//        destinationAddress = _destAddress
+//        destLocation = _destLocation
+//        returnDate = _returnDate
+//        passengersNumber = if (_passNum == "") 0 else _passNum.toInt()
+//        requestStatus = _requestStatus
+//    }
 
     class UserLocationConverter {
         @TypeConverter

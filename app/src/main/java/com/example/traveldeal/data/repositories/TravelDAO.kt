@@ -1,5 +1,6 @@
 package com.example.traveldeal.data.repositories
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.traveldeal.data.entities.Travel
 
@@ -7,19 +8,19 @@ import com.example.traveldeal.data.entities.Travel
 interface TravelDAO {
 
     @Insert
-    fun Insert(travel: Travel)
+    suspend fun insert(travel: Travel)
 
     @Update
-    fun Update(travel: Travel)
+    fun update(travel: Travel)
 
     @Delete
-    open fun Delete(travel: Travel): Unit
+    open fun delete(travel: Travel): Unit
 
-//    @Query("SELECT * from travels WHERE clientName = :key")
-//    fun getItemById(key: String?): Travel?
+    @Query("SELECT * from travels WHERE clientId = :key")
+    fun getTravelById(key: String?): LiveData<Travel?>?
 
     @Query("SELECT * FROM travels")
-    fun getItems(): Travel
+    fun getTravels(): LiveData<List<Travel>>
 
     @Query("DELETE FROM travels")
     fun deleteAll()

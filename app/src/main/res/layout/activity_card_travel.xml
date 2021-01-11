@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="4dp"
+    app:cardBackgroundColor="#80ffffff"
+    app:cardElevation="0.05dp"
+    tools:showIn="@layout/activity_card_travel"
     >
 
-
-    <RelativeLayout
+<RelativeLayout
         android:id="@+id/cardMainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,8 +23,7 @@
             android:layout_height="50dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:src="@drawable/ic_bus"
-            />
+            android:src="@drawable/ic_bus" />
 
         <TextView
             android:id="@+id/DepartureAddressTitle"
@@ -42,7 +45,8 @@
             android:layout_marginRight="8dp"
             android:layout_toEndOf="@+id/DepartureAddressTitle"
             android:layout_toRightOf="@+id/DepartureAddressTitle"
-            android:textColor="#faba2a"/>
+            android:textColor="#faba2a"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/DestinationAddressTitle"
@@ -62,26 +66,28 @@
             android:layout_width="200dp"
             android:layout_height="20dp"
             android:text="DestinationAddress"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:layout_toEndOf="@+id/DestinationAddressTitle"
+            android:layout_toEndOf="@+id/DepartureAddressTitle"
             android:layout_toRightOf="@+id/DestinationAddressTitle"
             android:layout_below="@+id/TextViewDepartureAddress"
-            android:textColor="#faba2a"/>
+            android:textColor="#faba2a"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/TextViewDepartureDate"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:text="DepartureDate"
-            android:layout_toEndOf="@+id/DestinationAddressTitle"
-            android:layout_toRightOf="@+id/DestinationAddressTitle"
+            android:layout_toEndOf="@+id/DepartureAddressTitle"
+            android:layout_toRightOf="@+id/DepartureAddressTitle"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginTop="8dp"
             android:layout_below="@+id/TextViewDestinationAddress"
-            android:textColor="#faba2a"/>
+            android:textColor="#faba2a"
+            android:textStyle="bold"/>
 
         <View
             android:id="@+id/dividerLine"
@@ -93,7 +99,8 @@
             android:layout_toEndOf="@+id/TextViewDepartureDate"
             android:layout_toRightOf="@+id/TextViewDepartureDate"
             android:background="#faba2a"
-            android:layout_marginRight="4dp" />
+            android:layout_marginRight="4dp"
+            android:textStyle="bold"/>
 
 
         <TextView
@@ -106,18 +113,20 @@
             android:layout_toEndOf="@+id/dividerLine"
             android:layout_toRightOf="@+id/dividerLine"
             android:text="ReturnDate"
-            android:textColor="#faba2a" />
+            android:textColor="#faba2a"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/TextViewPassengersNumber"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:layout_toEndOf="@+id/DestinationAddressTitle"
-            android:layout_toRightOf="@+id/DestinationAddressTitle"
+            android:layout_toEndOf="@+id/DepartureAddressTitle"
+            android:layout_toRightOf="@+id/DepartureAddressTitle"
             android:text="PassengersNumber"
             android:layout_marginTop="8dp"
             android:layout_below="@+id/TextViewReturnDate"
-            android:textColor="#faba2a"/>
+            android:textColor="#faba2a"
+            android:textStyle="bold"/>
 
 
         <LinearLayout

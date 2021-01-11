@@ -4,7 +4,6 @@ import  android.app.Application
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.traveldeal.data.ITravelDataSource
 import com.example.traveldeal.data.entities.Travel
 
 class TravelRepository(application: Application) : Application() {

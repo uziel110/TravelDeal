@@ -9,15 +9,10 @@ import java.util.*
 
 class UserLocation() {
     var lat: Double = 0.0
-        get() = field
-        private set(value) {
-            field = value
-        }
+        private set
     var lon: Double = 0.0
-        get() = field
-        private set(value) {
-            field = value
-        }
+        private set
+
     constructor(_lat: Double, _lon: Double) : this() {
         lat = _lat
         lon = _lon
@@ -40,7 +35,7 @@ class UserLocation() {
         lateinit var travelLocation: Location
         val geocoder = Geocoder(applicationContext, Locale.getDefault())
         try {
-            val l: List<Address> = geocoder.getFromLocationName(departureAddress, 1);
+            val l: List<Address> = geocoder.getFromLocationName(departureAddress, 1)
             if (l.isNotEmpty()) {
                 val temp: Address = l[0]
                 travelLocation = Location("travelLocation")

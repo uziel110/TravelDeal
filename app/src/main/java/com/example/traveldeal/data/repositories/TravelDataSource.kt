@@ -4,7 +4,6 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.traveldeal.data.ITravelDataSource
 import com.example.traveldeal.data.entities.Travel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -12,12 +11,13 @@ import com.google.firebase.database.*
 /**
  * fire base com.example.traveldeal.data source
  */
-class TravelDataSource : ITravelDataSource {
+class TravelDataSource :
+    ITravelDataSource {
     private val rootNode = FirebaseDatabase.getInstance()
     private val reference = rootNode.getReference("travels")
     private val liveData: MutableLiveData<Boolean> = MutableLiveData()
     private var uid: String
-     var travelsList: MutableList<Travel> = mutableListOf()
+    var travelsList: MutableList<Travel> = mutableListOf()
     private var travels: MutableLiveData<MutableList<Travel>> = MutableLiveData()
     private var aTravel: MutableLiveData<Travel> = MutableLiveData()
 
@@ -50,9 +50,9 @@ class TravelDataSource : ITravelDataSource {
             return
         }
         travel.clientId = curKey
-        reference.child(uid).child(curKey).setValue(travel).addOnSuccessListener() {
+        reference.child(uid).child(curKey).setValue(travel).addOnSuccessListener {
             liveData.value = true
-        }.addOnFailureListener() {
+        }.addOnFailureListener {
             liveData.value = false
         }
     }

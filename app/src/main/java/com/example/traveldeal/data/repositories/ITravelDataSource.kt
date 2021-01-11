@@ -1,7 +1,6 @@
-package com.example.traveldeal.data
+package com.example.traveldeal.data.repositories
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.traveldeal.data.entities.Travel
 
 interface ITravelDataSource {

@@ -5,14 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.traveldeal.data.entities.Travel
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import utils.UserLocationConverter
 
 @Database(entities = [Travel::class], version = 1, exportSchema = false)
-@TypeConverters(Travel.UserLocationConverter::class)
+@TypeConverters(UserLocationConverter::class)
 abstract class TravelRoomDatabase : RoomDatabase() {
 
     abstract fun travelDao(): TravelDAO

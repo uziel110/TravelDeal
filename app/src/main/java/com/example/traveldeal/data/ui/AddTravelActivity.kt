@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.traveldeal.R
 import com.example.traveldeal.data.entities.Travel
+import com.example.traveldeal.data.enums.Status
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
@@ -44,8 +45,8 @@ class AddTravelActivity : AppCompatActivity() {
 
     private var destinationAddress: String = ""
     private var departureAddress: String = ""
-    // lateinit var destinationLocation: UserLocation  // todo uncomment
-    //  lateinit var departureLocation: UserLocation  // todo uncomment
+     lateinit var destinationLocation: UserLocation
+      lateinit var departureLocation: UserLocation
 
     private fun isValidEmail(email: String): Boolean {
         return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
@@ -199,7 +200,7 @@ class AddTravelActivity : AppCompatActivity() {
                 //Removes the country from the address
 
                 departureAddress = place.address.toString()
-                //   departureLocation = place.latLng?.let { UserLocation(it.latitude, it.longitude) }!!  // todo uncomment
+                   departureLocation = place.latLng?.let { UserLocation(it.latitude, it.longitude) }!!
             }
 
             override fun onError(status: com.google.android.gms.common.api.Status) {
@@ -228,12 +229,12 @@ class AddTravelActivity : AppCompatActivity() {
             PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 destinationAddress = place.address.toString()
-//                destinationLocation = place.latLng?.let {
-//                    UserLocation(
-//                        it.latitude,
-//                        it.longitude
-//                    )
-//                }!! // todo uncomment
+                destinationLocation = place.latLng?.let {
+                    UserLocation(
+                        it.latitude,
+                        it.longitude
+                    )
+                }!!
             }
 
             override fun onError(status: com.google.android.gms.common.api.Status) {
@@ -259,9 +260,9 @@ class AddTravelActivity : AppCompatActivity() {
         if (clientName == "" ||
             clientPhone == "" ||
             !isValidEmail(clientEmailAddress) ||
-            //departureAddress == "" || // todo uncomment
+            departureAddress == "" ||
             departureDate == "" ||
-            //destinationAddress == "" || // todo uncomment
+            destinationAddress == "" ||
             returnDate == "" ||
             passengersNumber == ""
         ) {
@@ -279,13 +280,13 @@ class AddTravelActivity : AppCompatActivity() {
         travel.clientPhone = clientPhone
         travel.clientEmailAddress = clientEmailAddress
         travel.departureAddress = departureAddress
-        //travel.departLocation = departureLocation  // todo uncomment
+        travel.departLocation = departureLocation
         travel.departureDate = departureDate
         travel.destinationAddress = destinationAddress
-        //travel.destLocation = destinationLocation // todo uncomment
+        travel.destLocation = destinationLocation
         travel.returnDate = returnDate
         travel.passengersNumber = passengersNumber.toInt()
-        travel.requestStatus = resources.getStringArray(R.array.status_array)[0]
+        travel.requestStatus = Status.SENT
 
         viewModel.insertItem(travel)
     }

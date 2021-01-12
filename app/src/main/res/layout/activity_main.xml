@@ -7,27 +7,13 @@
     android:layout_margin="4dp"
     tools:context=".data.ui.MainActivity">
 
-    <!--    <TextView-->
-<!--        android:id="@+id/textView2"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:layout_marginTop="50dp"-->
-<!--        android:gravity="center"-->
-<!--        android:text="@string/App_name"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textSize="50sp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        tools:ignore="MissingConstraints" />-->
-
     <ImageView
         android:id="@+id/image_view"
-        android:layout_width="395dp"
-        android:layout_height="371dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:focusableInTouchMode="false"
         android:gravity="center"
+        android:paddingTop="100dp"
         android:src="@drawable/app_logo"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="-5dp"

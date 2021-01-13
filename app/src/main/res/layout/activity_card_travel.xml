@@ -6,9 +6,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="4dp"
     app:cardBackgroundColor="#80ffffff"
-    app:cardElevation="0.05dp"
-    tools:showIn="@layout/activity_card_travel"
-    >
+    app:cardElevation="0.05dp">
+<!--    tools:showIn="@layout/activity_card_travel"-->
+
 
 <RelativeLayout
         android:id="@+id/cardMainLayout"

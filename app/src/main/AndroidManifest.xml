@@ -15,6 +15,7 @@
         <activity
             android:name=".data.ui.AddTravelActivity"
             android:parentActivityName=".data.ui.MainActivity" />
+
         <activity android:name=".data.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,13 +27,12 @@
         <activity
             android:name="utils.AddressDialog"/>
 
-
-
-
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${mapsApiKey}" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
     </application>
 

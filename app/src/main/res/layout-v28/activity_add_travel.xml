@@ -7,15 +7,6 @@
     android:layout_margin="12dp"
     tools:context=".data.ui.AddTravelActivity">
 
-    <!--    <RelativeLayout-->
-    <!--        android:id="@+id/background_pic"-->
-    <!--        android:layout_width="300dp"-->
-    <!--        android:layout_height="400dp"-->
-    <!--        android:background="@drawable/background_pic"-->
-    <!--        tools:ignore="MissingConstraints">-->
-    <!--        -->
-    <!--    </RelativeLayout>-->
-
     <ImageView
         android:id="@+id/image_view"
         android:layout_width="match_parent"
@@ -91,27 +82,6 @@
                 android:text="a@b.c" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
-        <!--        -->
-        <!--        <EditText-->
-        <!--            android:id="@+id/editTextTextDepartureAddress"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_margin="8dp"-->
-        <!--            android:ems="10"-->
-        <!--            android:hint="@string/departureAddressHint"-->
-        <!--            android:inputType="textPostalAddress"-->
-        <!--            android:text="רחובות" />-->
-
-        <!--        <EditText-->
-        <!--            android:id="@+id/editTextTextDestinationAddress"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_margin="8dp"-->
-        <!--            android:ems="10"-->
-        <!--            android:hint="@string/destinationAddressHint"-->
-        <!--            android:inputType="textPostalAddress"-->
-        <!--            android:text="ירושלים" />-->
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

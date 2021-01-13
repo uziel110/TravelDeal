@@ -25,6 +25,8 @@
     <string name="saved_success">Details saved successfully!</string>
     <string name="incorrect_email">The email address is incorrect</string>
     <string name="incorrect_phone_number">Phone number is incorrect</string>
+    <string name="travels_dont_exists">You don\'t have travel yet</string>
+
 
     <string-array name="status_array">
         <item>SEND</item>

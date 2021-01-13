@@ -30,6 +30,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.properties.Delegates
+import utils.TravelRecyclerViewAdapter
 
 class AddTravelActivity : AppCompatActivity() {
     val api = "AIzaSyBlm-gYIse1zkWi3WwqQg3w9UOxRm4P3pE"
@@ -74,7 +75,7 @@ class AddTravelActivity : AppCompatActivity() {
         etPhone = findViewById(R.id.editTextPhone)
         etEmailAddress = findViewById(R.id.editTextEmailAddress)
         etReturnDate = findViewById(R.id.editTextReturnDate)
-        etDepartureDate = findViewById(R.id.editTextDepartureDate)
+            etDepartureDate = findViewById(R.id.editTextDepartureDate)
         etPassengersNumber = findViewById(R.id.editTextPassengersNumber)
 
         val user = Firebase.auth.currentUser
@@ -94,7 +95,7 @@ class AddTravelActivity : AppCompatActivity() {
             picker = DatePickerDialog(
                 this,
                 { _, theYear, monthOfYear, dayOfMonth ->
-                    etDepartureDate.setText("$dayOfMonth/${monthOfYear + 1}/$theYear.")
+                    etDepartureDate.setText("$dayOfMonth/${monthOfYear + 1}/$theYear")
                 },
                 year, month, day
 
@@ -120,7 +121,8 @@ class AddTravelActivity : AppCompatActivity() {
             try {
                 picker.datePicker.minDate = sdf.parse(etDepartureDate.text.toString()).time
                 picker.show()
-            } catch (ex: ParseException) {
+            }
+            catch (ex: ParseException) {
                 Toast.makeText(
                     applicationContext,
                     R.string.enter_exit_date_first,

@@ -2,8 +2,10 @@ package com.example.traveldeal.data.ui
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isEmpty
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +18,7 @@ class AllTravelsActivity : AppCompatActivity(), TravelRecyclerViewAdapter.OnItem
     private lateinit var model: TravelViewModel
     lateinit var recyclerView: RecyclerView
     lateinit var travelsList: MutableList<Travel?>
+    lateinit var noTravtlsTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +33,18 @@ class AllTravelsActivity : AppCompatActivity(), TravelRecyclerViewAdapter.OnItem
             layoutManager = LinearLayoutManager(applicationContext)
         }
 */
+        noTravtlsTextView = findViewById(R.id.no_travels_textView)
         val v = model.getAllTravels()
         v.observe(this, {
             if (it != null) {
                 recyclerView.adapter = TravelRecyclerViewAdapter(it as List<Travel>, this)
                 travelsList = it as MutableList<Travel?>
+
             }
+            if ( it!!.isEmpty())
+                noTravtlsTextView.visibility = View.VISIBLE
+
+            //Toast.makeText(this,  R.string.travels_dont_exists, Toast.LENGTH_SHORT).show()
         })
         recyclerView.layoutManager = LinearLayoutManager(this)
         //recyclerView.setHasFixedSize(false)

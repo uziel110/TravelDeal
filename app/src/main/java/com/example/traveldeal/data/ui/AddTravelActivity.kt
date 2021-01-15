@@ -1,6 +1,5 @@
 package com.example.traveldeal.data.ui
 
-//import utils.DestinationAddressActivity
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -24,7 +23,6 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import org.w3c.dom.Text
 import utils.UserLocation
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -46,8 +44,8 @@ class AddTravelActivity : AppCompatActivity() {
 
     private var destinationAddress: String = ""
     private var departureAddress: String = ""
-     lateinit var destinationLocation: UserLocation
-      lateinit var departureLocation: UserLocation
+    lateinit var destinationLocation: UserLocation
+    lateinit var departureLocation: UserLocation
 
     private fun isValidEmail(email: String): Boolean {
         return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
@@ -75,7 +73,7 @@ class AddTravelActivity : AppCompatActivity() {
         etPhone = findViewById(R.id.editTextPhone)
         etEmailAddress = findViewById(R.id.editTextEmailAddress)
         etReturnDate = findViewById(R.id.editTextReturnDate)
-            etDepartureDate = findViewById(R.id.editTextDepartureDate)
+        etDepartureDate = findViewById(R.id.editTextDepartureDate)
         etPassengersNumber = findViewById(R.id.editTextPassengersNumber)
 
         val user = Firebase.auth.currentUser
@@ -121,8 +119,7 @@ class AddTravelActivity : AppCompatActivity() {
             try {
                 picker.datePicker.minDate = sdf.parse(etDepartureDate.text.toString()).time
                 picker.show()
-            }
-            catch (ex: ParseException) {
+            } catch (ex: ParseException) {
                 Toast.makeText(
                     applicationContext,
                     R.string.enter_exit_date_first,
@@ -143,8 +140,7 @@ class AddTravelActivity : AppCompatActivity() {
                         applicationContext,
                         R.string.num_bigger_than_0,
                         Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    ).show()
                 }
             }
         })
@@ -181,7 +177,7 @@ class AddTravelActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.autocomplete_DepartureAddress)
                     as AutocompleteSupportFragment
         departureAddressAutocompleteFragment.setHint(getString(R.string.departureAddressHint))
-            .setText("ירושלים")
+            //.setText("ירושלים")
 
         // Specify the types of place data to return.
         departureAddressAutocompleteFragment.setPlaceFields(
@@ -198,11 +194,8 @@ class AddTravelActivity : AppCompatActivity() {
         departureAddressAutocompleteFragment.setOnPlaceSelectedListener(object :
             PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
-
-                //Removes the country from the address
-
                 departureAddress = place.address.toString()
-                   departureLocation = place.latLng?.let { UserLocation(it.latitude, it.longitude) }!!
+                departureLocation = place.latLng?.let { UserLocation(it.latitude, it.longitude) }!!
             }
 
             override fun onError(status: com.google.android.gms.common.api.Status) {
@@ -215,7 +208,7 @@ class AddTravelActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.autocomplete_DestinationAddress)
                     as AutocompleteSupportFragment
         destinationAddressAutocompleteFragment.setHint(getString(R.string.destinationAddressHint))
-            .setText("חיפה")
+            //.setText("חיפה")
 
         // Specify the types of place data to return.
         destinationAddressAutocompleteFragment.setPlaceFields(

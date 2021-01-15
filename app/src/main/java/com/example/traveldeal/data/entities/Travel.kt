@@ -7,6 +7,7 @@ import utils.RequestStatusConverter
 import utils.UserLocation
 import utils.UserLocationConverter
 import com.google.firebase.database.Exclude
+import utils.CompanyConverter
 
 //@TypeConverters(Travel.UserLocationConverter::class)
 //private val travelLocation: UserLocation? = null
@@ -53,8 +54,8 @@ class Travel {
     var requestStatus: Status = Status.SENT
         set
         get() = field
-    @Ignore //todo unignore - temporary ignored
-    var company: HashMap<String, Boolean> = hashMapOf()
+    @TypeConverters(CompanyConverter::class)
+    var company = mutableMapOf<String, Boolean>()
         set
         get() = field
     // for expandable of card in recycle view
@@ -62,5 +63,6 @@ class Travel {
     var expandable: Boolean = false
         @Exclude
         set
+        @Exclude
         get() = field
 }

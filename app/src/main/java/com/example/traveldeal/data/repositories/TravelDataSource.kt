@@ -16,7 +16,7 @@ class TravelDataSource :
     private val rootNode = FirebaseDatabase.getInstance()
     private val reference = rootNode.getReference("travels")
     private val liveData: MutableLiveData<Boolean> = MutableLiveData()
-    private var uid: String
+    private var uid: String = FirebaseAuth.getInstance().uid.toString()
     var travelsList: MutableList<Travel> = mutableListOf()
     private var travels: MutableLiveData<MutableList<Travel>> = MutableLiveData()
     private var aTravel: MutableLiveData<Travel> = MutableLiveData()
@@ -24,13 +24,13 @@ class TravelDataSource :
     lateinit var notifyData: ITravelDataSource.NotifyLiveData
 
     init {
-        uid = FirebaseAuth.getInstance().uid.toString()
-        reference.child(uid).addValueEventListener(object : ValueEventListener {
+        //        reference.child(uid).addValueEventListener(object : ValueEventListener {
+        reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 travelsList.clear()
                 for (travelSnapshot in dataSnapshot.children) {
                     val travel: Travel? = travelSnapshot.getValue(Travel::class.java)
-                    if (travel != null /*&& travel.requestStatus != resources.getStringArray(R.array.status_array)[3]*/) {
+                    if (travel != null && travel.clientId == uid) {
                         travelsList.add(travel)
                     }
                 }
@@ -44,13 +44,15 @@ class TravelDataSource :
     }
 
     override fun addTravel(travel: Travel) {
-        val curKey = reference.child(uid).push().key
+//        val curKey = reference.child(uid).push().key
+        val curKey = reference.push().key
         if (curKey == null) {
             Log.w(TAG, "Couldn't get push key for travels")
             return
         }
-        travel.clientId = curKey
-        reference.child(uid).child(curKey).setValue(travel).addOnSuccessListener {
+        travel.travelId = curKey
+//        reference.child(uid).child(curKey).setValue(travel).addOnSuccessListener {
+        reference.child(curKey).setValue(travel).addOnSuccessListener {
             liveData.value = true
         }.addOnFailureListener {
             liveData.value = false

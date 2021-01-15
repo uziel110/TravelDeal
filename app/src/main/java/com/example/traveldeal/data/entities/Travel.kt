@@ -18,6 +18,9 @@ class Travel {
     var clientId: String = ""
         set
         get() = field
+    var travelId: String = ""
+        set
+        get() = field
     var clientName: String = ""
         set
         get() = field

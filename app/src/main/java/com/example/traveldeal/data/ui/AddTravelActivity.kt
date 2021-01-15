@@ -21,6 +21,7 @@ import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import utils.UserLocation
@@ -282,7 +283,7 @@ class AddTravelActivity : AppCompatActivity() {
         travel.returnDate = returnDate
         travel.passengersNumber = passengersNumber.toInt()
         travel.requestStatus = Status.SENT
-
+        travel.clientId = FirebaseAuth.getInstance().currentUser?.uid.toString()
         viewModel.insertItem(travel)
     }
 }

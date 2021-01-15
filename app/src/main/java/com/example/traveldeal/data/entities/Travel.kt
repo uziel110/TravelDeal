@@ -15,10 +15,10 @@ import utils.CompanyConverter
 @Entity(tableName = "travels_table")
 class Travel {
     @PrimaryKey
-    var clientId: String = ""
+    var travelId: String = ""
         set
         get() = field
-    var travelId: String = ""
+    var clientId: String = ""
         set
         get() = field
     var clientName: String = ""

@@ -1,25 +1,28 @@
 package com.example.traveldeal.data.repositories
 
 import  android.app.Application
+import android.content.Context
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.traveldeal.data.entities.Travel
 
-class TravelRepository(application: Application) : Application() {
+class TravelRepository(context: Context) : Application() {
 
     private var remoteDatabase: ITravelDataSource = TravelDataSource()
-    private val localDatabase = LocalDatabase(application.applicationContext)
+    private val localDatabase = LocalDatabase(context)
     val travelsList = MutableLiveData<List<Travel?>?>()
+
     init {
-        val notifyData : ITravelDataSource.NotifyLiveData = object : ITravelDataSource.NotifyLiveData{
-            override fun onDataChange() {
-                var tempList = remoteDatabase.getAllTravels()
-                travelsList.postValue(tempList)
-                localDatabase.clearTable()
-                localDatabase.addTravels(tempList)
+        val notifyData: ITravelDataSource.NotifyLiveData =
+            object : ITravelDataSource.NotifyLiveData {
+                override fun onDataChange() {
+                    var tempList = remoteDatabase.getAllTravels()
+                    travelsList.postValue(tempList)
+                    localDatabase.clearTable()
+                    localDatabase.addTravels(tempList)
+                }
             }
-        }
         remoteDatabase.setNotifyLiveData(notifyData)
     }
 
@@ -36,8 +39,12 @@ class TravelRepository(application: Application) : Application() {
     fun getAllTravels(): MutableLiveData<List<Travel?>?> {
         return travelsList
     }
-//
-//    fun getTravel(id: String): MutableLiveData<Travel> {
-//        return remoteDatabase.getTravel(id)
-//    }
+
+    fun getTravelsByStatus(status :List<Int>): LiveData<List<Travel>> {
+        return localDatabase.getTravelsByStatus(status)
+    }
+
+    fun update(travel: Travel) {
+        remoteDatabase.updateTravel(travel)
+    }
 }

@@ -19,6 +19,7 @@ import com.example.traveldeal.data.entities.Travel
 import com.example.traveldeal.data.enums.Status
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
+import androidx.annotation.RequiresApi
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.firebase.auth.FirebaseAuth

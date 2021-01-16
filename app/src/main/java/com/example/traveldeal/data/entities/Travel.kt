@@ -58,7 +58,7 @@ class Travel {
         set
         get() = field
     @TypeConverters(CompanyConverter::class)
-    var company = mutableMapOf<String, Boolean>()
+    var company :MutableMap<String, Boolean>? = null
         set
         get() = field
     // for expandable of card in recycle view

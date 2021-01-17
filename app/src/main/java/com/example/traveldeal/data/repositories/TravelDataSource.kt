@@ -59,10 +59,10 @@ class TravelDataSource :
         }
     }
 
-    override fun editTravel(p: Travel) {
-        TODO("Not yet implemented")
+    override fun updateTravel(travel: Travel) {
+        val curKey = travel.travelId
+        reference.child(curKey).setValue(travel)
     }
-
 
     override fun getLiveData(): LiveData<Boolean> {
         return liveData

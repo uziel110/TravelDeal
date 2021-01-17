@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="number"
-                android:text="123456789" />
+                android:text="0535258046" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -115,7 +115,7 @@
             android:ems="10"
             android:focusable="false"
             android:inputType="date"
-            android:text="30/10/2021" />
+            android:text="30/01/2021" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -134,7 +134,7 @@
             android:ems="10"
             android:focusable="false"
             android:inputType="date"
-            android:text="30/11/2021" />
+            android:text="15/01/2021" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <View

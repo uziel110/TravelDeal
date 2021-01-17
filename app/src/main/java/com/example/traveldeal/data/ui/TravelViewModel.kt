@@ -15,6 +15,10 @@ class TravelViewModel(app: Application) : AndroidViewModel(app) {
         rp.insert(travel)
     }
 
+    fun updateItem(travel: Travel) {
+        rp.update(travel)
+    }
+
     fun getLiveData(): LiveData<Boolean> {
         return rp.getLiveData()
     }

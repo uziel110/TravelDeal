@@ -27,6 +27,7 @@
     <string name="incorrect_email">כתובת המייל אינה תקינה</string>
     <string name="incorrect_phone_number">מספר הטלפון לא תקין</string>
     <string name="travels_dont_exists">עדיין אין לך נסיעות</string>
+    <string name="close_travel">הנסיעה הסתיימה?</string>
 
     <string-array name="status_array" tools:ignore="InconsistentArrays">
         <item>נשלח</item>

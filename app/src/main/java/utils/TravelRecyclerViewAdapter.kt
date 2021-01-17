@@ -6,12 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.StringRes
-import androidx.core.view.get
 import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal.R
 import com.example.traveldeal.data.entities.Travel
 import com.example.traveldeal.data.enums.Status
-import com.google.firebase.auth.FirebaseAuth
 
 object Strings {
     fun get(@StringRes stringRes: Int, vararg formatArgs: Any = emptyArray()): String {
@@ -23,8 +21,7 @@ class TravelRecyclerViewAdapter(
     private val travelList: List<Travel>,
     private val listener: OnItemClickListener
 ) :
-    RecyclerView.Adapter<TravelRecyclerViewAdapter.ViewHolder>()/*,
-    AdapterView.OnItemSelectedListener */ {
+    RecyclerView.Adapter<TravelRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -77,6 +74,12 @@ class TravelRecyclerViewAdapter(
         holder.companySpinner.adapter = aa
 
         val passengersNum = currentItem.passengersNumber.toString()
+        holder.departureDate.text = currTravel.departureDate
+        holder.returnDate.text = currTravel.returnDate
+        holder.returnDate.text = currTravel.returnDate
+        holder.switchEnded.isEnabled =
+            currTravel.requestStatus == Status.RECEIVED // TODO: 15/01/2021 need to change to RUNNING
+        val passengersNum = currTravel.passengersNumber.toString()
         holder.psgNum.text =
             if (passengersNum == "1") {
                 Strings.get(R.string.onePassengers)
@@ -88,6 +91,30 @@ class TravelRecyclerViewAdapter(
 //            travelList[listPosition].expandable = !travelList[listPosition].expandable
 //            notifyItemChanged(listPosition)
 //        }
+        holder.expandableLayout.visibility = if (currTravel.expandable) View.VISIBLE else View.GONE
+
+        holder.mainLayout.setOnClickListener {
+            travelList[listPosition].expandable = !travelList[listPosition].expandable
+            notifyItemChanged(listPosition)
+        }
+//        if (holder.switchEnded.isEnabled) {
+//            holder.switchEnded.setOnTouchListener(  object : View.OnTouchListener {
+//                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+//                    when (event?.action) {
+//                        MotionEvent.ACTION_DOWN ->
+//                            Toast.makeText(holder, "הנסיעה לא פעילה", Toast.LENGTH_SHORT).show()
+//                    }
+//                    return v?.onTouchEvent(event) ?: true
+//                }
+//            })
+//        }
+        holder.switchEnded.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked)
+                currTravel.requestStatus = Status.CLOSED
+
+            listener.updateTravel(currTravel)
+            notifyDataSetChanged()
+        })
     }
 
     override fun getItemCount() = travelList.size
@@ -104,6 +131,7 @@ class TravelRecyclerViewAdapter(
         var expandableLayout: LinearLayout = this.itemView.findViewById(R.id.ExpandableLayout)
         var mainLayout: RelativeLayout = this.itemView.findViewById(R.id.cardMainLayout)
         var companySpinner: Spinner = this.itemView.findViewById(R.id.spinnerOffers)
+        var switchEnded: SwitchMaterial = this.itemView.findViewById(R.id.switch_ended)
 
 //        init {
 //            itemView.setOnClickListener(this)
@@ -120,13 +148,6 @@ class TravelRecyclerViewAdapter(
         fun updateTravel(travel: Travel)
 
 //        fun onItemClick(itemID: Int)
+        fun onItemClick(itemID: Int)
     }
-
-//    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//        currentItem.requestStatus = Status.RUNNING
-//    }
-//
-//    override fun onNothingSelected(parent: AdapterView<*>?) {
-//        TODO("Not yet implemented")
-//    }
 }

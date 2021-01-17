@@ -34,20 +34,23 @@ class AllTravelsActivity : AppCompatActivity(), TravelRecyclerViewAdapter.OnItem
         }
 */
         noTravtlsTextView = findViewById(R.id.no_travels_textView)
-        val v = model.getAllTravels()
-        v.observe(this, {
-            if (it != null) {
-                recyclerView.adapter = TravelRecyclerViewAdapter(it as List<Travel>, this)
+
+        model.getTravelsByStatus()?.observe(this, {
+
+            recyclerView.adapter = TravelRecyclerViewAdapter(it as List<Travel>, this)
+            if (it != null && it.isNotEmpty()
+            ) {
                 travelsList = it as MutableList<Travel?>
-
+                noTravtlsTextView.visibility = View.GONE
             }
-            if ( it!!.isEmpty())
+            if (it!!.isEmpty())
                 noTravtlsTextView.visibility = View.VISIBLE
-
-            //Toast.makeText(this,  R.string.travels_dont_exists, Toast.LENGTH_SHORT).show()
         })
         recyclerView.layoutManager = LinearLayoutManager(this)
-        //recyclerView.setHasFixedSize(false)
+    }
+
+    override fun updateTravel(travel: Travel) {
+        model.updateItem(travel)
     }
 
     override fun updateTravel(travel: Travel) {

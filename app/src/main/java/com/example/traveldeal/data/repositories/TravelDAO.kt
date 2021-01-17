@@ -22,6 +22,9 @@ interface TravelDAO {
     @Query("SELECT * from travels_table WHERE clientId = :key")
     fun getTravelById(key: String?): LiveData<Travel?>?
 
+    @Query("SELECT * FROM travels_table WHERE requestStatus IN (:statusList)")
+    fun getTravelsByStatus(statusList: List<Int>):LiveData<List<Travel>>
+
     @Query("SELECT * FROM travels_table")
     fun getTravels(): LiveData<List<Travel>>
 

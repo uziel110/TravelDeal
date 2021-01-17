@@ -1,10 +1,12 @@
 package utils
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.core.view.size
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +14,7 @@ import com.example.traveldeal.R
 import com.example.traveldeal.data.entities.Travel
 import com.example.traveldeal.data.enums.Status
 import com.google.android.material.switchmaterial.SwitchMaterial
+import utils.Utils.Companion.decodeKey
 
 object Strings {
     fun get(@StringRes stringRes: Int, vararg formatArgs: Any = emptyArray()): String {
@@ -31,6 +34,7 @@ class TravelRecyclerViewAdapter(
         return ViewHolder(view)
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("RestrictedApi", "SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
 
@@ -67,6 +71,7 @@ class TravelRecyclerViewAdapter(
         }
 
         val adapterList = travelList[listPosition].company.keys.toMutableList()
+        adapterList.replaceAll { decodeKey(it) }
         val noSelectionIndex = adapterList.indexOf(spinnerDefaultText)
         adapterList.let {
             it[noSelectionIndex] = it[0]

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.StringRes
+import androidx.core.view.size
 import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal.R
 import com.example.traveldeal.data.entities.Travel
@@ -44,10 +45,10 @@ class TravelRecyclerViewAdapter(
         holder.departureDate.text = currentItem.departureDate
         holder.returnDate.text = currentItem.returnDate
 
+        val spinnerDefaultText = "No selection"
         holder.companySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
-//                for (offer in currentItem.company.keys)
-//                    currentItem.company[offer] = false
+                parent?.setSelection(parent.size - 1)
             }
 
             override fun onItemSelected(
@@ -56,24 +57,30 @@ class TravelRecyclerViewAdapter(
                 position: Int,
                 id: Long
             ) {
-                currentItem.requestStatus = Status.RUNNING
-                for (offer in currentItem.company?.keys!!)
-                    currentItem.company?.set(offer, parent?.selectedItem.toString() == offer)
-                listener.updateTravel(currentItem)
-//                notifyDataSetChanged()
+                if (parent?.selectedItem.toString() != spinnerDefaultText) {
+                    currentItem.requestStatus = Status.RUNNING
+                    for (offer in currentItem.company.keys)
+                        currentItem.company[offer] = parent?.selectedItem.toString() == offer
+                    listener.updateTravel(currentItem)
+                }
             }
         }
-        val aa = travelList[listPosition].company?.keys?.let {
-            ArrayAdapter(
-                App.instance,
-                android.R.layout.simple_spinner_item,
-                it.toList()
-            )
+
+        val adapterList = travelList[listPosition].company.keys.toMutableList()
+        val noSelectionIndex = adapterList.indexOf(spinnerDefaultText)
+        adapterList.let {
+            it[noSelectionIndex] = it[0]
+            it[0] = spinnerDefaultText
         }
-        // Set layout to use when the list of choices appear
-        aa?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        val arrayAdapter = ArrayAdapter(
+            App.instance,
+            android.R.layout.simple_spinner_item,
+            adapterList
+        )//.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
         // Set Adapter to Spinner
-        holder.companySpinner.adapter = aa
+        holder.companySpinner.adapter = arrayAdapter
         holder.switchEnded.isEnabled =
             currentItem.requestStatus == Status.RUNNING
 
@@ -84,12 +91,6 @@ class TravelRecyclerViewAdapter(
                 Strings.get(R.string.onePassengers)
             } else passengersNum + " ${Strings.get(R.string.passengersNumber)}"
 
-//        holder.expandableLayout.visibility = if (currentItem.expandable) View.VISIBLE else View.GONE
-//
-//        holder.mainLayout.setOnClickListener {
-//            travelList[listPosition].expandable = !travelList[listPosition].expandable
-//            notifyItemChanged(listPosition)
-//        }
         holder.expandableLayout.visibility = if (currentItem.expandable) View.VISIBLE else View.GONE
 
         holder.mainLayout.setOnClickListener {
@@ -107,7 +108,7 @@ class TravelRecyclerViewAdapter(
 //                }
 //            })
 //        }
-        holder.switchEnded.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+        holder.switchEnded.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
             if (isChecked)
                 currentItem.requestStatus = Status.CLOSED
 

@@ -31,6 +31,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.properties.Delegates
 import utils.TravelRecyclerViewAdapter
+import kotlin.collections.HashMap
 
 class AddTravelActivity : AppCompatActivity() {
     val api = "AIzaSyBlm-gYIse1zkWi3WwqQg3w9UOxRm4P3pE"

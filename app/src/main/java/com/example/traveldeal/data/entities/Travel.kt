@@ -33,6 +33,7 @@ class Travel {
     var departureAddress: String = ""
         set
         get() = field
+
     @TypeConverters(UserLocationConverter::class)
     var departLocation: UserLocation? = null
         set
@@ -43,6 +44,7 @@ class Travel {
     var destinationAddress: String = ""
         set
         get() = field
+
     @TypeConverters(UserLocationConverter::class)
     var destLocation: UserLocation? = null
         set
@@ -53,14 +55,17 @@ class Travel {
     var passengersNumber: Int = 0
         set
         get() = field
+
     @TypeConverters(RequestStatusConverter::class)
     var requestStatus: Status = Status.SENT
         set
         get() = field
+
     @TypeConverters(CompanyConverter::class)
-    var company :MutableMap<String, Boolean>? = null
+    var company: MutableMap<String, Boolean> = hashMapOf("No selection" to false)
         set
         get() = field
+
     // for expandable of card in recycle view
     @Ignore
     var expandable: Boolean = false

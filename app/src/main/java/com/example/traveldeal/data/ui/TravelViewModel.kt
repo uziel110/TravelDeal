@@ -43,12 +43,4 @@ class TravelViewModel : ViewModel() {
     fun getTravelsByStatus():  MutableLiveData<List<Travel?>?>? {
        return travelsList
     }
-
-    fun updateItem(travel: Travel) {
-        rp.update(travel)
-    }
-
-//    fun getTravel(id: String): MutableLiveData<Travel> {
-//        return rp.getTravel(id)
-//    }
 }

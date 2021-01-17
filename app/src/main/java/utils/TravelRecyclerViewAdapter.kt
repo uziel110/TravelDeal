@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal.R
 import com.example.traveldeal.data.entities.Travel
 import com.example.traveldeal.data.enums.Status
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 object Strings {
     fun get(@StringRes stringRes: Int, vararg formatArgs: Any = emptyArray()): String {
@@ -42,7 +43,6 @@ class TravelRecyclerViewAdapter(
             if (tmp.indexOf(",") == -1) tmp else tmp.substring(0, tmp.lastIndexOf(","))
         holder.departureDate.text = currentItem.departureDate
         holder.returnDate.text = currentItem.returnDate
-        holder.returnDate.text = currentItem.returnDate
 
         holder.companySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -57,29 +57,28 @@ class TravelRecyclerViewAdapter(
                 id: Long
             ) {
                 currentItem.requestStatus = Status.RUNNING
-                for (offer in currentItem.company.keys)
-                    currentItem.company[offer] = parent?.selectedItem.toString() == offer
+                for (offer in currentItem.company?.keys!!)
+                    currentItem.company?.set(offer, parent?.selectedItem.toString() == offer)
                 listener.updateTravel(currentItem)
 //                notifyDataSetChanged()
             }
         }
-        val aa = ArrayAdapter(
-            App.instance,
-            android.R.layout.simple_spinner_item,
-            travelList[listPosition].company.keys.toList()
-        )
+        val aa = travelList[listPosition].company?.keys?.let {
+            ArrayAdapter(
+                App.instance,
+                android.R.layout.simple_spinner_item,
+                it.toList()
+            )
+        }
         // Set layout to use when the list of choices appear
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        aa?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         // Set Adapter to Spinner
         holder.companySpinner.adapter = aa
+        holder.switchEnded.isEnabled =
+            currentItem.requestStatus == Status.RECEIVED // TODO: 15/01/2021 need to change to RUNNING
 
         val passengersNum = currentItem.passengersNumber.toString()
-        holder.departureDate.text = currTravel.departureDate
-        holder.returnDate.text = currTravel.returnDate
-        holder.returnDate.text = currTravel.returnDate
-        holder.switchEnded.isEnabled =
-            currTravel.requestStatus == Status.RECEIVED // TODO: 15/01/2021 need to change to RUNNING
-        val passengersNum = currTravel.passengersNumber.toString()
+
         holder.psgNum.text =
             if (passengersNum == "1") {
                 Strings.get(R.string.onePassengers)
@@ -91,7 +90,7 @@ class TravelRecyclerViewAdapter(
 //            travelList[listPosition].expandable = !travelList[listPosition].expandable
 //            notifyItemChanged(listPosition)
 //        }
-        holder.expandableLayout.visibility = if (currTravel.expandable) View.VISIBLE else View.GONE
+        holder.expandableLayout.visibility = if (currentItem.expandable) View.VISIBLE else View.GONE
 
         holder.mainLayout.setOnClickListener {
             travelList[listPosition].expandable = !travelList[listPosition].expandable
@@ -110,9 +109,9 @@ class TravelRecyclerViewAdapter(
 //        }
         holder.switchEnded.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked)
-                currTravel.requestStatus = Status.CLOSED
+                currentItem.requestStatus = Status.CLOSED
 
-            listener.updateTravel(currTravel)
+            listener.updateTravel(currentItem)
             notifyDataSetChanged()
         })
     }
@@ -146,8 +145,5 @@ class TravelRecyclerViewAdapter(
 
     interface OnItemClickListener {
         fun updateTravel(travel: Travel)
-
-//        fun onItemClick(itemID: Int)
-        fun onItemClick(itemID: Int)
     }
 }

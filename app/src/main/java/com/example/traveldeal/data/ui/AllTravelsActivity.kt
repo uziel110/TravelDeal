@@ -53,10 +53,6 @@ class AllTravelsActivity : AppCompatActivity(), TravelRecyclerViewAdapter.OnItem
         model.updateItem(travel)
     }
 
-    override fun updateTravel(travel: Travel) {
-        model.updateItem(travel)
-    }
-
 //    override fun onItemClick(itemID: Int) {
 //        val t = travelsList[itemID]
 //        Toast.makeText(this, "clientId: ${t!!.clientId}", Toast.LENGTH_SHORT).show()

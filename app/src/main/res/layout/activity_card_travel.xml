@@ -153,7 +153,7 @@
             android:id="@+id/ExpandableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/TextViewPassengersNumber"
+            android:layout_below="@+id/switchrLayout"
             android:visibility="visible"
             android:orientation="vertical">
 

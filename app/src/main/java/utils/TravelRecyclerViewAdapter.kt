@@ -75,7 +75,7 @@ class TravelRecyclerViewAdapter(
         // Set Adapter to Spinner
         holder.companySpinner.adapter = aa
         holder.switchEnded.isEnabled =
-            currentItem.requestStatus == Status.RECEIVED // TODO: 15/01/2021 need to change to RUNNING
+            currentItem.requestStatus == Status.RUNNING
 
         val passengersNum = currentItem.passengersNumber.toString()
 

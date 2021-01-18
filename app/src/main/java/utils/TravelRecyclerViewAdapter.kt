@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
-import androidx.core.view.size
 import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal.R
 import com.example.traveldeal.data.entities.Travel
@@ -51,26 +50,6 @@ class TravelRecyclerViewAdapter(
         holder.returnDate.text = currentItem.returnDate
 
         val spinnerDefaultText = "בחר הצעה"
-        holder.companySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                parent?.setSelection(parent.size - 1)
-            }
-
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                if (parent?.selectedItem.toString() != spinnerDefaultText) {
-                    currentItem.requestStatus = Status.RUNNING
-                    for (offer in currentItem.company.keys)
-                        currentItem.company[offer] = encodeKey(parent?.selectedItem.toString()) == offer
-                    listener.updateTravel(currentItem)
-                }
-            }
-        }
-
         val adapterList = travelList[listPosition].company.keys.toMutableList()
         adapterList.replaceAll { decodeKey(it) }
         val noSelectionIndex = adapterList.indexOf(spinnerDefaultText)
@@ -83,12 +62,37 @@ class TravelRecyclerViewAdapter(
             App.instance,
             android.R.layout.simple_spinner_item,
             adapterList
-        )//.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        )
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Set Adapter to Spinner
         holder.companySpinner.adapter = arrayAdapter
-        holder.switchEnded.isEnabled =
-            currentItem.requestStatus == Status.RUNNING
+        fun setSpinner() {
+            val spinnerKeys = currentItem.company.filter { it.value }.keys
+            val index =
+                arrayAdapter.getPosition(if (spinnerKeys.isNotEmpty()) spinnerKeys.first() else spinnerDefaultText)
+            holder.companySpinner.setSelection(index)
+        }
+        setSpinner()
+
+        holder.btChoice.setOnClickListener {
+            if (holder.companySpinner.selectedItem.toString() != spinnerDefaultText) {
+                for (offer in currentItem.company.keys)
+                    currentItem.company[offer] =
+                        encodeKey(holder.companySpinner.selectedItem.toString()) == offer
+                currentItem.requestStatus = Status.RUNNING
+            } else {
+                for (offer in currentItem.company.keys)
+                    currentItem.company[offer] = false
+                currentItem.requestStatus = Status.RECEIVED
+            }
+            listener.updateTravel(currentItem)
+            setSpinner()
+        }
+
+        holder.switchEnded.visibility =
+            if (currentItem.requestStatus == Status.RUNNING) View.VISIBLE else View.GONE
+
 
         val passengersNum = currentItem.passengersNumber.toString()
 
@@ -97,12 +101,14 @@ class TravelRecyclerViewAdapter(
                 Strings.get(R.string.onePassengers)
             } else passengersNum + " ${Strings.get(R.string.passengersNumber)}"
 
-        holder.expandableLayout.visibility = if (currentItem.expandable) View.VISIBLE else View.GONE
+//        holder.expandableLayout.visibility = if (currentItem.expandable) View.VISIBLE else View.GONE
+        holder.expandableLayout.visibility =
+            if (currentItem.company.size > 1 && currentItem.requestStatus != Status.RUNNING) View.VISIBLE else View.GONE
+//        holder.mainLayout.setOnClickListener {
+//            travelList[listPosition].expandable = !travelList[listPosition].expandable
+//            notifyItemChanged(listPosition)
+//        }
 
-        holder.mainLayout.setOnClickListener {
-            travelList[listPosition].expandable = !travelList[listPosition].expandable
-            notifyItemChanged(listPosition)
-        }
 //        if (holder.switchEnded.isEnabled) {
 //            holder.switchEnded.setOnTouchListener(  object : View.OnTouchListener {
 //                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
@@ -125,8 +131,7 @@ class TravelRecyclerViewAdapter(
 
     override fun getItemCount() = travelList.size
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)/*,
-        View.OnClickListener*/ {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var itemID: String = ""
         var sourceAddress: TextView = this.itemView.findViewById(R.id.TextViewDepartureAddress)
         var destinationAddress: TextView =
@@ -138,16 +143,7 @@ class TravelRecyclerViewAdapter(
         var mainLayout: RelativeLayout = this.itemView.findViewById(R.id.cardMainLayout)
         var companySpinner: Spinner = this.itemView.findViewById(R.id.spinnerOffers)
         var switchEnded: SwitchMaterial = this.itemView.findViewById(R.id.switch_ended)
-
-//        init {
-//            itemView.setOnClickListener(this)
-//        }
-
-//        override fun onClick(v: View?) {
-//            if (adapterPosition != RecyclerView.NO_POSITION) {
-//                listener.onItemClick(adapterPosition)
-//            }
-//        }
+        var btChoice: Button = this.itemView.findViewById(R.id.bt_spinnerChoice)
     }
 
     interface OnItemClickListener {

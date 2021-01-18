@@ -1,6 +1,7 @@
 package com.example.traveldeal.data.repositories
 
 import  android.app.Application
+import android.app.Service
 import android.content.Context
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
@@ -17,7 +18,7 @@ class TravelRepository(context: Context) : Application() {
         val notifyData: ITravelDataSource.NotifyLiveData =
             object : ITravelDataSource.NotifyLiveData {
                 override fun onDataChange() {
-                    var tempList = remoteDatabase.getAllTravels()
+                    val tempList = remoteDatabase.getAllTravels()
                     travelsList.postValue(tempList)
                     localDatabase.clearTable()
                     localDatabase.addTravels(tempList)
@@ -40,7 +41,7 @@ class TravelRepository(context: Context) : Application() {
         return travelsList
     }
 
-    fun getTravelsByStatus(status :List<Int>): LiveData<List<Travel>> {
+    fun getTravelsByStatus(status: List<Int>): LiveData<List<Travel>> {
         return localDatabase.getTravelsByStatus(status)
     }
 

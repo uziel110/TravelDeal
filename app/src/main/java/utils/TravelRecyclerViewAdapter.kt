@@ -15,6 +15,7 @@ import com.example.traveldeal.data.entities.Travel
 import com.example.traveldeal.data.enums.Status
 import com.google.android.material.switchmaterial.SwitchMaterial
 import utils.Utils.Companion.decodeKey
+import utils.Utils.Companion.encodeKey
 
 object Strings {
     fun get(@StringRes stringRes: Int, vararg formatArgs: Any = emptyArray()): String {
@@ -49,7 +50,7 @@ class TravelRecyclerViewAdapter(
         holder.departureDate.text = currentItem.departureDate
         holder.returnDate.text = currentItem.returnDate
 
-        val spinnerDefaultText = "No selection"
+        val spinnerDefaultText = "בחר הצעה"
         holder.companySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 parent?.setSelection(parent.size - 1)
@@ -64,7 +65,7 @@ class TravelRecyclerViewAdapter(
                 if (parent?.selectedItem.toString() != spinnerDefaultText) {
                     currentItem.requestStatus = Status.RUNNING
                     for (offer in currentItem.company.keys)
-                        currentItem.company[offer] = parent?.selectedItem.toString() == offer
+                        currentItem.company[offer] = encodeKey(parent?.selectedItem.toString()) == offer
                     listener.updateTravel(currentItem)
                 }
             }

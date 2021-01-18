@@ -62,7 +62,7 @@ class Travel {
         get() = field
 
     @TypeConverters(CompanyConverter::class)
-    var company: MutableMap<String, Boolean> = hashMapOf("No selection" to false)
+    var company: MutableMap<String, Boolean> = hashMapOf("בחר הצעה" to false)
         set
         get() = field
 

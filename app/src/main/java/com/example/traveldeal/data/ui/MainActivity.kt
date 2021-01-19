@@ -13,7 +13,9 @@ import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import utils.Strings
 
-
+/**
+ * main activity
+ */
 class MainActivity : AppCompatActivity() {
     private val RC_SIGN_IN = 123
     private lateinit var sharedPreferences: SharedPreferences
@@ -36,6 +38,7 @@ class MainActivity : AppCompatActivity() {
 //        }, 500)
     }
 
+    //Sign-In fire base intent
     private fun startSignInIntent() {
         // Choose authentication providers
         val providers = arrayListOf(
@@ -79,17 +82,25 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /** Called when the user taps the Send button */
+    /**
+     * Called when the user taps on the Add Travel button
+     */
     fun startTravelButton(view: View) {
         val intent = Intent(this, AddTravelActivity::class.java)
         this.startActivity(intent)
     }
 
+    /**
+     * Called when the user taps on the My Travels button
+     */
     fun btMyTravels(view: View) {
         val intent = Intent(this, AllTravelsActivity::class.java)
         this.startActivity(intent)
     }
 
+    /**
+     * Called when the user taps on the sign-out button
+     */
     fun signOutButton(view: View) {
         FirebaseAuth.getInstance().signOut()
         startSignInIntent()

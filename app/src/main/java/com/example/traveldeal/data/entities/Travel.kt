@@ -2,15 +2,12 @@ package com.example.traveldeal.data.entities
 
 import androidx.room.*
 import androidx.room.Entity
-import com.example.traveldeal.data.enums.Status
+import utils.Status
 import utils.RequestStatusConverter
 import utils.UserLocation
 import utils.UserLocationConverter
 import com.google.firebase.database.Exclude
 import utils.CompanyConverter
-
-//@TypeConverters(Travel.UserLocationConverter::class)
-//private val travelLocation: UserLocation? = null
 
 @Entity(tableName = "travels_table")
 class Travel {

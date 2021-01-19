@@ -22,13 +22,15 @@
     <string name="num_bigger_than_0">The number must be bigger than zero</string>
     <string name="enter_exit_date_first">Please enter a departure date first</string>
     <string name="fill_all_fields">All fields should be filled</string>
-    <string name="saved_success">Details saved successfully!</string>
+    <string name="saved_success">Details saved successfully</string>
     <string name="incorrect_email">The email address is incorrect</string>
     <string name="incorrect_phone_number">Phone number is incorrect</string>
     <string name="travels_dont_exists">You don\'t have travel yet</string>
     <string name="close_travel">The travel ended?</string>
     <string name="no_offers">There are no offers for this trip yet</string>
     <string name="welcome">Welcome</string>
+    <string name="end_travel">The travel ended</string>
+    <string name="cancel">Cancel</string>
 
 
     <string-array name="status_array">

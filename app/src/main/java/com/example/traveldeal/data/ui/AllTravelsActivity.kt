@@ -14,6 +14,10 @@ import com.example.traveldeal.R
 import com.example.traveldeal.data.entities.Travel
 import utils.TravelRecyclerViewAdapter
 
+/**
+ * Activity AllTravels
+ * displays all the user travels
+ */
 class AllTravelsActivity : AppCompatActivity(), TravelRecyclerViewAdapter.OnItemClickListener {
     private lateinit var model: TravelViewModel
     lateinit var recyclerView: RecyclerView
@@ -25,7 +29,6 @@ class AllTravelsActivity : AppCompatActivity(), TravelRecyclerViewAdapter.OnItem
         setContentView(R.layout.activity_all_travels)
 
         model = ViewModelProvider(this).get(TravelViewModel::class.java)
-        //    .also { model = it }
         recyclerView = findViewById(R.id.rvUserTravels)
         /*
         recyclerView.apply {
@@ -43,7 +46,7 @@ class AllTravelsActivity : AppCompatActivity(), TravelRecyclerViewAdapter.OnItem
                 travelsList = it as MutableList<Travel?>
                 noTravtlsTextView.visibility = View.GONE
             }
-            if (it!!.isEmpty())
+            if (it.isEmpty())
                 noTravtlsTextView.visibility = View.VISIBLE
         })
         recyclerView.layoutManager = LinearLayoutManager(this)

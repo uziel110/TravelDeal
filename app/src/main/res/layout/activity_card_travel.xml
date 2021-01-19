@@ -142,7 +142,7 @@
             android:layout_toEndOf="@+id/DepartureAddressTitle"
             android:layout_toRightOf="@+id/DepartureAddressTitle"
             android:layout_below="@id/TextViewPassengersNumber"
-            android:text="@string/close_travel" />
+            android:text="@string/close_travel"/>
         <TextView
             android:id="@+id/TextViewNoOffers"
             android:layout_width="match_parent"
@@ -150,7 +150,7 @@
             android:layout_below="@+id/switch_ended"
             android:layout_margin="8dp"
             android:text="@string/no_offers"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/app_color_blue"
             android:textStyle="bold"
             android:gravity="center_horizontal" />
 
@@ -195,8 +195,6 @@
                 android:text="בחרתי" />
 
         </LinearLayout>
-
-
 
     </LinearLayout>
 

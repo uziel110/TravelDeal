@@ -9,6 +9,9 @@ import com.example.traveldeal.data.entities.Travel
 import kotlinx.coroutines.CoroutineScope
 import utils.UserLocationConverter
 
+/**
+ * room database
+ */
 @Database(entities = [Travel::class], version = 1, exportSchema = false)
 @TypeConverters(UserLocationConverter::class)
 abstract class TravelRoomDatabase : RoomDatabase() {

@@ -23,13 +23,15 @@
     <string name="num_bigger_than_0">הזן ערך גדול מאפס</string>
     <string name="enter_exit_date_first">הזן קודם תאריך יציאה</string>
     <string name="fill_all_fields">יש למלא את כל השדות</string>
-    <string name="saved_success">הפרטים נשמרו בהצלחה!</string>
+    <string name="saved_success">הפרטים נשמרו בהצלחה</string>
     <string name="incorrect_email">כתובת המייל אינה תקינה</string>
     <string name="incorrect_phone_number">מספר הטלפון לא תקין</string>
     <string name="travels_dont_exists">עדיין אין לך נסיעות</string>
     <string name="close_travel">הנסיעה הסתיימה?</string>
     <string name="no_offers">עדיין אין הצעות לנסיעה זו</string>
     <string name="welcome">ברוך הבא</string>
+    <string name="end_travel">הנסיעה הסתיימה</string>
+    <string name="cancel">בטל</string>
 
     <string-array name="status_array" tools:ignore="InconsistentArrays">
         <item>נשלח</item>

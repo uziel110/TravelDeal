@@ -7,6 +7,9 @@ import android.location.Location
 import java.io.IOException
 import java.util.*
 
+/**
+ * UserLocation class
+ */
 class UserLocation() {
     var lat: Double = 0.0
         private set
@@ -26,10 +29,13 @@ class UserLocation() {
     }
  */
 
-
+    /**
+     * convert from Location to UserLocation
+     */
     fun convertFromLocation(location: Location?): UserLocation? {
         return if (location == null) null else UserLocation(location.latitude, location.longitude)
     }
+
 
     fun locationFromAddress(applicationContext: Context, departureAddress: String): UserLocation? {
         lateinit var travelLocation: Location

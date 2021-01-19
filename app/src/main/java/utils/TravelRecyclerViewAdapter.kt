@@ -11,7 +11,6 @@ import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal.R
 import com.example.traveldeal.data.entities.Travel
-import com.example.traveldeal.data.enums.Status
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.switchmaterial.SwitchMaterial
 import utils.Utils.Companion.decodeKey
@@ -36,7 +35,7 @@ class TravelRecyclerViewAdapter(
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
-    @SuppressLint("RestrictedApi", "SetTextI18n")
+    @SuppressLint("RestrictedApi", "SetTextI18n", "ResourceAsColor")
     override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
 
         val currentItem = travelList[listPosition]
@@ -117,10 +116,11 @@ class TravelRecyclerViewAdapter(
 
         holder.switchEnded.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                Snackbar.make(holder.switchEnded, "הנסיעה הסתיימה", 5000)
-                    .setAction("בטל", View.OnClickListener {
+                Snackbar.make(holder.switchEnded, R.string.end_travel, 5000)
+                    .setAction(R.string.cancel, View.OnClickListener {
                         holder.switchEnded.isChecked = false
-                    }).addCallback(object : Snackbar.Callback() {
+                    })
+                    .addCallback(object : Snackbar.Callback() {
                         override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                             if (event == DISMISS_EVENT_TIMEOUT) {
                                 currentItem.requestStatus = Status.CLOSED
@@ -128,7 +128,6 @@ class TravelRecyclerViewAdapter(
                                 notifyDataSetChanged()
                             }
                         }
-
                         override fun onShown(sb: Snackbar?) {}
                     }).show()
             }

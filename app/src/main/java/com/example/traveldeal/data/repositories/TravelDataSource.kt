@@ -9,10 +9,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 /**
- * fire base com.example.traveldeal.data source
+ * class that implement ITravelDataSource interface
  */
-class TravelDataSource :
-    ITravelDataSource {
+class TravelDataSource : ITravelDataSource {
     private val rootNode = FirebaseDatabase.getInstance()
     private val reference = rootNode.getReference("travels")
     private val liveData: MutableLiveData<Boolean> = MutableLiveData()
@@ -24,12 +23,13 @@ class TravelDataSource :
     lateinit var notifyData: ITravelDataSource.NotifyLiveData
 
     init {
-        //        reference.child(uid).addValueEventListener(object : ValueEventListener {
+        // reference.child(uid).addValueEventListener(object : ValueEventListener {
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 travelsList.clear()
                 for (travelSnapshot in dataSnapshot.children) {
                     val travel: Travel? = travelSnapshot.getValue(Travel::class.java)
+                    //add to the list the user's travels
                     if (travel != null && travel.clientId == uid) {
                         travelsList.add(travel)
                     }
@@ -37,7 +37,6 @@ class TravelDataSource :
                 // travels.value = travelsList
                 notifyData.onDataChange()
             }
-
             override fun onCancelled(databaseError: DatabaseError) {
             }
         })

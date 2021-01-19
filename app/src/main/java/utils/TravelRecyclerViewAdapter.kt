@@ -64,7 +64,7 @@ class TravelRecyclerViewAdapter(
             android.R.layout.simple_spinner_item,
             adapterList
         )
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         // Set Adapter to Spinner
         holder.companySpinner.adapter = arrayAdapter
@@ -78,17 +78,24 @@ class TravelRecyclerViewAdapter(
 
         holder.btChoice.setOnClickListener {
             if (holder.companySpinner.selectedItem.toString() != spinnerDefaultText) {
-                for (offer in currentItem.company.keys)
-                    currentItem.company[offer] =
-                        encodeKey(holder.companySpinner.selectedItem.toString()) == offer
-                currentItem.requestStatus = Status.RUNNING
-            } else {
-                for (offer in currentItem.company.keys)
-                    currentItem.company[offer] = false
-                currentItem.requestStatus = Status.RECEIVED
+                Snackbar.make(holder.companySpinner, "נבחרה חברת הסעות", 5000)
+                    .setAction("בטל", View.OnClickListener {
+                        holder.companySpinner.setSelection(0)
+                    }).addCallback(object : Snackbar.Callback() {
+                        override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                            if (event == DISMISS_EVENT_TIMEOUT) {
+                                for (offer in currentItem.company.keys)
+                                    currentItem.company[offer] =
+                                        encodeKey(holder.companySpinner.selectedItem.toString()) == offer
+                                currentItem.requestStatus = Status.RUNNING
+                                listener.updateTravel(currentItem)
+                                setSpinner()
+                            }
+                        }
+
+                        override fun onShown(sb: Snackbar?) {}
+                    }).show()
             }
-            listener.updateTravel(currentItem)
-            setSpinner()
         }
 
         holder.switchEnded.visibility =
@@ -102,38 +109,30 @@ class TravelRecyclerViewAdapter(
                 Strings.get(R.string.onePassengers)
             } else passengersNum + " ${Strings.get(R.string.passengersNumber)}"
 
-//        holder.expandableLayout.visibility = if (currentItem.expandable) View.VISIBLE else View.GONE
         holder.expandableLayout.visibility =
             if (currentItem.company.size > 1 && currentItem.requestStatus != Status.RUNNING) View.VISIBLE else View.GONE
         holder.tvNoOffers.visibility =
             if (currentItem.company.size == 1) View.VISIBLE else View.GONE
 
+
         holder.switchEnded.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                var snackbar = Snackbar.make(holder.switchEnded, "הנסיעה אושרה", Snackbar.LENGTH_LONG)
-                snackbar.setAction("בטל", View.OnClickListener {
+                Snackbar.make(holder.switchEnded, "הנסיעה הסתיימה", 5000)
+                    .setAction("בטל", View.OnClickListener {
                         holder.switchEnded.isChecked = false
-                    })
-                snackbar.show()
+                    }).addCallback(object : Snackbar.Callback() {
+                        override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                            if (event == DISMISS_EVENT_TIMEOUT) {
+                                currentItem.requestStatus = Status.CLOSED
+                                listener.updateTravel(currentItem)
+                                notifyDataSetChanged()
+                            }
+                        }
 
-                if(snackbar.isShownOrQueued() == false){
-                    currentItem.requestStatus = Status.CLOSED
-
-                    listener.updateTravel(currentItem)
-                    notifyDataSetChanged()
-                }
-
-
-
+                        override fun onShown(sb: Snackbar?) {}
+                    }).show()
             }
-
-//                Snackbar.make(holder.switchEnded, "Text label", Snackbar.LENGTH_LONG)
-//           .setAction("R.string.undo_string", MyUndoListener())
-//            .show()
-
         })
-
-
     }
 
     override fun getItemCount() = travelList.size
@@ -147,7 +146,6 @@ class TravelRecyclerViewAdapter(
         var returnDate: TextView = this.itemView.findViewById(R.id.TextViewReturnDate)
         var psgNum: TextView = this.itemView.findViewById(R.id.TextViewPassengersNumber) as TextView
         var expandableLayout: LinearLayout = this.itemView.findViewById(R.id.ExpandableLayout)
-        var mainLayout: RelativeLayout = this.itemView.findViewById(R.id.cardMainLayout)
         var companySpinner: Spinner = this.itemView.findViewById(R.id.spinnerOffers)
         var switchEnded: SwitchMaterial = this.itemView.findViewById(R.id.switch_ended)
         var btChoice: Button = this.itemView.findViewById(R.id.bt_spinnerChoice)

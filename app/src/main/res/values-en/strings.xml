@@ -27,6 +27,8 @@
     <string name="incorrect_phone_number">Phone number is incorrect</string>
     <string name="travels_dont_exists">You don\'t have travel yet</string>
     <string name="close_travel">The travel ended?</string>
+    <string name="no_offers">There are no offers for this trip yet</string>
+    <string name="welcome">Welcome</string>
 
 
     <string-array name="status_array">
@@ -34,6 +36,7 @@
         <item>RECEIVED</item>
         <item>RUN</item>
         <item>CLOSED</item>
+        <item>PAID</item>
     </string-array>
 
 </resources>

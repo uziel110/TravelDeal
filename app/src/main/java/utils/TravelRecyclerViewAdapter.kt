@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal.R
 import com.example.traveldeal.data.entities.Travel
 import com.example.traveldeal.data.enums.Status
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.switchmaterial.SwitchMaterial
 import utils.Utils.Companion.decodeKey
 import utils.Utils.Companion.encodeKey
@@ -106,29 +107,33 @@ class TravelRecyclerViewAdapter(
             if (currentItem.company.size > 1 && currentItem.requestStatus != Status.RUNNING) View.VISIBLE else View.GONE
         holder.tvNoOffers.visibility =
             if (currentItem.company.size == 1) View.VISIBLE else View.GONE
-//        holder.mainLayout.setOnClickListener {
-//            travelList[listPosition].expandable = !travelList[listPosition].expandable
-//            notifyItemChanged(listPosition)
-//        }
 
-//        if (holder.switchEnded.isEnabled) {
-//            holder.switchEnded.setOnTouchListener(  object : View.OnTouchListener {
-//                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-//                    when (event?.action) {
-//                        MotionEvent.ACTION_DOWN ->
-//                            Toast.makeText(holder, "הנסיעה לא פעילה", Toast.LENGTH_SHORT).show()
-//                    }
-//                    return v?.onTouchEvent(event) ?: true
-//                }
-//            })
-//        }
         holder.switchEnded.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
-            if (isChecked)
-                currentItem.requestStatus = Status.CLOSED
+            if (isChecked) {
+                var snackbar = Snackbar.make(holder.switchEnded, "הנסיעה אושרה", Snackbar.LENGTH_LONG)
+                snackbar.setAction("בטל", View.OnClickListener {
+                        holder.switchEnded.isChecked = false
+                    })
+                snackbar.show()
 
-            listener.updateTravel(currentItem)
-            notifyDataSetChanged()
+                if(snackbar.isShownOrQueued() == false){
+                    currentItem.requestStatus = Status.CLOSED
+
+                    listener.updateTravel(currentItem)
+                    notifyDataSetChanged()
+                }
+
+
+
+            }
+
+//                Snackbar.make(holder.switchEnded, "Text label", Snackbar.LENGTH_LONG)
+//           .setAction("R.string.undo_string", MyUndoListener())
+//            .show()
+
         })
+
+
     }
 
     override fun getItemCount() = travelList.size

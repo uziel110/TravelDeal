@@ -11,10 +11,12 @@
         android:theme="@style/Theme.TravelDeal">
         <activity
             android:name=".data.ui.AllTravelsActivity"
-            android:theme="@style/Theme.TravelDeal.NoActionBar" />
+            android:parentActivityName=".data.ui.MainActivity"
+            android:label="@string/My_travels"/>
         <activity
             android:name=".data.ui.AddTravelActivity"
-            android:parentActivityName=".data.ui.MainActivity" />
+            android:parentActivityName=".data.ui.MainActivity"
+            android:label="@string/Add_travel"/>
 
         <activity android:name=".data.ui.MainActivity">
             <intent-filter>

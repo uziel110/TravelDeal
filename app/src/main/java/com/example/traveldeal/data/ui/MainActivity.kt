@@ -11,6 +11,7 @@ import com.example.traveldeal.R
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
+import utils.Strings
 
 
 class MainActivity : AppCompatActivity() {
@@ -65,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                 val user = FirebaseAuth.getInstance().currentUser
                 if (user != null) {
                     sharedPreferences.edit().putBoolean("user", true).apply()
-                    Toast.makeText(this, user.email, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "${Strings.get(R.string.welcome)} " + user.displayName, Toast.LENGTH_LONG).show()
                 }
             } else {
                 Toast.makeText(this, "Sign in failed", Toast.LENGTH_LONG).show()

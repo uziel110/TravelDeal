@@ -104,6 +104,8 @@ class TravelRecyclerViewAdapter(
 //        holder.expandableLayout.visibility = if (currentItem.expandable) View.VISIBLE else View.GONE
         holder.expandableLayout.visibility =
             if (currentItem.company.size > 1 && currentItem.requestStatus != Status.RUNNING) View.VISIBLE else View.GONE
+        holder.tvNoOffers.visibility =
+            if (currentItem.company.size == 1) View.VISIBLE else View.GONE
 //        holder.mainLayout.setOnClickListener {
 //            travelList[listPosition].expandable = !travelList[listPosition].expandable
 //            notifyItemChanged(listPosition)
@@ -144,6 +146,7 @@ class TravelRecyclerViewAdapter(
         var companySpinner: Spinner = this.itemView.findViewById(R.id.spinnerOffers)
         var switchEnded: SwitchMaterial = this.itemView.findViewById(R.id.switch_ended)
         var btChoice: Button = this.itemView.findViewById(R.id.bt_spinnerChoice)
+        var tvNoOffers: TextView = this.itemView.findViewById(R.id.TextViewNoOffers)
     }
 
     interface OnItemClickListener {

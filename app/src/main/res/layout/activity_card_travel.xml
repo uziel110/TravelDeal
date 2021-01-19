@@ -141,6 +141,16 @@
             android:layout_marginRight="16dp"
             android:layout_below="@id/TextViewPassengersNumber"
             android:text="@string/close_travel" />
+        <TextView
+            android:id="@+id/TextViewNoOffers"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_below="@+id/switch_ended"
+            android:layout_margin="8dp"
+            android:text="עדיין אין הצעות לנסיעה זו"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:gravity="center_horizontal" />
 
         <!--        <LinearLayout-->
         <!--            android:id="@+id/switchrLayout"-->

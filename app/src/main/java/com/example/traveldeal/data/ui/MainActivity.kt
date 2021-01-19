@@ -2,6 +2,7 @@ package com.example.traveldeal.data.ui
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -14,12 +15,15 @@ import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
     private val RC_SIGN_IN = 123
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (FirebaseAuth.getInstance().currentUser != null)
+        sharedPreferences = getSharedPreferences("name", MODE_PRIVATE)
+
+        if (sharedPreferences.getBoolean("user", false))
             return
         startSignInIntent()
 
@@ -60,6 +64,7 @@ class MainActivity : AppCompatActivity() {
                 // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
                 if (user != null) {
+                    sharedPreferences.edit().putBoolean("user", true).apply()
                     Toast.makeText(this, user.email, Toast.LENGTH_LONG).show()
                 }
             } else {

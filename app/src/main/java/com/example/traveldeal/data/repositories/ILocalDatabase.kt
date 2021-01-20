@@ -10,25 +10,25 @@ interface ILocalDatabase {
 
     /**
      * add travel to room database
-     * @param travel
+     * @param p travel
      */
     fun addTravel(p: Travel)
 
     /**
      * add travels to room database
-     * @param list of travels
+     * @param travelList list of travels
      */
     fun addTravels(travelList: List<Travel?>?)
 
     /**
      * edit travel in room database
-     * @param travel
+     * @param p travel
      */
     fun editTravel(p: Travel)
 
     /**
      * delete travel from room database
-     * @param travel
+     * @param p travel
      */
     fun deleteTravel(p: Travel)
 
@@ -40,7 +40,7 @@ interface ILocalDatabase {
 
     /**
      * get all travels from room database with certain statuses
-     * @param list of int which represent travels statuses
+     * @param status list of int which represent travels statuses
      * @return LiveData list of travels
      */
     fun getTravelsByStatus(status :List<Int>): LiveData<List<Travel>>

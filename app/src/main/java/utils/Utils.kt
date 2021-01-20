@@ -6,7 +6,7 @@ class Utils {
 
         /**
          * encode email replace the dot with \u002e So that it can appear as a key in firebase
-         * @param string - decode email
+         * @param key - decode email
          * @return string - encode email
          */
         fun encodeKey(key: String?): String {
@@ -15,7 +15,7 @@ class Utils {
 
         /**
          *  decode email replace the \u002e with dot
-         * @param string - encode email
+         * @param key - encode email
          * @return string - decode email
          */
         fun decodeKey(key: String?): String {

@@ -22,6 +22,9 @@ object Strings {
     }
 }
 
+/**
+ *  RecyclerViewAdapter class for activity allTravels
+ */
 class TravelRecyclerViewAdapter(
     private val travelList: List<Travel>,
     private val listener: OnItemClickListener
@@ -50,8 +53,11 @@ class TravelRecyclerViewAdapter(
         holder.returnDate.text = currentItem.returnDate
 
         val spinnerDefaultText = "בחר הצעה"
+        //get all the companies key
         val adapterList = travelList[listPosition].company.keys.toMutableList()
+        // decode all the companies key
         adapterList.replaceAll { decodeKey(it) }
+        //keep the spinnerDefaultText in index 0 of the spinner
         val noSelectionIndex = adapterList.indexOf(spinnerDefaultText)
         adapterList.let {
             it[noSelectionIndex] = it[0]
@@ -75,54 +81,59 @@ class TravelRecyclerViewAdapter(
         }
         setSpinner()
 
+        //improve button of the spinner selection, and set snakeBar to confirm
         holder.btChoice.setOnClickListener {
             if (holder.companySpinner.selectedItem.toString() != spinnerDefaultText) {
-                Snackbar.make(holder.companySpinner, "נבחרה חברת הסעות", 5000)
+                Snackbar.make(holder.companySpinner, "נבחרה חברת הסעות", 4000)
                     .setAction("בטל", View.OnClickListener {
                         holder.companySpinner.setSelection(0)
                     }).addCallback(object : Snackbar.Callback() {
                         override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                             if (event == DISMISS_EVENT_TIMEOUT) {
+                                //set true to the selected company
                                 for (offer in currentItem.company.keys)
                                     currentItem.company[offer] =
                                         encodeKey(holder.companySpinner.selectedItem.toString()) == offer
+                                //set the requestStatus to RUNNING
                                 currentItem.requestStatus = Status.RUNNING
                                 listener.updateTravel(currentItem)
                                 setSpinner()
                             }
                         }
-
                         override fun onShown(sb: Snackbar?) {}
                     }).show()
             }
         }
 
-        holder.switchEnded.visibility =
-            if (currentItem.requestStatus == Status.RUNNING) View.VISIBLE else View.GONE
-
-
         val passengersNum = currentItem.passengersNumber.toString()
-
         holder.psgNum.text =
             if (passengersNum == "1") {
                 Strings.get(R.string.onePassengers)
             } else passengersNum + " ${Strings.get(R.string.passengersNumber)}"
 
+        //the layout expandableLayout is visible only if There are travel offers, and the requestStatus is SENT or RECEIVED
         holder.expandableLayout.visibility =
             if (currentItem.company.size > 1 && currentItem.requestStatus != Status.RUNNING) View.VISIBLE else View.GONE
+
+        //the textView tvNoOffers is visible only if There are no travel offers
         holder.tvNoOffers.visibility =
             if (currentItem.company.size == 1) View.VISIBLE else View.GONE
 
+        //the switch switchEnded is visible only if the requestStatus is RUNNING
+        holder.switchEnded.visibility =
+            if (currentItem.requestStatus == Status.RUNNING) View.VISIBLE else View.GONE
 
+        //Check if the switch switchEnded is on or off, and set snakeBar to confirm the selection
         holder.switchEnded.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                Snackbar.make(holder.switchEnded, R.string.end_travel, 5000)
+                Snackbar.make(holder.switchEnded, R.string.end_travel, 4000)
                     .setAction(R.string.cancel, View.OnClickListener {
                         holder.switchEnded.isChecked = false
                     })
                     .addCallback(object : Snackbar.Callback() {
                         override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                             if (event == DISMISS_EVENT_TIMEOUT) {
+                                //set the requestStatus to CLOSED
                                 currentItem.requestStatus = Status.CLOSED
                                 listener.updateTravel(currentItem)
                                 notifyDataSetChanged()
@@ -136,6 +147,9 @@ class TravelRecyclerViewAdapter(
 
     override fun getItemCount() = travelList.size
 
+    /**
+     * inner class ViewHolder
+     */
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var itemID: String = ""
         var sourceAddress: TextView = this.itemView.findViewById(R.id.TextViewDepartureAddress)

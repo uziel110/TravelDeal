@@ -61,7 +61,7 @@ class TravelRepository(context: Context) : Application() {
 
     /**
      * get all travels from room database with certain statuses
-     * @param list of int which represent travels statuses
+     * @param status list of int which represent travels statuses
      * @return LiveData list of travels
      */
     fun getTravelsByStatus(status: List<Int>): LiveData<List<Travel>> {

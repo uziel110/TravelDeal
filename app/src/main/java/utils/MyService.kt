@@ -7,11 +7,10 @@ import com.example.traveldeal.data.repositories.TravelRepository
 
 class MyService : Service() {
     private var travelAdded = false
+    private val travelRepository = TravelRepository.getTravelRepository(App.instance)
     override fun onCreate() {
         super.onCreate()
-        TravelRepository.getTravelRepository(App.instance).getLiveData().observeForever {
-            updateTravel(true)
-        }
+        travelRepository.getLiveData().observeForever { if (it) updateTravel(true) }
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -21,15 +20,6 @@ class MyService : Service() {
                     updateTravel(false)
                     sendBroadcast(Intent().setAction("com.example.traveldeal.NewTravel"))
                 }
-//                for (travel in travelsList.value!!)
-//                    if (travel != null) {
-//                        if (travel.company.filter { it.value }.keys.first() == email)
-//                            if (uidMapTravels[travel] != email) {
-//                                //brodCast test
-//                                uidMapTravels[travel] = email!!
-//                                Utils.sendBroadcastCustomIntent("הנסיעה אושרה")
-//                            }
-//                    }
                 Thread.sleep(5000)
             }
         }.start()

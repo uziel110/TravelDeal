@@ -12,14 +12,11 @@ import utils.App
  * View model
  */
 class TravelViewModel : ViewModel() {
-    val app = App
-    private var rp: TravelRepository = TravelRepository(app.instance)
-    //var travels = MutableLiveData<List<Travel>>()
-    var travelsList: MutableLiveData<List<Travel?>?> = MutableLiveData(listOf())
-   // var filteredList: MutableLiveData<List<Travel?>?>? = MutableLiveData(listOf())
+    private var rp: TravelRepository = TravelRepository.getTravelRepository(App.instance)
+    private var travelsList: MutableLiveData<List<Travel?>?> = MutableLiveData(listOf())
 
     init {
-        //get from the riposotory only the travels with certain statuses
+        //get from the repository only the travels with certain statuses
         rp.getTravelsByStatus(listOf(Status.SENT.ordinal, Status.RECEIVED.ordinal, Status.RUNNING.ordinal))
             .observeForever {
                 travelsList.postValue(it)
@@ -62,7 +59,7 @@ class TravelViewModel : ViewModel() {
      * get all travels from room database with certain statuses
      * @return MutableLiveData list of travels
      */
-    fun getTravelsByStatus():  MutableLiveData<List<Travel?>?>? {
+    fun getTravelsByStatus(): MutableLiveData<List<Travel?>?> {
        return travelsList
     }
 }

@@ -7,6 +7,9 @@ import com.example.traveldeal.data.entities.Travel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 
+/**
+ * class that implement ILocalDatabase interface
+ */
 class LocalDatabase(context: Context) : ILocalDatabase {
 
     companion object {
@@ -52,7 +55,7 @@ class LocalDatabase(context: Context) : ILocalDatabase {
         return travelDao.getTravels()
     }
 
-    fun getTravelsByStatus(status :List<Int>): LiveData<List<Travel>> {
+    override fun getTravelsByStatus(status :List<Int>): LiveData<List<Travel>> {
         return travelDao.getTravelsByStatus(status)
     }
 

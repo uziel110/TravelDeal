@@ -20,7 +20,7 @@
         tools:layout_editor_absoluteY="-4dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btAddTravel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -41,7 +41,7 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"/>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btMytravels"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

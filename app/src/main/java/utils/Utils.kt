@@ -1,14 +1,25 @@
 package utils
 
+
 class Utils {
     companion object {
 
-        fun decodeKey(key: String?): String {
-            return key!!.replace("\\u002e", ".").replace("\\u0024", "\$").replace("\\\\", "\\")
+        /**
+         * encode email replace the dot with \u002e So that it can appear as a key in firebase
+         * @param string - decode email
+         * @return string - encode email
+         */
+        fun encodeKey(key: String?): String {
+            return key!!.replace(".", "\\u002e").replace("\\", "\\\\").replace("\$", "\\u0024")
         }
 
-        fun encodeKey(key: String?): String {
-            return key!!.replace("\\", "\\\\").replace("\$", "\\u0024").replace(".", "\\u002e")
+        /**
+         *  decode email replace the \u002e with dot
+         * @param string - encode email
+         * @return string - decode email
+         */
+        fun decodeKey(key: String?): String {
+            return key!!.replace("\\u002e", ".").replace("\\u0024", "\$").replace("\\\\", "\\")
         }
     }
 }

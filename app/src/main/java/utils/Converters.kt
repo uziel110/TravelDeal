@@ -1,8 +1,11 @@
 package utils
 
 import androidx.room.TypeConverter
-import com.example.traveldeal.data.enums.Status
 
+/**
+ * UserLocation converter class
+ * convert from UserLocation to string and vice versa
+ */
 class UserLocationConverter {
     @TypeConverter
     fun fromString(value: String?): UserLocation? {
@@ -19,6 +22,9 @@ class UserLocationConverter {
     }
 }
 
+/**
+ * DestinationAddresses converter class
+ */
 class DestinationAddresses {
     @TypeConverter
     fun getString(addressesList: MutableList<String>): String {
@@ -34,6 +40,10 @@ class DestinationAddresses {
     }
 }
 
+/**
+ * RequestStatus converter class
+ * convert from Status to string and vice versa
+ */
 class RequestStatusConverter {
     @TypeConverter
     fun getStatus(status: Int): Status? {
@@ -53,6 +63,10 @@ class RequestStatusConverter {
     }
 }
 
+/**
+ * CompanyConverter converter class
+ * convert from MutableMap to string and vice versa
+ */
 class CompanyConverter {
     @TypeConverter
     fun fromString(value: String?): MutableMap<String, Boolean>? {

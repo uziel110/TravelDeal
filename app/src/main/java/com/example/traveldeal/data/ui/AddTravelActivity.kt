@@ -16,10 +16,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.traveldeal.R
 import com.example.traveldeal.data.entities.Travel
-import com.example.traveldeal.data.enums.Status
+import utils.Status
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
-import androidx.annotation.RequiresApi
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.firebase.auth.FirebaseAuth
@@ -29,10 +28,11 @@ import utils.UserLocation
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.properties.Delegates
-import utils.TravelRecyclerViewAdapter
-import kotlin.collections.HashMap
 
+/**
+ * Activity AddTravel
+ * Adding a new user travel
+ */
 class AddTravelActivity : AppCompatActivity() {
     val api = "AIzaSyBlm-gYIse1zkWi3WwqQg3w9UOxRm4P3pE"
 
@@ -50,9 +50,7 @@ class AddTravelActivity : AppCompatActivity() {
     lateinit var destinationLocation: UserLocation
     lateinit var departureLocation: UserLocation
 
-    private fun isValidEmail(email: String): Boolean {
-        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
-    }
+
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,10 +80,8 @@ class AddTravelActivity : AppCompatActivity() {
         val user = Firebase.auth.currentUser
         etEmailAddress.setText(user?.email)
         etClientName.setText(user?.displayName)
-        //etPhone.setText(user?.phoneNumber)
-        var picker: DatePickerDialog
 
-        //etDepartureDate.inputType = InputType.TYPE_NULL
+        var picker: DatePickerDialog
 
         etDepartureDate.setOnClickListener {
             val cldr: Calendar = Calendar.getInstance()
@@ -99,7 +95,6 @@ class AddTravelActivity : AppCompatActivity() {
                     etDepartureDate.setText("$dayOfMonth/${monthOfYear + 1}/$theYear")
                 },
                 year, month, day
-
             )
             picker.datePicker.minDate = System.currentTimeMillis() - 1000
             picker.show()
@@ -118,6 +113,9 @@ class AddTravelActivity : AppCompatActivity() {
                 },
                 year, month, day
             )
+
+            //initialize the first possible return date is after the selected departure date
+            //and need to select the departure date first
             val sdf = SimpleDateFormat("dd/MM/yyyy")
             try {
                 picker.datePicker.minDate = sdf.parse(etDepartureDate.text.toString()).time
@@ -136,6 +134,7 @@ class AddTravelActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
+            //check if number of passengers > 0
             override fun afterTextChanged(s: Editable?) {
                 if (s != null && s.toString().startsWith("0")) {
                     s.clear()
@@ -148,6 +147,7 @@ class AddTravelActivity : AppCompatActivity() {
             }
         })
 
+        //check if EmailAddress is valid
         etEmailAddress.setOnFocusChangeListener { _, gainFocus ->
             //onFocus
             if (!gainFocus && !isValidEmail(etEmailAddress.text.toString())) {
@@ -161,6 +161,7 @@ class AddTravelActivity : AppCompatActivity() {
             }
         }
 
+        //check if phone number is valid
         etPhone.setOnFocusChangeListener { _, gainFocus ->
             //onFocus
             if (!gainFocus && etPhone.text.length < 9 || etPhone.text.length > 10) {
@@ -180,7 +181,6 @@ class AddTravelActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.autocomplete_DepartureAddress)
                     as AutocompleteSupportFragment
         departureAddressAutocompleteFragment.setHint(getString(R.string.departureAddressHint))
-            //.setText("ירושלים")
 
         // Specify the types of place data to return.
         departureAddressAutocompleteFragment.setPlaceFields(
@@ -191,7 +191,6 @@ class AddTravelActivity : AppCompatActivity() {
                 Place.Field.LAT_LNG
             )
         )
-
 
         // Set up a PlaceSelectionListener to handle the response.
         departureAddressAutocompleteFragment.setOnPlaceSelectedListener(object :
@@ -211,7 +210,6 @@ class AddTravelActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.autocomplete_DestinationAddress)
                     as AutocompleteSupportFragment
         destinationAddressAutocompleteFragment.setHint(getString(R.string.destinationAddressHint))
-            //.setText("חיפה")
 
         // Specify the types of place data to return.
         destinationAddressAutocompleteFragment.setPlaceFields(
@@ -241,6 +239,9 @@ class AddTravelActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * Called when the user taps on the save button
+     */
     fun saveButton(view: View) {
 
         val clientName = etClientName.text.toString()
@@ -249,12 +250,13 @@ class AddTravelActivity : AppCompatActivity() {
         val departureDate = etDepartureDate.text.toString()
         val returnDate = etReturnDate.text.toString()
         val passengersNumber = etPassengersNumber.text.toString()
-//
+
 //        lateinit var departureLocation: UserLocation
 //        departureLocation.locationFromAddress(applicationContext, departureAddress)
 //        lateinit var destinationLocation: UserLocation
 //        destinationLocation.locationFromAddress(applicationContext, destinationAddress)
 
+        //If not all fields are full, Toast: All fields should be filled
         if (clientName == "" ||
             clientPhone == "" ||
             !isValidEmail(clientEmailAddress) ||
@@ -273,7 +275,6 @@ class AddTravelActivity : AppCompatActivity() {
         }
 
         val travel = Travel()
-
         travel.clientName = clientName
         travel.clientPhone = clientPhone
         travel.clientEmailAddress = clientEmailAddress
@@ -286,6 +287,17 @@ class AddTravelActivity : AppCompatActivity() {
         travel.passengersNumber = passengersNumber.toInt()
         travel.requestStatus = Status.SENT
         travel.clientId = FirebaseAuth.getInstance().currentUser?.uid.toString()
+
+        //insert travel
         viewModel.insertItem(travel)
+    }
+
+    /**
+     * check if the user email is valid email
+     * @param email string
+     * @return if is valid or not
+     */
+    private fun isValidEmail(email: String): Boolean {
+        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 }

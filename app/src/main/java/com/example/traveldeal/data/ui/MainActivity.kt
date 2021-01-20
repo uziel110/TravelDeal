@@ -25,14 +25,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        startService(Intent(this, MyService::class.java))
+
         sharedPreferences = getSharedPreferences("name", MODE_PRIVATE)
 
         if (sharedPreferences.getBoolean("user", false))
             return
         startSignInIntent()
-
-        startService(Intent(this, MyService::class.java))
-        sendBroadcast(Intent().setAction("com.example.traveldeal.NewTravel"))
     }
 
     //Sign-In fire base intent
@@ -66,7 +65,11 @@ class MainActivity : AppCompatActivity() {
                 val user = FirebaseAuth.getInstance().currentUser
                 if (user != null) {
                     sharedPreferences.edit().putBoolean("user", true).apply()
-                    Toast.makeText(this, "${Strings.get(R.string.welcome)} " + user.displayName, Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this,
+                        "${Strings.get(R.string.welcome)} " + user.displayName,
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             } else {
                 Toast.makeText(this, "Sign in failed", Toast.LENGTH_LONG).show()

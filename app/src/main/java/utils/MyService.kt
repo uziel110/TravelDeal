@@ -9,7 +9,7 @@ class MyService : Service() {
     private var travelAdded = false
     override fun onCreate() {
         super.onCreate()
-        TravelRepository.getTravelRepository(App.instance).getLiveData().observeForever() {
+        TravelRepository.getTravelRepository(App.instance).getLiveData().observeForever {
             updateTravel(true)
         }
     }

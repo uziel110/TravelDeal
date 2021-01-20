@@ -2,6 +2,7 @@ package com.example.traveldeal.data.ui
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -51,7 +52,6 @@ class AddTravelActivity : AppCompatActivity() {
     lateinit var departureLocation: UserLocation
 
 
-
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +63,8 @@ class AddTravelActivity : AppCompatActivity() {
                 Log.d("FirebaseManager", "Upload Successful")
                 Toast.makeText(applicationContext, R.string.saved_success, Toast.LENGTH_SHORT)
                     .show()
+//                sendBroadcast(Intent().setAction("com.example.traveldeal.NewTravel"))
+
             } else {
                 Log.d("FirebaseManager", "Upload Fail")
                 Toast.makeText(applicationContext, "Saved fail", Toast.LENGTH_SHORT).show()

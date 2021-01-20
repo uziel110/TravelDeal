@@ -11,6 +11,7 @@ import com.example.traveldeal.R
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
+import utils.MyService
 
 
 class MainActivity : AppCompatActivity() {
@@ -27,12 +28,8 @@ class MainActivity : AppCompatActivity() {
             return
         startSignInIntent()
 
-//        val handler = Handler()
-//        handler.postDelayed(Runnable {
-//            val intent = Intent(this, AddTravelActivity::class.java)
-//            this.startActivity(intent)
-//            this.finish()
-//        }, 500)
+        startService(Intent(this, MyService::class.java))
+        sendBroadcast(Intent().setAction("com.example.traveldeal.NewTravel"))
     }
 
     private fun startSignInIntent() {

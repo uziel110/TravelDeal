@@ -14,6 +14,22 @@ class TravelRepository(context: Context) : Application() {
     private val localDatabase = LocalDatabase(context)
     val travelsList = MutableLiveData<List<Travel?>?>()
 
+    companion object {
+        // Singleton prevents multiple instances of database opening at the same time.
+        @Volatile
+        private var INSTANCE: TravelRepository? = null
+
+        fun getTravelRepository(context: Context): TravelRepository {
+            // if the INSTANCE is not null, then return it,
+            // if it is, then create the database
+            return INSTANCE ?: synchronized(this) {
+                val instance = TravelRepository(context)
+                INSTANCE = instance
+                instance
+            }
+        }
+    }
+
     init {
         val notifyData: ITravelDataSource.NotifyLiveData =
             object : ITravelDataSource.NotifyLiveData {

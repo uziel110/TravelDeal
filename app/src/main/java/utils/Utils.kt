@@ -1,6 +1,5 @@
 package utils
 
-
 class Utils {
     companion object {
 
@@ -11,6 +10,5 @@ class Utils {
         fun encodeKey(key: String?): String {
             return key!!.replace("\\", "\\\\").replace("\$", "\\u0024").replace(".", "\\u002e")
         }
-
     }
 }

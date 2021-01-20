@@ -22,6 +22,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter
+                android:enabled="true"
+                android:exported="true">
+                <action android:name="com.example.traveldeal.NewTravel" />
+            </intent-filter>
         </activity>
 
         <activity android:name="utils.AddressDialog" />
@@ -33,6 +38,10 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
+        <service
+            android:name="utils.MyService"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

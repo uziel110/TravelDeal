@@ -3,10 +3,7 @@ package com.example.traveldeal.data.ui
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isEmpty
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,12 +27,7 @@ class AllTravelsActivity : AppCompatActivity(), TravelRecyclerViewAdapter.OnItem
 
         model = ViewModelProvider(this).get(TravelViewModel::class.java)
         recyclerView = findViewById(R.id.rvUserTravels)
-        /*
-        recyclerView.apply {
-            itemAnimator = DefaultItemAnimator()
-            layoutManager = LinearLayoutManager(applicationContext)
-        }
-*/
+
         noTravtlsTextView = findViewById(R.id.no_travels_textView)
 
         model.getTravelsByStatus()?.observe(this, {
@@ -55,9 +47,4 @@ class AllTravelsActivity : AppCompatActivity(), TravelRecyclerViewAdapter.OnItem
     override fun updateTravel(travel: Travel) {
         model.updateItem(travel)
     }
-
-//    override fun onItemClick(itemID: Int) {
-//        val t = travelsList[itemID]
-//        Toast.makeText(this, "clientId: ${t!!.clientId}", Toast.LENGTH_SHORT).show()
-//    }
 }

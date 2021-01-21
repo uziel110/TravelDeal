@@ -31,7 +31,6 @@ abstract class TravelRoomDatabase : RoomDatabase() {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-//                    App.instance.applicationContext,
                     TravelRoomDatabase::class.java,
                     "travel_database"
                 ).allowMainThreadQueries()

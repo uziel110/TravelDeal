@@ -5,9 +5,6 @@ import android.app.Application
 class App : Application() {
     companion object {
         lateinit var instance: App private set
-
-        const val CHANNEL_ID = "channel1"
-
     }
 
     override fun onCreate() {

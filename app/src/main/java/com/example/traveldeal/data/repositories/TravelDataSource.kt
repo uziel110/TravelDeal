@@ -82,22 +82,6 @@ class TravelDataSource private constructor(): ITravelDataSource {
         return travelsList
     }
 
-//    fun getTravel(travelId: String): MutableLiveData<Travel> {
-//        lateinit var currTravel: Travel
-//        reference.child(uid).child(travelId).addValueEventListener(object : ValueEventListener {
-//
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                val travel: Travel? = dataSnapshot.getValue(Travel::class.java)
-//                //currTravel = dataSnapshot.getValue(Travel::class.java)!!
-//                aTravel.value = travel
-//            }
-//
-//            override fun onCancelled(databaseError: DatabaseError) {
-//            }
-//        })
-//        return aTravel
-//    }
-
     override fun setNotifyLiveData(obj: ITravelDataSource.NotifyLiveData) {
         notifyData = obj
     }

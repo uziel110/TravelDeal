@@ -15,12 +15,6 @@ interface ITravelDataSource {
     fun addTravel(p: Travel)
 
     /**
-     * add travels to firebase
-     * @param travelList list of travels
-     */
-    //fun addTravels(travelList: List<Travel>)
-
-    /**
      * update travel in firebase
      * @param p travel
      */

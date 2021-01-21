@@ -255,11 +255,6 @@ companion object{
         val returnDate = etReturnDate.text.toString()
         val passengersNumber = etPassengersNumber.text.toString()
 
-//        lateinit var departureLocation: UserLocation
-//        departureLocation.locationFromAddress(applicationContext, departureAddress)
-//        lateinit var destinationLocation: UserLocation
-//        destinationLocation.locationFromAddress(applicationContext, destinationAddress)
-
         //If not all fields are full, Toast: All fields should be filled
         if (clientName == "" ||
             clientPhone == "" ||

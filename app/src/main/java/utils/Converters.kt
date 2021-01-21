@@ -23,24 +23,6 @@ class UserLocationConverter {
 }
 
 /**
- * DestinationAddresses converter class
- */
-class DestinationAddresses {
-    @TypeConverter
-    fun getString(addressesList: MutableList<String>): String {
-        val addressesString = StringBuilder()
-        for (point in addressesList)
-            addressesString.append("$point&")
-        return addressesString.toString()
-    }
-
-    @TypeConverter
-    fun getListFromString(addressesString: String): MutableList<String> {
-        return addressesString.split("&").toMutableList()
-    }
-}
-
-/**
  * RequestStatus converter class
  * convert from Status to string and vice versa
  */

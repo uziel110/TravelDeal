@@ -48,14 +48,6 @@ class TravelViewModel : ViewModel() {
     }
 
     /**
-     * get all travels
-     * @return MutableLiveData list of travels
-     */
-    fun getAllTravels(): MutableLiveData<List<Travel?>?> {
-        return rp.getAllTravels()
-    }
-
-    /**
      * get all travels from room database with certain statuses
      * @return MutableLiveData list of travels
      */

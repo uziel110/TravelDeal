@@ -74,6 +74,10 @@ class TravelDataSource private constructor(): ITravelDataSource {
         reference.child(curKey).setValue(travel)
     }
 
+    override fun deleteTravel(travel: Travel) {
+        reference.child(travel.travelId).removeValue()
+    }
+
     override fun getLiveData(): LiveData<Boolean> {
         return liveData
     }

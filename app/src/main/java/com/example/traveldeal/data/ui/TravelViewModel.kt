@@ -40,6 +40,14 @@ class TravelViewModel : ViewModel() {
     }
 
     /**
+     * delete travel
+     * @param travel
+     */
+    fun deleteItem(travel: Travel) {
+        rp.delete(travel)
+    }
+
+    /**
      * get liveData
      * @return LiveData<Boolean>
      */

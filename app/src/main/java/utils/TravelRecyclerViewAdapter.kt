@@ -102,6 +102,14 @@ class TravelRecyclerViewAdapter(
 
     override fun getItemCount() = travelList.size
 
+    fun del(position: Int) {
+        if (travelList[position].requestStatus != Status.RUNNING)
+            listener.deleteTravel(travelList[position])
+        else
+            Toast.makeText(App.instance, "לא ניתן למחוק נסיעה פעילה", Toast.LENGTH_SHORT).show()
+        notifyDataSetChanged()
+    }
+
     /**
      * inner class ViewHolder
      */
@@ -126,7 +134,7 @@ class TravelRecyclerViewAdapter(
 
             //improve button of the spinner selection, and set snakeBar to confirm
             btChoice.setOnClickListener {
-                var key = encodeKey(companySpinner.selectedItem.toString())
+                val key = encodeKey(companySpinner.selectedItem.toString())
                 for (offer in travel.company.keys)
                     travel.company[offer] = key == offer
                 //set the requestStatus to RUNNING
@@ -154,7 +162,11 @@ class TravelRecyclerViewAdapter(
                                     //set the requestStatus to CLOSED
                                     travel.requestStatus = Status.CLOSED
                                     listener.updateTravel(travel)
-                                    Toast.makeText(App.instance,  R.string.close_travel_Toast, Toast.LENGTH_SHORT)
+                                    Toast.makeText(
+                                        App.instance,
+                                        R.string.close_travel_Toast,
+                                        Toast.LENGTH_SHORT
+                                    )
                                         .show()
                                     notifyDataSetChanged()
                                 }
@@ -169,5 +181,6 @@ class TravelRecyclerViewAdapter(
 
     interface OnItemClickListener {
         fun updateTravel(travel: Travel)
+        fun deleteTravel(travel: Travel)
     }
 }

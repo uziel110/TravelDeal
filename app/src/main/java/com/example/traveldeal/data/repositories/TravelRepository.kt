@@ -91,4 +91,12 @@ class TravelRepository private constructor(context: Context) : Application() {
     fun update(travel: Travel) {
         remoteDatabase.updateTravel(travel)
     }
+
+    /**
+     * update travel in firebase
+     * @param travel
+     */
+    fun delete(travel: Travel) {
+        remoteDatabase.deleteTravel(travel)
+    }
 }

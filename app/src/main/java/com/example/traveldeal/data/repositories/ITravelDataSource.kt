@@ -10,15 +10,21 @@ interface ITravelDataSource {
 
     /**
      * add travel to firebase
-     * @param p travel
+     * @param travel travel
      */
-    fun addTravel(p: Travel)
+    fun addTravel(travel: Travel)
 
     /**
      * update travel in firebase
-     * @param p travel
+     * @param travel travel
      */
-    fun updateTravel(p: Travel)
+    fun updateTravel(travel: Travel)
+
+    /**
+     * delete travel in firebase
+     * @param travel travel
+     */
+    fun deleteTravel(travel: Travel)
 
     /**
      * get all travels from firebase

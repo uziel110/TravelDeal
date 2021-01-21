@@ -31,6 +31,8 @@
     <string name="welcome">Welcome</string>
     <string name="end_travel">The travel ended</string>
     <string name="cancel">Cancel</string>
+    <string name="close_travel_Toast">One travel closed</string>
+    <string name="company_selected">Shuttle company  selected</string>
 
 
     <string-array name="status_array">

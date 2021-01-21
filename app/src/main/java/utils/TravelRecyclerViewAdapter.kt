@@ -132,6 +132,8 @@ class TravelRecyclerViewAdapter(
                 //set the requestStatus to RUNNING
                 travel.requestStatus = Status.RUNNING
                 listener.updateTravel(travel)
+                Toast.makeText(App.instance, R.string.company_selected, Toast.LENGTH_SHORT)
+                    .show()
             }
 
             //Check if the switch switchEnded is on or off, and set snakeBar to confirm the selection
@@ -141,6 +143,7 @@ class TravelRecyclerViewAdapter(
                     Snackbar.make(switchEnded, R.string.end_travel, 4000)
                         .setAction(R.string.cancel, View.OnClickListener {
                             switchEnded.isChecked = false
+
                         })
                         .addCallback(object : Snackbar.Callback() {
                             override fun onDismissed(
@@ -151,6 +154,8 @@ class TravelRecyclerViewAdapter(
                                     //set the requestStatus to CLOSED
                                     travel.requestStatus = Status.CLOSED
                                     listener.updateTravel(travel)
+                                    Toast.makeText(App.instance,  R.string.close_travel_Toast, Toast.LENGTH_SHORT)
+                                        .show()
                                     notifyDataSetChanged()
                                 }
                             }

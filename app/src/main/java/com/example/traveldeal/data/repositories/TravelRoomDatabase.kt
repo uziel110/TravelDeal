@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.traveldeal.data.entities.Travel
 import kotlinx.coroutines.CoroutineScope
+import utils.App
 import utils.UserLocationConverter
 
 /**
@@ -16,6 +17,7 @@ import utils.UserLocationConverter
 @TypeConverters(UserLocationConverter::class)
 abstract class TravelRoomDatabase : RoomDatabase() {
 
+    val app = App
     abstract fun travelDao(): TravelDAO
 
     companion object {
@@ -29,6 +31,7 @@ abstract class TravelRoomDatabase : RoomDatabase() {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
+//                    App.instance.applicationContext,
                     TravelRoomDatabase::class.java,
                     "travel_database"
                 ).allowMainThreadQueries()

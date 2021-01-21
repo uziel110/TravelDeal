@@ -123,12 +123,12 @@ class TravelRecyclerViewAdapter(
         lateinit var travel: Travel
 
         init {
+
             //improve button of the spinner selection, and set snakeBar to confirm
             btChoice.setOnClickListener {
+                var key = encodeKey(companySpinner.selectedItem.toString())
                 for (offer in travel.company.keys)
-                    //todo has a problem with the encoder decoder
-                    travel.company[offer] =
-                        encodeKey(companySpinner.selectedItem.toString()) == offer
+                    travel.company[offer] = key == offer
                 //set the requestStatus to RUNNING
                 travel.requestStatus = Status.RUNNING
                 listener.updateTravel(travel)

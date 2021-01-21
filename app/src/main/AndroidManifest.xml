@@ -1,3 +1,57 @@
+<!--<manifest xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    package="com.example.traveldeal">-->
+
+<!--    <application-->
+<!--        android:name="utils.App"-->
+<!--        android:allowBackup="false"-->
+<!--        android:icon="@mipmap/ic_launcher"-->
+<!--        android:label="@string/app_name"-->
+<!--        android:roundIcon="@mipmap/ic_launcher_round"-->
+<!--        android:supportsRtl="true"-->
+<!--        android:theme="@style/Theme.TravelDeal">-->
+
+
+<!--        <service-->
+<!--            android:name="utils.MyService"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="true"/>-->
+
+<!--        <activity-->
+<!--            android:name=".data.ui.AllTravelsActivity"-->
+<!--            android:parentActivityName=".data.ui.MainActivity"-->
+<!--            android:label="@string/My_travels"/>-->
+
+<!--        <activity-->
+<!--            android:name=".data.ui.AddTravelActivity"-->
+<!--            android:parentActivityName=".data.ui.MainActivity"-->
+<!--            android:label="@string/Add_travel"/>-->
+
+<!--        <activity android:name=".data.ui.MainActivity">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+
+<!--            </intent-filter>-->
+<!--&lt;!&ndash;            <intent-filter&ndash;&gt;-->
+<!--&lt;!&ndash;                android:enabled="true"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:exported="true">&ndash;&gt;-->
+<!--&lt;!&ndash;                <action android:name="com.example.traveldeal.NewTravel" />&ndash;&gt;-->
+<!--&lt;!&ndash;            </intent-filter>&ndash;&gt;-->
+<!--        </activity>-->
+
+<!--        <activity android:name="utils.AddressDialog" />-->
+
+<!--        <meta-data-->
+<!--            android:name="com.google.android.geo.API_KEY"-->
+<!--            android:value="${mapsApiKey}" />-->
+<!--        <meta-data-->
+<!--            android:name="preloaded_fonts"-->
+<!--            android:resource="@array/preloaded_fonts" />-->
+
+<!--    </application>-->
+
+<!--</manifest>-->
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.traveldeal">
 
@@ -27,7 +81,7 @@
             <intent-filter
                 android:enabled="true"
                 android:exported="true">
-                <action android:name="com.example.traveldeal.NewTravel" />
+                <action android:name="TravelDeal.travelEdded" />
             </intent-filter>
         </activity>
 
@@ -47,3 +101,4 @@
     </application>
 
 </manifest>
+

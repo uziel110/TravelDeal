@@ -50,7 +50,9 @@ class AddTravelActivity : AppCompatActivity() {
     private var departureAddress: String = ""
     lateinit var destinationLocation: UserLocation
     lateinit var departureLocation: UserLocation
-
+companion object{
+   val instance = AddTravelActivity()
+}
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +62,7 @@ class AddTravelActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(TravelViewModel::class.java)
         viewModel.getLiveData().observe(this, {
             if (it) {
+                //sendBroadcast(Intent().setAction("TravelDeal.travelEdded"))
                 Log.d("FirebaseManager", "Upload Successful")
                 Toast.makeText(applicationContext, R.string.saved_success, Toast.LENGTH_SHORT)
                     .show()

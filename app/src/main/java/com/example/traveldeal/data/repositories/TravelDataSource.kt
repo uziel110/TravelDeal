@@ -24,7 +24,7 @@ class TravelDataSource private constructor(): ITravelDataSource {
 
     private val rootNode = FirebaseDatabase.getInstance()
     private val reference = rootNode.getReference("travels")
-    private val liveData: MutableLiveData<Boolean> = MutableLiveData()
+    val liveData: MutableLiveData<Boolean> = MutableLiveData()
     private var uid: String = FirebaseAuth.getInstance().uid.toString()
     var travelsList: MutableList<Travel> = mutableListOf()
     private var travels: MutableLiveData<MutableList<Travel>> = MutableLiveData()
@@ -47,6 +47,7 @@ class TravelDataSource private constructor(): ITravelDataSource {
                 // travels.value = travelsList
                 notifyData.onDataChange()
             }
+
             override fun onCancelled(databaseError: DatabaseError) {
             }
         })

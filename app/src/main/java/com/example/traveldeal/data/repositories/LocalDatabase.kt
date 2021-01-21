@@ -10,7 +10,8 @@ import kotlinx.coroutines.SupervisorJob
 /**
  * class that implement ILocalDatabase interface
  */
-class LocalDatabase(context: Context) : ILocalDatabase {
+class LocalDatabase private constructor(context: Context) : ILocalDatabase {
+
 
     companion object {
         // Singleton prevents multiple instances of database opening at the same time.
@@ -20,7 +21,7 @@ class LocalDatabase(context: Context) : ILocalDatabase {
         fun getLocalDatabase(context: Context): LocalDatabase {
             // if the INSTANCE is not null, then return it,
             // if it is, then create the database
-            return INSTANCE ?: synchronized(this) {
+            return INSTANCE?: synchronized(this) {
                 val instance = LocalDatabase(context)
                 INSTANCE = instance
                 instance

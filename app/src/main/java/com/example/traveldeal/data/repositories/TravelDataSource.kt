@@ -11,7 +11,17 @@ import com.google.firebase.database.*
 /**
  * class that implement ITravelDataSource interface
  */
-class TravelDataSource : ITravelDataSource {
+class TravelDataSource private constructor(): ITravelDataSource {
+
+    private object HOLDER {
+        val INSTANCE = TravelDataSource()
+    }
+
+    companion object {
+        val instance: TravelDataSource by lazy { HOLDER.INSTANCE }
+    }
+
+
     private val rootNode = FirebaseDatabase.getInstance()
     private val reference = rootNode.getReference("travels")
     private val liveData: MutableLiveData<Boolean> = MutableLiveData()

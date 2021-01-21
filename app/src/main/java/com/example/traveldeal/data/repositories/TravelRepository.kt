@@ -11,10 +11,10 @@ import com.example.traveldeal.data.entities.Travel
 /**
  * Travel repository
  */
-class TravelRepository(context: Context) : Application() {
+class TravelRepository private constructor(context: Context) : Application() {
 
-    private var remoteDatabase: ITravelDataSource = TravelDataSource()
-    private val localDatabase = LocalDatabase(context)
+    private var remoteDatabase: ITravelDataSource = TravelDataSource.instance
+    private val localDatabase = LocalDatabase.getLocalDatabase(context)
     val travelsList = MutableLiveData<List<Travel?>?>()
 
     companion object {

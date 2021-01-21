@@ -63,7 +63,6 @@ class AddTravelActivity : AppCompatActivity() {
                 Log.d("FirebaseManager", "Upload Successful")
                 Toast.makeText(applicationContext, R.string.saved_success, Toast.LENGTH_SHORT)
                     .show()
-//                sendBroadcast(Intent().setAction("com.example.traveldeal.NewTravel"))
 
             } else {
                 Log.d("FirebaseManager", "Upload Fail")

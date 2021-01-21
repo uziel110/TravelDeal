@@ -31,6 +31,7 @@ class TravelRecyclerViewAdapter(
 ) :
     RecyclerView.Adapter<TravelRecyclerViewAdapter.ViewHolder>() {
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.activity_card_travel, parent, false)
@@ -40,7 +41,7 @@ class TravelRecyclerViewAdapter(
     @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("RestrictedApi", "SetTextI18n", "ResourceAsColor")
     override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
-
+        holder.travel = travelList[listPosition]
         val currentItem = travelList[listPosition]
         holder.itemID = currentItem.clientId
         var tmp = currentItem.departureAddress
@@ -52,9 +53,15 @@ class TravelRecyclerViewAdapter(
         holder.departureDate.text = currentItem.departureDate
         holder.returnDate.text = currentItem.returnDate
 
+        val passengersNum = currentItem.passengersNumber.toString()
+        holder.psgNum.text =
+            if (passengersNum == "1") {
+                Strings.get(R.string.onePassengers)
+            } else passengersNum + " ${Strings.get(R.string.passengersNumber)}"
+
         val spinnerDefaultText = "בחר הצעה"
         //get all the companies key
-        val adapterList = travelList[listPosition].company.keys.toMutableList()
+        val adapterList = currentItem.company.keys.toMutableList()
         // decode all the companies key
         adapterList.replaceAll { decodeKey(it) }
         //keep the spinnerDefaultText in index 0 of the spinner
@@ -73,43 +80,12 @@ class TravelRecyclerViewAdapter(
 
         // Set Adapter to Spinner
         holder.companySpinner.adapter = arrayAdapter
-        fun setSpinner() {
-            val spinnerKeys = currentItem.company.filter { it.value }.keys
-            val index =
-                arrayAdapter.getPosition(if (spinnerKeys.isNotEmpty()) spinnerKeys.first() else spinnerDefaultText)
-            holder.companySpinner.setSelection(index)
-        }
-        setSpinner()
 
-        //improve button of the spinner selection, and set snakeBar to confirm
-        holder.btChoice.setOnClickListener {
-            if (holder.companySpinner.selectedItem.toString() != spinnerDefaultText) {
-                Snackbar.make(holder.companySpinner, "נבחרה חברת הסעות", 4000)
-                    .setAction("בטל", View.OnClickListener {
-                        holder.companySpinner.setSelection(0)
-                    }).addCallback(object : Snackbar.Callback() {
-                        override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-                            if (event == DISMISS_EVENT_TIMEOUT) {
-                                //set true to the selected company
-                                for (offer in currentItem.company.keys)
-                                    currentItem.company[offer] =
-                                        encodeKey(holder.companySpinner.selectedItem.toString()) == offer
-                                //set the requestStatus to RUNNING
-                                currentItem.requestStatus = Status.RUNNING
-                                listener.updateTravel(currentItem)
-                                setSpinner()
-                            }
-                        }
-                        override fun onShown(sb: Snackbar?) {}
-                    }).show()
-            }
-        }
+        val spinnerKeys = currentItem.company.filter { it.value }.keys
+        val index =
+            arrayAdapter.getPosition(if (spinnerKeys.isNotEmpty()) spinnerKeys.first() else spinnerDefaultText)
+        holder.companySpinner.setSelection(index)
 
-        val passengersNum = currentItem.passengersNumber.toString()
-        holder.psgNum.text =
-            if (passengersNum == "1") {
-                Strings.get(R.string.onePassengers)
-            } else passengersNum + " ${Strings.get(R.string.passengersNumber)}"
 
         //the layout expandableLayout is visible only if There are travel offers, and the requestStatus is SENT or RECEIVED
         holder.expandableLayout.visibility =
@@ -122,27 +98,6 @@ class TravelRecyclerViewAdapter(
         //the switch switchEnded is visible only if the requestStatus is RUNNING
         holder.switchEnded.visibility =
             if (currentItem.requestStatus == Status.RUNNING) View.VISIBLE else View.GONE
-
-        //Check if the switch switchEnded is on or off, and set snakeBar to confirm the selection
-        holder.switchEnded.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                Snackbar.make(holder.switchEnded, R.string.end_travel, 4000)
-                    .setAction(R.string.cancel, View.OnClickListener {
-                        holder.switchEnded.isChecked = false
-                    })
-                    .addCallback(object : Snackbar.Callback() {
-                        override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-                            if (event == DISMISS_EVENT_TIMEOUT) {
-                                //set the requestStatus to CLOSED
-                                currentItem.requestStatus = Status.CLOSED
-                                listener.updateTravel(currentItem)
-                                notifyDataSetChanged()
-                            }
-                        }
-                        override fun onShown(sb: Snackbar?) {}
-                    }).show()
-            }
-        })
     }
 
     override fun getItemCount() = travelList.size
@@ -150,6 +105,7 @@ class TravelRecyclerViewAdapter(
     /**
      * inner class ViewHolder
      */
+    @RequiresApi(Build.VERSION_CODES.N)
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var itemID: String = ""
         var sourceAddress: TextView = this.itemView.findViewById(R.id.TextViewDepartureAddress)
@@ -161,8 +117,49 @@ class TravelRecyclerViewAdapter(
         var expandableLayout: LinearLayout = this.itemView.findViewById(R.id.ExpandableLayout)
         var companySpinner: Spinner = this.itemView.findViewById(R.id.spinnerOffers)
         var switchEnded: SwitchMaterial = this.itemView.findViewById(R.id.switch_ended)
-        var btChoice: Button = this.itemView.findViewById(R.id.bt_spinnerChoice)
+        private var btChoice: Button = this.itemView.findViewById(R.id.bt_spinnerChoice)
         var tvNoOffers: TextView = this.itemView.findViewById(R.id.TextViewNoOffers)
+        private val spinnerDefaultText = "בחר הצעה"
+        lateinit var travel: Travel
+
+        init {
+            //improve button of the spinner selection, and set snakeBar to confirm
+            btChoice.setOnClickListener {
+                for (offer in travel.company.keys)
+                    //todo has a problem with the encoder decoder
+                    travel.company[offer] =
+                        encodeKey(companySpinner.selectedItem.toString()) == offer
+                //set the requestStatus to RUNNING
+                travel.requestStatus = Status.RUNNING
+                listener.updateTravel(travel)
+            }
+
+            //Check if the switch switchEnded is on or off, and set snakeBar to confirm the selection
+            switchEnded.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener
+            { _, isChecked ->
+                if (isChecked) {
+                    Snackbar.make(switchEnded, R.string.end_travel, 4000)
+                        .setAction(R.string.cancel, View.OnClickListener {
+                            switchEnded.isChecked = false
+                        })
+                        .addCallback(object : Snackbar.Callback() {
+                            override fun onDismissed(
+                                transientBottomBar: Snackbar?,
+                                event: Int
+                            ) {
+                                if (event == DISMISS_EVENT_TIMEOUT) {
+                                    //set the requestStatus to CLOSED
+                                    travel.requestStatus = Status.CLOSED
+                                    listener.updateTravel(travel)
+                                    notifyDataSetChanged()
+                                }
+                            }
+
+                            override fun onShown(sb: Snackbar?) {}
+                        }).show()
+                }
+            })
+        }
     }
 
     interface OnItemClickListener {

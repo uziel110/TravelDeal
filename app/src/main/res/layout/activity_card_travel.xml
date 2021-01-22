@@ -7,7 +7,6 @@
     android:layout_margin="4dp"
     app:cardBackgroundColor="#80ffffff"
     app:cardElevation="0.05dp">
-    <!--    tools:showIn="@layout/activity_card_travel"-->
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -153,16 +152,6 @@
             android:textColor="@color/app_color_blue"
             android:textStyle="bold"
             android:gravity="center_horizontal" />
-
-        <!--        <LinearLayout-->
-        <!--            android:id="@+id/switchrLayout"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_below="@+id/TextViewPassengersNumber"-->
-        <!--            android:layout_marginStart="4dp"-->
-        <!--            android:layout_marginEnd="4dp"-->
-        <!--            android:orientation="horizontal"-->
-        <!--            android:visibility="visible"></LinearLayout>-->
 
     </RelativeLayout>
 

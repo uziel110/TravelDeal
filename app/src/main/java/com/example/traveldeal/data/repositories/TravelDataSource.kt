@@ -33,7 +33,6 @@ class TravelDataSource private constructor(): ITravelDataSource {
     lateinit var notifyData: ITravelDataSource.NotifyLiveData
 
     init {
-        // reference.child(uid).addValueEventListener(object : ValueEventListener {
         reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 travelsList.clear()
@@ -44,24 +43,20 @@ class TravelDataSource private constructor(): ITravelDataSource {
                         travelsList.add(travel)
                     }
                 }
-                // travels.value = travelsList
                 notifyData.onDataChange()
             }
-
             override fun onCancelled(databaseError: DatabaseError) {
             }
         })
     }
 
     override fun addTravel(travel: Travel) {
-//        val curKey = reference.child(uid).push().key
         val curKey = reference.push().key
         if (curKey == null) {
             Log.w(TAG, "Couldn't get push key for travels")
             return
         }
         travel.travelId = curKey
-//        reference.child(uid).child(curKey).setValue(travel).addOnSuccessListener {
         reference.child(curKey).setValue(travel).addOnSuccessListener {
             liveData.value = true
         }.addOnFailureListener {

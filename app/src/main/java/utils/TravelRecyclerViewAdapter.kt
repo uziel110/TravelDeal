@@ -106,7 +106,7 @@ class TravelRecyclerViewAdapter(
         if (travelList[position].requestStatus != Status.RUNNING)
             listener.deleteTravel(travelList[position])
         else
-            Toast.makeText(App.instance, "לא ניתן למחוק נסיעה פעילה", Toast.LENGTH_SHORT).show()
+            Toast.makeText(App.instance, R.string.cannot_delete, Toast.LENGTH_SHORT).show()
         notifyDataSetChanged()
     }
 
@@ -127,7 +127,6 @@ class TravelRecyclerViewAdapter(
         var switchEnded: SwitchMaterial = this.itemView.findViewById(R.id.switch_ended)
         private var btChoice: Button = this.itemView.findViewById(R.id.bt_spinnerChoice)
         var tvNoOffers: TextView = this.itemView.findViewById(R.id.TextViewNoOffers)
-        private val spinnerDefaultText = "בחר הצעה"
         lateinit var travel: Travel
 
         init {

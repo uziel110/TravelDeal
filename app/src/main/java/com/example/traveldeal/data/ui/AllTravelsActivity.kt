@@ -3,6 +3,7 @@ package com.example.traveldeal.data.ui
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.doOnAttach
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.traveldeal.R
 import com.example.traveldeal.data.entities.Travel
 import com.google.android.material.snackbar.Snackbar
+import utils.App
 import utils.SwipeToDelete
 import utils.TravelRecyclerViewAdapter
 import java.time.Duration
@@ -63,9 +65,10 @@ class AllTravelsActivity : AppCompatActivity(), TravelRecyclerViewAdapter.OnItem
     }
 
     override fun deleteTravel(travel: Travel) {
-        Snackbar.make(noTravtlsTextView, "אתה בטוח שברצונך למחוק את הנסיעה?",3000)
+        Snackbar.make(noTravtlsTextView, R.string.delete_confriom,3000)
             .setAction("כן", View.OnClickListener {
                 model.deleteItem(travel)
+                Toast.makeText(App.instance, R.string.travel_deleted, Toast.LENGTH_SHORT).show()
             })
             .addCallback(object : Snackbar.Callback() {
                 override fun onDismissed(
@@ -73,39 +76,8 @@ class AllTravelsActivity : AppCompatActivity(), TravelRecyclerViewAdapter.OnItem
                     event: Int
                 ) {
                 }
-
                 override fun onShown(sb: Snackbar?) {}
             }).show()
     }
-
-
-/*
-    model.getTravelsByStatus().observe(this,
-    {
-
-        recyclerView.adapter = TravelRecyclerViewAdapter(it as List<Travel>, this)
-        if (it.isNotEmpty()
-        ) {
-            travelsList = it as MutableList<Travel?>
-            noTravtlsTextView.visibility = View.GONE
-        }
-        if (it.isEmpty())
-            noTravtlsTextView.visibility = View.VISIBLE
-    })
-    recyclerView.layoutManager = LinearLayoutManager(this)
-
-    val item = object : SwipeToDelete(this, 0, ItemTouchHelper.LEFT) {
-
-    }
-}
-
-override fun updateTravel(travel: Travel) {
-    model.updateItem(travel)
-}
-
-override fun deleteTravel(travel: Travel) {
-    TODO("Not yet implemented")
-}
-*/
 
 }

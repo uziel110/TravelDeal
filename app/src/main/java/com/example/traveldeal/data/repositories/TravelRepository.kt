@@ -68,14 +68,6 @@ class TravelRepository private constructor(context: Context) : Application() {
     }
 
     /**
-     * get all travels
-     * @return MutableLiveData of travels
-     */
-    fun getAllTravels(): MutableLiveData<List<Travel?>?> {
-        return travelsList
-    }
-
-    /**
      * get all travels from room database with certain statuses
      * @param status list of int which represent travels statuses
      * @return LiveData list of travels

@@ -49,7 +49,6 @@ class LocalDatabase private constructor(context: Context) : ILocalDatabase {
     }
 
     override fun getAllTravels(): LiveData<List<Travel>> {
-        //val l = travelDao.getTravels().observeForever { it -> Log.i("test", it.size.toString()) }
         return travelDao.getTravels()
     }
 

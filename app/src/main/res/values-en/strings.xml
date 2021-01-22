@@ -33,6 +33,9 @@
     <string name="cancel">Cancel</string>
     <string name="close_travel_Toast">One travel closed</string>
     <string name="company_selected">Shuttle company  selected</string>
+    <string name="delete_confriom">"Are you sure you want to delete the travel?</string>
+    <string name="travel_deleted">Travel deleted</string>
+    <string name="cannot_delete">An active travel cannot be deleted</string>
 
 
     <string-array name="status_array">

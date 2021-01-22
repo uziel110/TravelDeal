@@ -34,6 +34,9 @@
     <string name="cancel">בטל</string>
     <string name="close_travel_Toast">נסיעה נסגרה</string>
     <string name="company_selected">נבחרה חברת הסעות</string>
+    <string name="delete_confriom">"אתה בטוח שברצונך למחוק את הנסיעה?"</string>
+    <string name="travel_deleted">הנסיעה נמחקה</string>
+    <string name="cannot_delete">לא ניתן למחוק נסיעה פעילה</string>
 
     <string-array name="status_array" tools:ignore="InconsistentArrays">
         <item>נשלח</item>
